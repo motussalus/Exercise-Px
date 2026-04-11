@@ -430,6 +430,7 @@ function renderTopbar() {
     const currentPage = clamp(state.libraryFilters.page || 1, 1, totalPages);
     const pageSlice = results.slice((currentPage - 1) * pageSize, currentPage * pageSize);
     const selected = getSelectedActivity();
+  
     return `
       <section class="panel">
         <section class="hero">
@@ -443,7 +444,7 @@ function renderTopbar() {
             <div class="kpi"><span>Current filter</span><strong>${state.libraryFilters.intensity === "all" ? "All bands" : capitalize(state.libraryFilters.intensity)}</strong></div>
           </div>
         </section>
-
+  
         <section class="section-card">
           <div class="card-head">
             <div>
@@ -451,7 +452,7 @@ function renderTopbar() {
               <p>Typing will not kick you out of the box. The library only updates when you click Search or press Enter.</p>
             </div>
           </div>
-        
+  
           <div class="preset-strip">
             ${COMMON_LIBRARY_PRESETS.map(preset => `
               <button
@@ -464,7 +465,7 @@ function renderTopbar() {
               </button>
             `).join("")}
           </div>
-        
+  
           <form data-form="library-search">
             <div class="form-grid">
               <label><span>Search activity</span><input type="text" id="libraryQuery" value="${escapeAttr(state.libraryFilters.query)}" placeholder="walking, rowing, resistance, gardening" /></label>
@@ -482,20 +483,33 @@ function renderTopbar() {
                 </select>
               </label>
             </div>
+  
             <div class="button-row">
               <button class="btn btn-primary" type="submit">Search</button>
               <button class="btn btn-soft" type="button" data-action="library-clear">Clear filters</button>
             </div>
+  
             <div class="filter-row">
-              ${["all","light","moderate","vigorous"].map(level => `<button type="button" class="filter-chip ${state.libraryFilters.intensity === level ? "active" : ""}" data-action="library-intensity" data-intensity="${level}">${level === "all" ? "All intensity bands" : capitalize(level)}</button>`).join("")}
+              ${["all","light","moderate","vigorous"].map(level => `
+                <button
+                  type="button"
+                  class="filter-chip ${state.libraryFilters.intensity === level ? "active" : ""}"
+                  data-action="library-intensity"
+                  data-intensity="${level}"
+                >
+                  ${level === "all" ? "All intensity bands" : capitalize(level)}
+                </button>
+              `).join("")}
             </div>
           </form>
         </section>
-
+  
         <section class="library-results">
-          ${pageSlice.length ? pageSlice.map(item => renderActivityCard(item)).join("") : `<div class="empty-state">No activities match the current filters. Broaden the search or clear one of the range fields.</div>`}
+          ${pageSlice.length
+            ? pageSlice.map(item => renderActivityCard(item)).join("")
+            : `<div class="empty-state">No activities match the current filters. Broaden the search or clear one of the range fields.</div>`}
         </section>
-
+  
         <div class="pager">
           <button class="btn btn-soft" data-action="library-page" data-page="${currentPage - 1}" ${currentPage <= 1 ? "disabled" : ""}>Previous</button>
           <span class="meta-pill">Page ${currentPage} of ${totalPages}</span>
