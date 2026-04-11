@@ -50,7 +50,18 @@
     lastMessage: ""
   };
 
-  const STORAGE_KEY = "metClinicianProV4State";
+  const STORAGE_KEY = "exercisePxStateV1";
+
+  const COMMON_LIBRARY_PRESETS = [
+    { label: "Yoga", query: "yoga" },
+    { label: "Outdoor Running", query: "outdoor running" },
+    { label: "Treadmill Running", query: "treadmill running" },
+    { label: "Outdoor Cycling", query: "outdoor cycling" },
+    { label: "Stationary Cycling", query: "stationary cycling" },
+    { label: "Resistance Training", query: "resistance training" },
+    { label: "Bodyweight Resistance", query: "bodyweight strength" },
+    { label: "Free Weights", query: "dumbbell weight training" }
+  ];
   const root = document.getElementById("app");
   const fileInput = document.createElement("input");
   fileInput.type = "file";
@@ -135,35 +146,38 @@
       ["calc", "∑", "Calculations"],
       ["data", "☰", "Data & Sources"]
     ];
+
     return `
       <header class="topbar">
         <div class="topbar-inner">
           <div class="brand">
-            <div class="brand-badge">
-              <img src="assets/radar-logo-sunset.png" alt="7 Specifier Engine logo" class="brand-logo" />
-            </div>
+            <div class="brand-badge">EPx</div>
             <div class="brand-copy">
-              <h1>7 Specifier Engine</h1>
-              <p>Exercise-dose reference, planning, and calculation toolkit.</p>
+              <h1>Exercise Px</h1>
+              <p>Exercise prescription, planning, and clinical documentation toolkit.</p>
             </div>
           </div>
           <div class="topbar-meta">
-            <div class="zoom-controls" aria-label="Page zoom controls">
-              <button class="zoom-btn" data-action="zoom-out" aria-label="Zoom out">−</button>
+            <span class="meta-pill">${numberWithCommas(state.db.length)} activities</span>
+            <span class="meta-pill">${datasetSummary.categories} categories</span>
+            <div class="zoom-controls">
+              <button class="zoom-btn" data-action="zoom-out">−</button>
               <span class="zoom-readout">${round((state.uiScale || 1) * 100, 0)}%</span>
-              <button class="zoom-btn" data-action="zoom-in" aria-label="Zoom in">+</button>
+              <button class="zoom-btn" data-action="zoom-in">+</button>
               <button class="zoom-btn zoom-reset" data-action="zoom-reset">Reset</button>
             </div>
           </div>
-        <div class="topbar-inner tabs-row">
-          <nav class="tabs" aria-label="Primary navigation">
+        </div>
+
+        <div class="tabs-row">
+          <div class="tabs">
             ${tabs.map(([key, icon, label]) => `
               <button class="tab-btn ${state.activeTab === key ? "active" : ""}" data-action="switch-tab" data-tab="${key}">
-                <span aria-hidden="true">${icon}</span>
+                <span>${icon}</span>
                 <span>${label}</span>
               </button>
             `).join("")}
-          </nav>
+          </div>
         </div>
       </header>
     `;
@@ -181,90 +195,154 @@
   }
 
   function renderHome() {
+    const totalActivities = Array.isArray(state.db) ? state.db.length : 0;
+    const totalBlocks = Array.isArray(state.plan) ? state.plan.length : 0;
+    const totals = totalPlanDose();
+
     return `
       <section class="panel">
-        <section class="hero">
-          <div>
-            <h2>A resource for students, researchers, and clinicians building exercise dosage and documentation.</h2>
-            <p>Use the activity library to estimate MET values, build weekly exercise dosage blocks, document intervention structure, organize your seven specifiers, and run the calculations needed for exercise prescription in one place.</p>
-            <div class="hero-actions" style="margin-top:20px;">
-              <button class="btn btn-primary" data-action="switch-tab" data-tab="library">Open Activity Library</button>
-              <button class="btn btn-dose" data-action="switch-tab" data-tab="dose">Open Dosage & Plan</button>
-              <button class="btn btn-calc" data-action="switch-tab" data-tab="calc">Open Calculations</button>
-            </div>
-          </div>
-          <div class="card-grid">
-            <div class="feature-card">
-              <h4>Activity Library</h4>
-              <p>Search by term, MET range, category, system, and intensity band to find activities a patient is already doing or willing to try.</p>
-            </div>
-            <div class="feature-card">
-              <h4>Dosage & Plan</h4>
-              <p>Build a weekly dosage block, add the exercise details that make it replicable, and turn it into a reusable clinical plan.</p>
-            </div>
-            <div class="feature-card">
-              <h4>Calculations</h4>
-              <p>Run the common, clinical, and physiology-based equations that help translate exercise ideas into defensible prescription language.</p>
-            </div>
-          </div>
-        </section>
+        <div class="home-shell">
+          <section class="px-hero">
+            <div class="px-hero-copy">
+              <div class="eyebrow">Exercise prescription platform</div>
+              <h2>Exercise Px</h2>
+              <p class="hero-lead">A cleaner way for clinicians, students, and researchers to build, organize, and document exercise prescriptions with measurable structure.</p>
+              <p class="hero-sub">Search activity data, build dosage blocks, profile the seven specifiers, and generate clearer exercise-planning language in one place.</p>
 
-        <section class="section-card">
-          <div class="card-head">
-            <div>
-              <h2>Quick workflow</h2>
-              <p>Use the sections below as a guided path through the tool. Each card explains the purpose of the page and takes you there directly.</p>
-            </div>
-          </div>
-          <div class="card-grid">
-            <div class="step-card">
-              <h4>1. Activity Library</h4>
-              <p>Find activities a patient is interested in or already partaking in, then use the average MET values to anchor the intervention in a measurable workload.</p>
-              <div class="button-row" style="margin-top:12px;"><button class="btn btn-primary" data-action="switch-tab" data-tab="library">Go to Activity Library</button></div>
-            </div>
-            <div class="step-card">
-              <h4>2. Dosage & Plan</h4>
-              <p>Build a dosage outlook by setting session duration, weekly frequency, and exercise details, then save those blocks into a clearer weekly plan.</p>
-              <div class="button-row" style="margin-top:12px;"><button class="btn btn-dose" data-action="switch-tab" data-tab="dose">Go to Dosage & Plan</button></div>
-            </div>
-            <div class="step-card">
-              <h4>3. Calculations</h4>
-              <p>Use calculation tools to estimate heart-rate targets, intensity, physiological load, and other values that support exercise prescription and interpretation.</p>
-              <div class="button-row" style="margin-top:12px;"><button class="btn btn-calc" data-action="switch-tab" data-tab="calc">Go to Calculations</button></div>
-            </div>
-            <div class="step-card">
-              <h4>4. Sources</h4>
-              <p>Review the publications and DOI-based source articles that support the activity library and key exercise-prescription tools in this build.</p>
-              <div class="button-row" style="margin-top:12px;"><button class="btn btn-soft" data-action="switch-tab" data-tab="data">Go to Sources</button></div>
-            </div>
-          </div>
-        </section>
+              <div class="hero-actions">
+                <button class="btn btn-dose" data-action="switch-tab" data-tab="dose">Open Dose + Plan</button>
+                <button class="btn btn-primary" data-action="switch-tab" data-tab="library">Browse Activity Library</button>
+                <button class="btn btn-soft" data-action="switch-tab" data-tab="calc">Open Calculations</button>
+              </div>
 
-        <section class="section-card">
-          <div class="card-head">
-            <div>
-              <h2>Why the seven specifiers matter</h2>
-              <p>This framework grew out of the ambiguity often seen in behavioral-health exercise literature, where interventions are described in broad terms but not always specified in ways that support replication, comparison, or clinical translation.</p>
-            </div>
-          </div>
-          <div class="specifier-layout">
-            <div class="specifier-figure-card">
-              <img src="assets/specifier-radar-example.png" alt="Example radar chart comparing seven exercise specifiers across ADHD and Eating Disorders" class="specifier-figure" />
-              <div class="small muted" style="margin-top:10px;">Illustrative radar example using ADHD and eating-disorder profiles to show how different conditions or intervention goals may prioritize the seven specifiers differently.</div>
-            </div>
-            <div class="specifier-copy">
-              <p>In much of the current behavioral health literature on exercise interventions, there is substantial ambiguity in how exercise is prescribed and described. From that problem came a seven-specifier framework designed to highlight the variables most important to control, report, or at least acknowledge when exercise is used as a behavioral health intervention.</p>
-              <p>The seven specifiers are <strong>Metabolic Equivalents of Task (METs)</strong>, <strong>Heart Rate</strong>, <strong>Breathing Control and Pacing</strong>, <strong>Neurological and Physiological Targets</strong>, <strong>Specific Exercise Type and Structure</strong>, <strong>Time and Frequency</strong>, and <strong>Behavioral Health Integration</strong>.</p>
-              <p>Used together, these specifiers help move exercise from a broad wellness recommendation toward a more measurable, explainable, and clinically defensible intervention. They also make it easier for clinicians, students, and researchers to identify which elements were central to the plan and which were secondary, flexible, or omitted.</p>
-              <p>Not every intervention must emphasize every exercise specifier equally. Depending on the clinical target, certain domains may be central to the intervention, whereas others may be intentionally deprioritized or left unmodeled as seen in the figure here. However, prescription integrity improves when authors explicitly state which specifiers were treated as primary, which were considered secondary, and which were intentionally omitted, along with the rationale for those decisions.</p>
-              <p>Furthermore, not every clinic or study can capture every specifier in full detail. The framework works best as a scalable standard: higher-resource settings can measure more, while lower-resource settings can document feasible proxies, explain what was omitted, and still improve substantially over vague exercise descriptions.</p>
-              <div class="mini-note specifier-note">
-                <strong>Where this visual comes from</strong>
-                <div class="small muted">This graphic is an illustrative teaching visual based on the seven-specifier framework used throughout this resource. It is meant to show how specifier emphasis can vary across clinical targets and should be interpreted as a planning aid rather than a validated scoring instrument.</div>
+              <div class="px-stats">
+                <div class="px-stat-card"><span>Bundled activities</span><strong>${numberWithCommas(totalActivities)}</strong></div>
+                <div class="px-stat-card"><span>Weekly plan blocks</span><strong>${numberWithCommas(totalBlocks)}</strong></div>
+                <div class="px-stat-card"><span>Current weekly MET-min</span><strong>${round(totals.metMinWeek || 0, 1)}</strong></div>
               </div>
             </div>
-          </div>
-        </section>
+
+            <div class="px-hero-side">
+              <div class="glass-card">
+                <div class="mini-label">Specifier profile</div>
+                <h3>Visual planning at a glance</h3>
+                <p class="subtle">Exercise Px helps make prescription choices more visible by showing how emphasis can vary across the seven exercise specifiers.</p>
+                ${renderRadarChart()}
+                <p class="subtle">The goal is not to maximize every specifier equally. The goal is to clarify what the intervention is actually trying to do.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="home-card-section">
+            <div class="section-header">
+              <div>
+                <div class="eyebrow">Start here</div>
+                <h3>Use the app in the same order you would build a clinical plan</h3>
+              </div>
+            </div>
+
+            <div class="px-card-grid three">
+              <article class="feature-card feature-card-apple">
+                <div class="feature-icon">◫</div>
+                <h4>Activity Library</h4>
+                <p>Search activities by term, MET range, system, category, and intensity to identify realistic movement options.</p>
+                <button class="btn btn-primary" data-action="switch-tab" data-tab="library">Open Library</button>
+              </article>
+
+              <article class="feature-card feature-card-apple">
+                <div class="feature-icon">↗</div>
+                <h4>Dose + Plan</h4>
+                <p>Turn selected activities into weekly dosage blocks, structure them, and organize them into a usable exercise plan.</p>
+                <button class="btn btn-dose" data-action="switch-tab" data-tab="dose">Open Planner</button>
+              </article>
+
+              <article class="feature-card feature-card-apple">
+                <div class="feature-icon">∑</div>
+                <h4>Calculations</h4>
+                <p>Use exercise-prescription calculations to support more defensible documentation and planning.</p>
+                <button class="btn btn-calc" data-action="switch-tab" data-tab="calc">Open Calculations</button>
+              </article>
+            </div>
+          </section>
+
+          <section class="home-card-section">
+            <div class="section-header">
+              <div>
+                <div class="eyebrow">Product direction</div>
+                <h3>Clean core now, deeper clinical tools later</h3>
+              </div>
+            </div>
+
+            <div class="px-card-grid two">
+              <article class="glass-card product-card">
+                <div class="mini-label">Free build</div>
+                <h4>Core workflow stays open</h4>
+                <p>Keep lookup, dose planning, radar profiling, calculations, and text-based planning available in the free version.</p>
+                <p class="subtle">Good for students, early testing, and broad access.</p>
+              </article>
+
+              <article class="glass-card product-card pro-card">
+                <div class="mini-label">Planned Pro</div>
+                <h4>Advanced clinician workflow</h4>
+                <p>Expand into reusable templates, example prescription libraries, richer exports, and more structured clinical documentation tools.</p>
+                <p class="subtle">Built for repeat clinical use and more polished delivery.</p>
+              </article>
+            </div>
+          </section>
+
+          <section class="home-card-section">
+            <div class="section-header">
+              <div>
+                <div class="eyebrow">Mobile app</div>
+                <h3>Mac and iPhone build in progress</h3>
+              </div>
+            </div>
+
+            <div class="coming-soon-panel">
+              <div class="coming-soon-left">
+                <h4>Exercise Px for Apple platforms</h4>
+                <p>The goal is to bring the core planning workflow into a cleaner, app-centered Mac and iPhone experience while keeping the web tool useful and accessible.</p>
+                <ul class="coming-list">
+                  <li>Native wrapper for the current web build</li>
+                  <li>Cleaner app-first onboarding</li>
+                  <li>Future export and saved-plan improvements</li>
+                </ul>
+              </div>
+
+              <div class="device-mock-wrap">
+                <div class="device-mock desktop-mock">
+                  <div class="mock-topbar"></div>
+                  <div class="mock-content">
+                    <div class="mock-pill"></div>
+                    <div class="mock-chart"></div>
+                    <div class="mock-row"></div>
+                    <div class="mock-row short"></div>
+                  </div>
+                </div>
+
+                <div class="device-mock phone-mock">
+                  <div class="mock-topbar"></div>
+                  <div class="mock-content">
+                    <div class="mock-pill"></div>
+                    <div class="mock-chart small"></div>
+                    <div class="mock-row"></div>
+                    <div class="mock-row short"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="home-card-section compact-bottom">
+            <div class="section-header">
+              <div>
+                <div class="eyebrow">Why it matters</div>
+                <h3>Move exercise closer to a real prescription language</h3>
+              </div>
+            </div>
+            <p class="home-bottom-copy">Exercise Px is built around the same seven-specifier framework already used throughout your planning tools. The purpose is to make exercise easier to describe, compare, teach, and document with more clarity.</p>
+          </section>
+        </div>
       </section>
     `;
   }
@@ -277,6 +355,7 @@
     const currentPage = clamp(state.libraryFilters.page || 1, 1, totalPages);
     const pageSlice = results.slice((currentPage - 1) * pageSize, currentPage * pageSize);
     const selected = getSelectedActivity();
+
     return `
       <section class="panel">
         <section class="hero">
@@ -298,6 +377,15 @@
               <p>Typing will not kick you out of the box. The library only updates when you click Search or press Enter.</p>
             </div>
           </div>
+
+          <div class="preset-strip">
+            ${COMMON_LIBRARY_PRESETS.map(preset => `
+              <button type="button" class="preset-chip" data-action="library-preset" data-query="${escapeAttr(preset.query)}">
+                ${escapeHtml(preset.label)}
+              </button>
+            `).join("")}
+          </div>
+
           <form data-form="library-search">
             <div class="form-grid">
               <label><span>Search activity</span><input type="text" id="libraryQuery" value="${escapeAttr(state.libraryFilters.query)}" placeholder="walking, rowing, resistance, gardening" /></label>
@@ -529,7 +617,7 @@
           <div class="card-head">
             <div>
               <h2>Plan note + export</h2>
-              <p>Use the example note as a starting point, explain which specifiers were emphasized or deprioritized, then export a clean text summary that can be reused in documentation or research notes.</p>
+              <p>Use the example note as a starting point, explain which specifiers were emphasized or deprioritized, then download a clean TXT summary or print a clean PDF version.</p>
             </div>
           </div>
           <textarea id="planNoteBox" data-bind="planNote" placeholder="EXAMPLE:  Client presents with ADHD with difficulties in attention, self-regulation, and daily functioning. Exercise is prescribed to improve attention control and behavioral activation. Primary specifiers are METs, Specific Exercise Type and Structure, Time and Frequency, and Neurological and Physiological Target, with Heart Rate used to monitor internal workload. Recommended dose is running at >4.0 METs for 30–45 minutes, 3–5 days per week, as tolerated. The client will document sessions and post-exercise response. When running is not feasible, cross-country skiing at a similar dose may be substituted. Optional additional exercise selected is resistance training (3 × 8 Romanian deadlifts and back squats, 90-second rest) as patient noted leg dominate lifting is a positive mood modifier.">${escapeHtml(state.planNote)}</textarea>
@@ -548,10 +636,72 @@
           </details>
           <div class="button-row" style="margin-top:16px;">
             <button class="btn btn-primary" data-action="plan-example-note">Use example note</button>
-            <button class="btn btn-soft" data-action="plan-insert-list">Insert exercise list</button>
-            <button class="btn btn-dose" data-action="plan-export">Download TXT</button>
-            <button class="btn btn-danger" data-action="plan-clear">Clear plan</button>
+            <button class="btn btn-soft" data-action="plan-export-txt">Download TXT</button>
+            <button class="btn btn-dose" data-action="plan-print">Download PDF</button>
+            <button class="btn btn-danger" data-action="plan-clear">Clear Plan</button>
           </div>
+          ${renderPlanPrintSheet()}
+        </section>
+      </section>
+    `;
+  }
+
+
+  function renderPlanPrintSheet() {
+    const totals = totalPlanDose();
+    const today = new Date().toLocaleDateString();
+
+    const blocks = state.plan.length
+      ? state.plan.map((item, idx) => `
+        <div class="print-block">
+          <div class="print-block-head">
+            <strong>${idx + 1}. ${escapeHtml(item.activityName)}</strong>
+            <span>${round(item.met, 1)} ${escapeHtml(item.metSystem || "MET")}</span>
+          </div>
+          <div class="print-block-meta">
+            ${round(item.duration, 0)} min/session × ${round(item.frequency, 0)}/week · ${round(item.metMinWeek, 1)} ${escapeHtml(item.metSystem || "MET")}-min/week · ${round(item.kcalWeek, 1)} kcal/week
+          </div>
+          ${item.blockDetails ? `<div class="print-block-details"><strong>Exercise details:</strong> ${escapeHtml(item.blockDetails)}</div>` : ``}
+        </div>
+      `).join("")
+      : `<div class="print-empty">No exercise blocks added yet.</div>`;
+
+    return `
+      <section id="printPlanSheet" class="print-sheet">
+        <div class="print-sheet-head">
+          <div>
+            <h1>Exercise Px</h1>
+            <p class="print-subtitle">Exercise Prescription Summary</p>
+          </div>
+          <div class="print-date">Date: ${escapeHtml(today)}</div>
+        </div>
+
+        <div class="print-summary-grid">
+          <div class="print-summary-card"><span>Exercise blocks</span><strong>${state.plan.length}</strong></div>
+          <div class="print-summary-card"><span>Total weekly dose</span><strong>${round(totals.metMinWeek, 1)} MET-min</strong></div>
+          <div class="print-summary-card"><span>Estimated weekly kcal</span><strong>${round(totals.kcalWeek, 1)}</strong></div>
+        </div>
+
+        <section class="print-section">
+          <h2>Selected exercise blocks</h2>
+          ${blocks}
+        </section>
+
+        <section class="print-section">
+          <h2>7-specifier emphasis profile</h2>
+          <div class="print-spec-grid">
+            ${SPECIFIERS.map(name => `
+              <div class="print-spec-row">
+                <span>${escapeHtml(name)}</span>
+                <strong>${state.specifiers[name]}</strong>
+              </div>
+            `).join("")}
+          </div>
+        </section>
+
+        <section class="print-section">
+          <h2>Plan note</h2>
+          <div class="print-note">${state.planNote ? escapeHtml(state.planNote).replace(/\n/g, "<br>") : "No plan note entered."}</div>
         </section>
       </section>
     `;
@@ -1076,6 +1226,20 @@
       renderApp();
       return;
     }
+    if (action === "library-preset") {
+      state.libraryFilters = {
+        ...state.libraryFilters,
+        query: button.dataset.query || "",
+        minMet: "",
+        maxMet: "",
+        category: "all",
+        system: "all",
+        intensity: "all",
+        page: 1
+      };
+      renderApp();
+      return;
+    }
     if (action === "library-intensity") {
       state.libraryFilters.intensity = button.dataset.intensity;
       state.libraryFilters.page = 1;
@@ -1136,18 +1300,18 @@
       renderApp();
       return;
     }
-    if (action === "plan-insert-list") {
-      const listText = state.plan.map((item, idx) => `${idx + 1}. ${item.activityName} — ${round(item.met, 1)} ${item.metSystem || "MET"} — ${round(item.duration, 0)} min/session × ${round(item.frequency, 0)}/week`).join("\n");
-      state.planNote = `${state.planNote ? `${state.planNote.trim()}\n\n` : ""}Selected exercise list\n${listText || "No exercise blocks added yet."}`;
-      renderApp();
-      return;
-    }
-    if (action === "plan-export") {
-      downloadFile("met-clinician-plan.txt", buildPlanText(), "text/plain;charset=utf-8");
+    if (action === "plan-export-txt") {
+      downloadFile("exercise-px-plan.txt", buildPlanText(), "text/plain;charset=utf-8");
       showToast("Plan summary downloaded as TXT.", "success");
       return;
     }
+    if (action === "plan-print") {
+      window.print();
+      return;
+    }
     if (action === "plan-clear") {
+      const ok = window.confirm("Are you sure you want to clear the full plan and plan note?");
+      if (!ok) return;
       state.plan = [];
       state.planNote = "";
       showToast("Plan cleared.", "warn");
@@ -1335,49 +1499,154 @@
     }
   }
 
+  function normalizeSearchText(value) {
+    return String(value || "")
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9+\-.\s]/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function getSearchTokens(value) {
+    return normalizeSearchText(value).split(" ").filter(Boolean);
+  }
+
+  function expandQuery(rawQuery) {
+    const q = normalizeSearchText(rawQuery);
+
+    const synonyms = {
+      ski: ["ski", "skiing", "downhill", "cross country", "nordic"],
+      bike: ["bike", "biking", "bicycle", "bicycling", "cycling", "stationary cycling"],
+      row: ["row", "rowing", "erg", "erging", "rowing machine"],
+      run: ["run", "running", "jogging", "treadmill running"],
+      lift: ["lift", "lifting", "weights", "resistance training", "strength training", "weight training"],
+      yoga: ["yoga", "hatha", "vinyasa"],
+      strength: ["strength", "resistance training", "weight training", "free weights", "bodyweight strength"]
+    };
+
+    return synonyms[q] || [q];
+  }
+
+  function buildSearchIndex(item) {
+    const activity = normalizeSearchText(item.activity);
+    const category = normalizeSearchText(item.category);
+    const code = normalizeSearchText(item.code || "");
+    const tags = Array.isArray(item.tags) ? item.tags.map(normalizeSearchText) : [];
+
+    return {
+      activity,
+      category,
+      code,
+      tags,
+      allText: [activity, category, code, ...tags].join(" ").trim(),
+      activityWords: getSearchTokens(item.activity),
+      categoryWords: getSearchTokens(item.category),
+      tagWords: tags.flatMap(tag => getSearchTokens(tag))
+    };
+  }
+
+  function scoreSingleQuery(item, query) {
+    const q = normalizeSearchText(query);
+    if (!q) return 0;
+
+    const idx = buildSearchIndex(item);
+    const qTokens = getSearchTokens(q);
+    let score = 0;
+
+    if (idx.activity === q) score += 1000;
+    if (idx.activity.startsWith(q)) score += 300;
+    if (idx.activityWords.some(word => word.startsWith(q))) score += 220;
+
+    const activityTokenHits = qTokens.filter(token =>
+      idx.activityWords.some(word => word.startsWith(token))
+    ).length;
+    score += activityTokenHits * 80;
+
+    const tagHits = qTokens.filter(token =>
+      idx.tagWords.some(word => word.startsWith(token))
+    ).length;
+    score += tagHits * 45;
+
+    const categoryHits = qTokens.filter(token =>
+      idx.categoryWords.some(word => word.startsWith(token))
+    ).length;
+    score += categoryHits * 25;
+
+    if (idx.allText.includes(q)) score += 15;
+
+    return score;
+  }
+
+  function scoreActivityMatch(item, rawQuery) {
+    const expanded = expandQuery(rawQuery);
+    let bestScore = 0;
+
+    for (const q of expanded) {
+      bestScore = Math.max(bestScore, scoreSingleQuery(item, q));
+    }
+
+    return bestScore;
+  }
+
   function filterActivities(filters) {
     let list = state.db.slice();
-    const query = (filters.query || "").trim().toLowerCase();
+    const query = (filters.query || "").trim();
     const minMet = filters.minMet === "" ? null : Number(filters.minMet);
     const maxMet = filters.maxMet === "" ? null : Number(filters.maxMet);
+
     if (query) {
-      list = list.filter(item => {
-        const haystack = `${item.activity} ${item.category} ${(item.tags || []).join(" ")} ${item.code || ""}`.toLowerCase();
-        return haystack.includes(query);
-      });
+      list = list
+        .map(item => ({ item, score: scoreActivityMatch(item, query) }))
+        .filter(entry => entry.score > 0)
+        .sort((a, b) => {
+          if (b.score !== a.score) return b.score - a.score;
+          return a.item.activity.localeCompare(b.item.activity);
+        })
+        .map(entry => entry.item);
     }
-    if (!Number.isNaN(minMet) && minMet !== null) list = list.filter(item => Number(item.met) >= minMet);
-    if (!Number.isNaN(maxMet) && maxMet !== null) list = list.filter(item => Number(item.met) <= maxMet);
-    if (filters.category && filters.category !== "all") list = list.filter(item => item.category === filters.category);
-    if (filters.system && filters.system !== "all") list = list.filter(item => (item.metSystem || "MET") === filters.system);
-    if (filters.intensity && filters.intensity !== "all") list = list.filter(item => intensityBand(item.met) === filters.intensity);
-    return list.sort((a, b) => a.activity.localeCompare(b.activity));
+
+    if (!Number.isNaN(minMet) && minMet !== null) {
+      list = list.filter(item => Number(item.met) >= minMet);
+    }
+
+    if (!Number.isNaN(maxMet) && maxMet !== null) {
+      list = list.filter(item => Number(item.met) <= maxMet);
+    }
+
+    if (filters.category && filters.category !== "all") {
+      list = list.filter(item => item.category === filters.category);
+    }
+
+    if (filters.system && filters.system !== "all") {
+      list = list.filter(item => (item.metSystem || "MET") === filters.system);
+    }
+
+    if (filters.intensity && filters.intensity !== "all") {
+      list = list.filter(item => intensityBand(item.met) === filters.intensity);
+    }
+
+    if (!query) {
+      list = list.sort((a, b) => a.activity.localeCompare(b.activity));
+    }
+
+    return list;
   }
 
   function filterDoseLookup(query) {
-    const q = (query || "").trim().toLowerCase();
+    const q = (query || "").trim();
     if (!q) return [];
-    return state.db.filter(item => `${item.activity} ${item.category}`.toLowerCase().includes(q)).slice(0, 8);
-  }
 
-  function getSelectedActivity() {
-    return state.db.find(item => item.code === state.selectedActivityCode) || null;
-  }
-
-  function computeCurrentDose() {
-    const activity = getSelectedActivity();
-    const chosen = activity || null;
-    const metSource = state.dose.manualMET !== "" ? Number(state.dose.manualMET) : chosen?.met;
-    const met = Number.isFinite(Number(metSource)) ? Number(metSource) : 0;
-    const duration = Number(state.dose.duration || 0);
-    const frequency = Number(state.dose.frequency || 0);
-    const weightKg = (state.dose.weightUnit === "lb") ? Number(state.dose.weight || 0) * 0.45359237 : Number(state.dose.weight || 0);
-    const baselineKcalPerKgHr = chosen?.baselineKcalPerKgHr ?? baselineFromSystem(chosen?.metSystem).baselineKcalPerKgHr;
-    const metSystem = chosen?.metSystem || (state.dose.manualMET !== "" ? "MET" : "MET");
-    const metMinSession = met * duration;
-    const metMinWeek = metMinSession * frequency;
-    const kcalWeek = (duration / 60) * frequency * weightKg * met * baselineKcalPerKgHr;
-    return { met, duration, frequency, weightKg, metSystem, metMinSession, metMinWeek, kcalWeek };
+    return state.db
+      .map(item => ({ item, score: scoreActivityMatch(item, q) }))
+      .filter(entry => entry.score > 0)
+      .sort((a, b) => {
+        if (b.score !== a.score) return b.score - a.score;
+        return a.item.activity.localeCompare(b.item.activity);
+      })
+      .slice(0, 8)
+      .map(entry => entry.item);
   }
 
   function totalPlanDose() {
@@ -1964,6 +2233,8 @@
 
   renderApp();
 })();
+
+
 
 
 
