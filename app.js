@@ -1357,9 +1357,21 @@ function renderTopbar() {
       return;
     }
     
+    if (action === "plan-print") {
+      window.print();
+      return;
+    }
+    
     if (action === "plan-clear") {
       const ok = window.confirm("Are you sure you want to clear the full plan and plan note?");
       if (!ok) return;
+    
+      state.plan = [];
+      state.planNote = "";
+      showToast("Plan cleared.", "warn");
+      renderApp();
+      return;
+    }
     
       state.plan = [];
       state.planNote = "";
