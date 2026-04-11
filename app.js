@@ -1549,27 +1549,62 @@ function scoreActivityMatch(item, rawQuery) {
   
   function filterActivities(filters) {
     let list = state.db.slice();
-    const query = (filters.query || "").trim().toLowerCase();
+    const query = (filters.query || "").trim();
     const minMet = filters.minMet === "" ? null : Number(filters.minMet);
     const maxMet = filters.maxMet === "" ? null : Number(filters.maxMet);
+  
     if (query) {
-      list = list.filter(item => {
-        const haystack = `${item.activity} ${item.category} ${(item.tags || []).join(" ")} ${item.code || ""}`.toLowerCase();
-        return haystack.includes(query);
-      });
+      list = list
+        .map(item => ({ item, score: scoreActivityMatch(item, query) }))
+        .filter(entry => entry.score > 0)
+        .sort((a, b) => {
+          if (b.score !== a.score) return b.score - a.score;
+          return a.item.activity.localeCompare(b.item.activity);
+        })
+        .map(entry => entry.item);
     }
-    if (!Number.isNaN(minMet) && minMet !== null) list = list.filter(item => Number(item.met) >= minMet);
-    if (!Number.isNaN(maxMet) && maxMet !== null) list = list.filter(item => Number(item.met) <= maxMet);
-    if (filters.category && filters.category !== "all") list = list.filter(item => item.category === filters.category);
-    if (filters.system && filters.system !== "all") list = list.filter(item => (item.metSystem || "MET") === filters.system);
-    if (filters.intensity && filters.intensity !== "all") list = list.filter(item => intensityBand(item.met) === filters.intensity);
-    return list.sort((a, b) => a.activity.localeCompare(b.activity));
+  
+    if (!Number.isNaN(minMet) && minMet !== null) {
+      list = list.filter(item => Number(item.met) >= minMet);
+    }
+  
+    if (!Number.isNaN(maxMet) && maxMet !== null) {
+      list = list.filter(item => Number(item.met) <= maxMet);
+    }
+  
+    if (filters.category && filters.category !== "all") {
+      list = list.filter(item => item.category === filters.category);
+    }
+  
+    if (filters.system && filters.system !== "all") {
+      list = list.filter(item => (item.metSystem || "MET") === filters.system);
+    }
+  
+    if (filters.intensity && filters.intensity !== "all") {
+      list = list.filter(item => intensityBand(item.met) === filters.intensity);
+    }
+  
+    // If no search query, keep alphabetical order
+    if (!query) {
+      list = list.sort((a, b) => a.activity.localeCompare(b.activity));
+    }
+  
+    return list;
   }
 
   function filterDoseLookup(query) {
-    const q = (query || "").trim().toLowerCase();
+    const q = (query || "").trim();
     if (!q) return [];
-    return state.db.filter(item => `${item.activity} ${item.category}`.toLowerCase().includes(q)).slice(0, 8);
+  
+    return state.db
+      .map(item => ({ item, score: scoreActivityMatch(item, q) }))
+      .filter(entry => entry.score > 0)
+      .sort((a, b) => {
+        if (b.score !== a.score) return b.score - a.score;
+        return a.item.activity.localeCompare(b.item.activity);
+      })
+      .slice(0, 8)
+      .map(entry => entry.item);
   }
 
   function getSelectedActivity() {
