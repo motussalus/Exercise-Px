@@ -486,51 +486,51 @@
     `;
   }
   function renderSpecifierEngine(isModal = false) {
-  return `
-    <section class="${isModal ? "specifier-modal-card" : "section-card specifier-engine-card"}">
-      <div class="card-head">
-        <div>
-          <h2>Specifier Engine</h2>
-          <p>These controls shape what the prescription is prioritizing. Move the sliders, watch the radar change, and use the summary to clarify what matters most in the current dose.</p>
-        </div>
-        <div class="button-row">
-          ${isModal
-            ? `<button class="btn btn-soft" data-action="specifier-close">Close</button>`
-            : `<button class="btn btn-soft" data-action="specifier-expand">Expand</button>`}
-          <button class="btn btn-soft" data-action="toggle-radar">${state.showRadar ? "Hide radar" : "Show radar"}</button>
-          <button class="btn btn-soft" data-action="specifier-reset">Reset sliders</button>
-        </div>
-      </div>
-
-      <div class="specifier-engine-chart ${isModal ? "expanded" : ""}">
-        ${state.showRadar
-          ? renderRadarChart()
-          : `<div class="empty-state">Radar chart hidden. Use the button above to show it again.</div>`}
-      </div>
-
-      <div class="specifier-grid specifier-grid-compact">
-        ${SPECIFIERS.map(spec => `
-          <div class="specifier-row">
-            <label for="${isModal ? "modal-" : ""}spec-${slugify(spec)}">${escapeHtml(spec)}</label>
-            <input
-              id="${isModal ? "modal-" : ""}spec-${slugify(spec)}"
-              type="range"
-              min="0"
-              max="10"
-              value="${state.specifiers[spec]}"
-              data-specifier="${escapeAttr(spec)}"
-            />
-            <div class="specifier-score">${state.specifiers[spec]}</div>
+    return `
+      <section class="${isModal ? "specifier-modal-card" : "section-card specifier-engine-card"}">
+        <div class="card-head">
+          <div>
+            <h2>Specifier Engine</h2>
+            <p>These controls shape what the prescription is prioritizing. Move the sliders, watch the radar change, and use the summary to clarify what matters most in the current dose.</p>
           </div>
-        `).join("")}
-      </div>
-
-      <div class="mini-note" style="margin-top:14px;">
-        ${renderSpecifierSummary()}
-      </div>
-    </section>
-  `;
-}
+          <div class="button-row">
+            ${isModal
+              ? `<button class="btn btn-soft" type="button" data-action="specifier-close">Close</button>`
+              : `<button class="btn btn-soft" type="button" data-action="specifier-expand">Expand</button>`}
+            <button class="btn btn-soft" type="button" data-action="toggle-radar">${state.showRadar ? "Hide radar" : "Show radar"}</button>
+            <button class="btn btn-soft" type="button" data-action="specifier-reset">Reset sliders</button>
+          </div>
+        </div>
+  
+        <div id="${isModal ? "radarAreaModal" : "radarArea"}" class="specifier-engine-chart ${isModal ? "expanded" : ""}">
+          ${state.showRadar
+            ? renderRadarChart()
+            : `<div class="empty-state">Radar chart hidden. Use the button above to show it again.</div>`}
+        </div>
+  
+        <div class="specifier-grid specifier-grid-compact">
+          ${SPECIFIERS.map(spec => `
+            <div class="specifier-row">
+              <label for="${isModal ? "modal-" : ""}spec-${slugify(spec)}">${escapeHtml(spec)}</label>
+              <input
+                id="${isModal ? "modal-" : ""}spec-${slugify(spec)}"
+                type="range"
+                min="0"
+                max="10"
+                value="${state.specifiers[spec]}"
+                data-specifier="${escapeAttr(spec)}"
+              />
+              <div class="specifier-score">${state.specifiers[spec]}</div>
+            </div>
+          `).join("")}
+        </div>
+  
+        <div class="mini-note specifier-summary-note" style="margin-top:14px;">
+          ${renderSpecifierSummary()}
+        </div>
+      </section>
+    `;
+  }
   
   function renderDose() {
   const activity = getSelectedActivity();
@@ -701,12 +701,12 @@
                 <p>Use this checklist to see what still needs attention before exporting.</p>
               </div>
             </div>
-
+        
             ${renderQualityChecklist(quality)}
           </section>
+        
+          ${renderSpecifierEngine()}
         </aside>
-      </div>
-    </section>
 
     ${state.specifierModalOpen ? `
       <div class="specifier-modal-backdrop">
@@ -714,6 +714,7 @@
           ${renderSpecifierEngine(true)}
         </div>
       </div>
+      
     ` : ""}
   `;
 }
@@ -1272,7 +1273,7 @@
               `;
   }
 
-  function handleClick(event) {
+  function const specifier {
     const button = event.target.closest("[data-action]");
     if (!button) return;
     const action = button.dataset.action;
@@ -1487,20 +1488,35 @@
       if (display && field) display.textContent = formatCalcFieldDisplay(field, event.target.value);
     }
     const specifier = event.target.dataset.specifier;
-    if (specifier) {
-      state.specifiers[specifier] = Number(event.target.value || 1);
-      const row = event.target.closest(".specifier-row");
-      if (row) {
-        const score = row.querySelector(".specifier-score");
-        if (score) score.textContent = state.specifiers[specifier];
-      }
-      const radarArea = root.querySelector("#radarArea");
-      if (radarArea) radarArea.innerHTML = state.showRadar ? renderRadarChart() : `<div class="empty-state">Radar chart hidden. Use the button above to show it again.</div>`;
-      const note = root.querySelector(".summary-grid .mini-note");
-      if (note) note.innerHTML = renderSpecifierSummary();
-      persistState();
-    }
+if (specifier) {
+  state.specifiers[specifier] = Number(event.target.value || 1);
+
+  const row = event.target.closest(".specifier-row");
+  if (row) {
+    const score = row.querySelector(".specifier-score");
+    if (score) score.textContent = state.specifiers[specifier];
   }
+
+  const radarArea = root.querySelector("#radarArea");
+  if (radarArea) {
+    radarArea.innerHTML = state.showRadar
+      ? renderRadarChart()
+      : `<div class="empty-state">Radar chart hidden. Use the button above to show it again.</div>`;
+  }
+
+  const radarAreaModal = root.querySelector("#radarAreaModal");
+  if (radarAreaModal) {
+    radarAreaModal.innerHTML = state.showRadar
+      ? renderRadarChart()
+      : `<div class="empty-state">Radar chart hidden. Use the button above to show it again.</div>`;
+  }
+
+  root.querySelectorAll(".specifier-summary-note").forEach(note => {
+    note.innerHTML = renderSpecifierSummary();
+  });
+
+  persistState();
+}
 
   function refreshDoseSection() {
     const summaryPanel = root.querySelector("#doseSummaryPanel");
