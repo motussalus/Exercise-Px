@@ -1552,17 +1552,22 @@
 
   function expandQuery(rawQuery) {
     const q = normalizeSearchText(rawQuery);
-
+  
     const synonyms = {
       ski: ["ski", "skiing", "downhill", "cross country", "nordic"],
-      bike: ["bike", "biking", "bicycle", "bicycling", "cycling", "stationary cycling"],
+      bike: ["bike", "biking", "bicycle", "bicycling", "cycling", "stationary cycling", "outdoor cycling"],
+      cycle: ["cycle", "cycling", "bicycle", "bicycling", "stationary cycling", "outdoor cycling"],
       row: ["row", "rowing", "erg", "erging", "rowing machine"],
-      run: ["run", "running", "jogging", "treadmill running"],
+      run: ["run", "running", "jogging", "outdoor running", "treadmill running"],
+      walk: ["walk", "walking", "treadmill walking"],
       lift: ["lift", "lifting", "weights", "resistance training", "strength training", "weight training"],
-      yoga: ["yoga", "hatha", "vinyasa"],
-      strength: ["strength", "resistance training", "weight training", "free weights", "bodyweight strength"]
+      strength: ["strength", "resistance training", "weight training", "free weights", "bodyweight strength", "barbell weight training"],
+      yoga: ["yoga", "hatha", "vinyasa", "power yoga"],
+      bodyweight: ["bodyweight", "bodyweight strength", "calisthenics"],
+      dumbbell: ["dumbbell", "free weights", "dumbbell weight training"],
+      barbell: ["barbell", "barbell weight training", "weight training"]
     };
-
+  
     return synonyms[q] || [q];
   }
 
