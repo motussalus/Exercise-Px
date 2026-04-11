@@ -50,7 +50,7 @@
     lastMessage: ""
   };
 
-  const STORAGE_KEY = "metClinicianProV4State";
+  const STORAGE_KEY = "exercisePxStateV1";
   const root = document.getElementById("app");
   const fileInput = document.createElement("input");
   fileInput.type = "file";
@@ -143,8 +143,8 @@
               <img src="assets/radar-logo-sunset.png" alt="7 Specifier Engine logo" class="brand-logo" />
             </div>
             <div class="brand-copy">
-              <h1>7 Specifier Engine</h1>
-              <p>Exercise-dose reference, planning, and calculation toolkit.</p>
+              <h1>Exercise Px</h1>
+              <p>Exercise prescription, planning, and clinical documentation toolkit.</p>
             </div>
           </div>
           <div class="topbar-meta">
@@ -181,93 +181,223 @@
   }
 
   function renderHome() {
-    return `
-      <section class="panel">
-        <section class="hero">
-          <div>
-            <h2>A resource for students, researchers, and clinicians building exercise dosage and documentation.</h2>
-            <p>Use the activity library to estimate MET values, build weekly exercise dosage blocks, document intervention structure, organize your seven specifiers, and run the calculations needed for exercise prescription in one place.</p>
-            <div class="hero-actions" style="margin-top:20px;">
-              <button class="btn btn-primary" data-action="switch-tab" data-tab="library">Open Activity Library</button>
-              <button class="btn btn-dose" data-action="switch-tab" data-tab="dose">Open Dosage & Plan</button>
-              <button class="btn btn-calc" data-action="switch-tab" data-tab="calc">Open Calculations</button>
+  const totalActivities = Array.isArray(state.db) ? state.db.length : 0;
+  const totalBlocks = Array.isArray(state.plan) ? state.plan.length : 0;
+  const totals = totalPlanDose();
+
+  return `
+    <main class="page">
+      <div class="home-shell">
+
+        <section class="px-hero">
+          <div class="px-hero-copy">
+            <div class="eyebrow">Exercise prescription platform</div>
+            <h2>Exercise Px</h2>
+            <p class="hero-lead">
+              A cleaner way for clinicians, students, and researchers to build,
+              organize, and document exercise prescriptions with measurable structure.
+            </p>
+
+            <p class="hero-sub">
+              Search activity data, build dosage blocks, profile the seven specifiers,
+              and generate clearer exercise-planning language in one place.
+            </p>
+
+            <div class="hero-actions">
+              <button class="btn btn-dose" data-action="switch-tab" data-tab="dose">
+                Open Dose + Plan
+              </button>
+              <button class="btn btn-primary" data-action="switch-tab" data-tab="library">
+                Browse Activity Library
+              </button>
+              <button class="btn btn-soft" data-action="switch-tab" data-tab="calc">
+                Open Calculations
+              </button>
+            </div>
+
+            <div class="px-stats">
+              <div class="px-stat-card">
+                <span>Bundled activities</span>
+                <strong>${numberWithCommas(totalActivities)}</strong>
+              </div>
+              <div class="px-stat-card">
+                <span>Weekly plan blocks</span>
+                <strong>${numberWithCommas(totalBlocks)}</strong>
+              </div>
+              <div class="px-stat-card">
+                <span>Current weekly MET-min</span>
+                <strong>${round(totals.metMinWeek || 0, 1)}</strong>
+              </div>
             </div>
           </div>
-          <div class="card-grid">
-            <div class="feature-card">
+
+          <div class="px-hero-side">
+            <div class="glass-card">
+              <div class="mini-label">Specifier profile</div>
+              <h3>Visual planning at a glance</h3>
+              <p class="subtle">
+                Exercise Px helps make prescription choices more visible by showing
+                how emphasis can vary across the seven exercise specifiers.
+              </p>
+
+              ${typeof renderRadarChart === "function" ? renderRadarChart() : ""}
+
+              <p class="subtle">
+                The goal is not to maximize every specifier equally. The goal is to
+                clarify what the intervention is actually trying to do.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="home-card-section">
+          <div class="section-header">
+            <div>
+              <div class="eyebrow">Start here</div>
+              <h3>Use the app in the same order you would build a clinical plan</h3>
+            </div>
+          </div>
+
+          <div class="px-card-grid three">
+            <article class="feature-card feature-card-apple">
+              <div class="feature-icon">◫</div>
               <h4>Activity Library</h4>
-              <p>Search by term, MET range, category, system, and intensity band to find activities a patient is already doing or willing to try.</p>
-            </div>
-            <div class="feature-card">
-              <h4>Dosage & Plan</h4>
-              <p>Build a weekly dosage block, add the exercise details that make it replicable, and turn it into a reusable clinical plan.</p>
-            </div>
-            <div class="feature-card">
+              <p>
+                Search activities by term, MET range, system, category, and intensity
+                to identify realistic movement options.
+              </p>
+              <button class="btn btn-primary" data-action="switch-tab" data-tab="library">
+                Open Library
+              </button>
+            </article>
+
+            <article class="feature-card feature-card-apple">
+              <div class="feature-icon">↗</div>
+              <h4>Dose + Plan</h4>
+              <p>
+                Turn selected activities into weekly dosage blocks, structure them,
+                and organize them into a usable exercise plan.
+              </p>
+              <button class="btn btn-dose" data-action="switch-tab" data-tab="dose">
+                Open Planner
+              </button>
+            </article>
+
+            <article class="feature-card feature-card-apple">
+              <div class="feature-icon">∑</div>
               <h4>Calculations</h4>
-              <p>Run the common, clinical, and physiology-based equations that help translate exercise ideas into defensible prescription language.</p>
-            </div>
+              <p>
+                Use exercise-prescription calculations to support more defensible
+                documentation and planning.
+              </p>
+              <button class="btn btn-calc" data-action="switch-tab" data-tab="calc">
+                Open Calculations
+              </button>
+            </article>
           </div>
         </section>
 
-        <section class="section-card">
-          <div class="card-head">
+        <section class="home-card-section">
+          <div class="section-header">
             <div>
-              <h2>Quick workflow</h2>
-              <p>Use the sections below as a guided path through the tool. Each card explains the purpose of the page and takes you there directly.</p>
+              <div class="eyebrow">Product direction</div>
+              <h3>Clean core now, deeper clinical tools later</h3>
             </div>
           </div>
-          <div class="card-grid">
-            <div class="step-card">
-              <h4>1. Activity Library</h4>
-              <p>Find activities a patient is interested in or already partaking in, then use the average MET values to anchor the intervention in a measurable workload.</p>
-              <div class="button-row" style="margin-top:12px;"><button class="btn btn-primary" data-action="switch-tab" data-tab="library">Go to Activity Library</button></div>
-            </div>
-            <div class="step-card">
-              <h4>2. Dosage & Plan</h4>
-              <p>Build a dosage outlook by setting session duration, weekly frequency, and exercise details, then save those blocks into a clearer weekly plan.</p>
-              <div class="button-row" style="margin-top:12px;"><button class="btn btn-dose" data-action="switch-tab" data-tab="dose">Go to Dosage & Plan</button></div>
-            </div>
-            <div class="step-card">
-              <h4>3. Calculations</h4>
-              <p>Use calculation tools to estimate heart-rate targets, intensity, physiological load, and other values that support exercise prescription and interpretation.</p>
-              <div class="button-row" style="margin-top:12px;"><button class="btn btn-calc" data-action="switch-tab" data-tab="calc">Go to Calculations</button></div>
-            </div>
-            <div class="step-card">
-              <h4>4. Sources</h4>
-              <p>Review the publications and DOI-based source articles that support the activity library and key exercise-prescription tools in this build.</p>
-              <div class="button-row" style="margin-top:12px;"><button class="btn btn-soft" data-action="switch-tab" data-tab="data">Go to Sources</button></div>
-            </div>
+
+          <div class="px-card-grid two">
+            <article class="glass-card product-card">
+              <div class="mini-label">Free build</div>
+              <h4>Core workflow stays open</h4>
+              <p>
+                Keep lookup, dose planning, radar profiling, calculations, and text-based
+                planning available in the free version.
+              </p>
+              <p class="subtle">
+                Good for students, early testing, and broad access.
+              </p>
+            </article>
+
+            <article class="glass-card product-card pro-card">
+              <div class="mini-label">Planned Pro</div>
+              <h4>Advanced clinician workflow</h4>
+              <p>
+                Expand into reusable templates, example prescription libraries,
+                richer exports, and more structured clinical documentation tools.
+              </p>
+              <p class="subtle">
+                Built for repeat clinical use and more polished delivery.
+              </p>
+            </article>
           </div>
         </section>
 
-        <section class="section-card">
-          <div class="card-head">
+        <section class="home-card-section">
+          <div class="section-header">
             <div>
-              <h2>Why the seven specifiers matter</h2>
-              <p>This framework grew out of the ambiguity often seen in behavioral-health exercise literature, where interventions are described in broad terms but not always specified in ways that support replication, comparison, or clinical translation.</p>
+              <div class="eyebrow">Mobile app</div>
+              <h3>Mac and iPhone build in progress</h3>
             </div>
           </div>
-          <div class="specifier-layout">
-            <div class="specifier-figure-card">
-              <img src="assets/specifier-radar-example.png" alt="Example radar chart comparing seven exercise specifiers across ADHD and Eating Disorders" class="specifier-figure" />
-              <div class="small muted" style="margin-top:10px;">Illustrative radar example using ADHD and eating-disorder profiles to show how different conditions or intervention goals may prioritize the seven specifiers differently.</div>
+
+          <div class="coming-soon-panel">
+            <div class="coming-soon-left">
+              <h4>Exercise Px for Apple platforms</h4>
+              <p>
+                The goal is to bring the core planning workflow into a cleaner,
+                app-centered Mac and iPhone experience while keeping the web tool
+                useful and accessible.
+              </p>
+              <ul class="coming-list">
+                <li>Native wrapper for the current web build</li>
+                <li>Cleaner app-first onboarding</li>
+                <li>Future export and saved-plan improvements</li>
+              </ul>
             </div>
-            <div class="specifier-copy">
-              <p>In much of the current behavioral health literature on exercise interventions, there is substantial ambiguity in how exercise is prescribed and described. From that problem came a seven-specifier framework designed to highlight the variables most important to control, report, or at least acknowledge when exercise is used as a behavioral health intervention.</p>
-              <p>The seven specifiers are <strong>Metabolic Equivalents of Task (METs)</strong>, <strong>Heart Rate</strong>, <strong>Breathing Control and Pacing</strong>, <strong>Neurological and Physiological Targets</strong>, <strong>Specific Exercise Type and Structure</strong>, <strong>Time and Frequency</strong>, and <strong>Behavioral Health Integration</strong>.</p>
-              <p>Used together, these specifiers help move exercise from a broad wellness recommendation toward a more measurable, explainable, and clinically defensible intervention. They also make it easier for clinicians, students, and researchers to identify which elements were central to the plan and which were secondary, flexible, or omitted.</p>
-              <p>Not every intervention must emphasize every exercise specifier equally. Depending on the clinical target, certain domains may be central to the intervention, whereas others may be intentionally deprioritized or left unmodeled as seen in the figure here. However, prescription integrity improves when authors explicitly state which specifiers were treated as primary, which were considered secondary, and which were intentionally omitted, along with the rationale for those decisions.</p>
-              <p>Furthermore, not every clinic or study can capture every specifier in full detail. The framework works best as a scalable standard: higher-resource settings can measure more, while lower-resource settings can document feasible proxies, explain what was omitted, and still improve substantially over vague exercise descriptions.</p>
-              <div class="mini-note specifier-note">
-                <strong>Where this visual comes from</strong>
-                <div class="small muted">This graphic is an illustrative teaching visual based on the seven-specifier framework used throughout this resource. It is meant to show how specifier emphasis can vary across clinical targets and should be interpreted as a planning aid rather than a validated scoring instrument.</div>
+
+            <div class="device-mock-wrap">
+              <div class="device-mock desktop-mock">
+                <div class="mock-topbar"></div>
+                <div class="mock-content">
+                  <div class="mock-pill"></div>
+                  <div class="mock-chart"></div>
+                  <div class="mock-row"></div>
+                  <div class="mock-row short"></div>
+                </div>
+              </div>
+
+              <div class="device-mock phone-mock">
+                <div class="mock-topbar"></div>
+                <div class="mock-content">
+                  <div class="mock-pill"></div>
+                  <div class="mock-chart small"></div>
+                  <div class="mock-row"></div>
+                  <div class="mock-row short"></div>
+                </div>
               </div>
             </div>
           </div>
         </section>
-      </section>
-    `;
-  }
+
+        <section class="home-card-section compact-bottom">
+          <div class="section-header">
+            <div>
+              <div class="eyebrow">Why it matters</div>
+              <h3>Move exercise closer to a real prescription language</h3>
+            </div>
+          </div>
+
+          <p class="home-bottom-copy">
+            Exercise Px is built around the same seven-specifier framework already used
+            throughout your planning tools. The purpose is to make exercise easier to
+            describe, compare, teach, and document with more clarity.
+          </p>
+        </section>
+
+      </div>
+    </main>
+  `;
+}
 
   function renderLibrary() {
     const results = filterActivities(state.libraryFilters);
