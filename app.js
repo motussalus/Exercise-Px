@@ -126,7 +126,8 @@
     persistState();
   }
 
- function renderTopbar() {
+
+function renderTopbar() {
   const datasetSummary = getDatasetSummary();
   const tabs = [
     ["home", "⌂", "Home"],
@@ -138,34 +139,43 @@
 
   return `
     <header class="topbar">
-      <div class="brand-block">
-        <div class="brand-mark">EPx</div>
-        <div>
-          <h1>Exercise Px</h1>
-          <p>Exercise prescription, planning, and clinical documentation toolkit.</p>
+      <div class="topbar-inner">
+        <div class="brand">
+          <div class="brand-badge">EPx</div>
+          <div class="brand-copy">
+            <h1>Exercise Px</h1>
+            <p>Exercise prescription, planning, and clinical documentation toolkit.</p>
+          </div>
+        </div>
+
+        <div class="topbar-meta">
+          <span class="meta-pill">${numberWithCommas(state.db.length)} activities</span>
+          <span class="meta-pill">${datasetSummary.categories} categories</span>
+
+          <div class="zoom-controls">
+            <button class="zoom-btn" data-action="zoom-out">−</button>
+            <span class="zoom-readout">${round((state.uiScale || 1) * 100, 0)}%</span>
+            <button class="zoom-btn" data-action="zoom-in">+</button>
+            <button class="zoom-btn zoom-reset" data-action="zoom-reset">Reset</button>
+          </div>
         </div>
       </div>
 
-      <div class="topbar-controls">
-        <div class="zoom-controls">
-          <button class="icon-btn" data-action="zoom-out">−</button>
-          <span>${round((state.uiScale || 1) * 100, 0)}%</span>
-          <button class="icon-btn" data-action="zoom-in">+</button>
-          <button class="text-btn" data-action="zoom-reset">Reset</button>
+      <div class="tabs-row">
+        <div class="page">
+          <nav class="tabs">
+            ${tabs.map(([key, icon, label]) => `
+              <button
+                class="tab-btn ${state.activeTab === key ? "active" : ""}"
+                data-action="switch-tab"
+                data-tab="${key}"
+              >
+                <span>${icon}</span>
+                <span>${label}</span>
+              </button>
+            `).join("")}
+          </nav>
         </div>
-
-        <nav class="tabbar">
-          ${tabs.map(([key, icon, label]) => `
-            <button
-              class="tab-btn ${state.activeTab === key ? "active" : ""}"
-              data-action="switch-tab"
-              data-tab="${key}"
-            >
-              <span>${icon}</span>
-              <span>${label}</span>
-            </button>
-          `).join("")}
-        </nav>
       </div>
     </header>
   `;
