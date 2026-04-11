@@ -2399,6 +2399,7 @@ function filterActivities(filters) {
   };
 
   renderApp();
+    )
 })();
 
 
