@@ -2399,7 +2399,7 @@ function filterActivities(filters) {
   };
 
   renderApp();
-    )
+    
 })();
 
 
