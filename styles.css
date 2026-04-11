@@ -825,6 +825,30 @@ input[type="range"] {
   line-height: 1.6;
 }
 
+.dose-page {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(300px, 0.9fr);
+  gap: 22px;
+  align-items: start;
+}
+
+.dose-main {
+  display: grid;
+  gap: 18px;
+}
+
+.dose-sidebar {
+  display: grid;
+  gap: 18px;
+}
+
+.dose-builder-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(260px, 0.85fr);
+  gap: 18px;
+  align-items: start;
+}
+
 /* =========================================================
    MOBILE / TABLET RESPONSIVE LAYOUT
    These rules change the desktop layout for smaller screens.
