@@ -1633,49 +1633,103 @@
   }
   
   
-  function filterActivities(filters) {
-    let list = state.db.slice();
-    const query = (filters.query || "").trim();
-    const minMet = filters.minMet === "" ? null : Number(filters.minMet);
-    const maxMet = filters.maxMet === "" ? null : Number(filters.maxMet);
-  
-    if (query) {
-      list = list
-        .map(item => ({ item, score: scoreActivityMatch(item, query) }))
-        .filter(entry => entry.score > 0)
-        .sort((a, b) => {
-          if (b.score !== a.score) return b.score - a.score;
-          return a.item.activity.localeCompare(b.item.activity);
-        })
-        .map(entry => entry.item);
+  function hasActiveLibraryFilters(filters) {
+  return Boolean(
+    (filters.query || "").trim() ||
+    filters.minMet !== "" ||
+    filters.maxMet !== "" ||
+    (filters.category && filters.category !== "all") ||
+    (filters.system && filters.system !== "all") ||
+    (filters.intensity && filters.intensity !== "all")
+  );
+}
+
+function getDefaultLibraryShowcase() {
+  const showcaseQueries = [
+    "yoga",
+    "walking",
+    "outdoor running",
+    "treadmill running",
+    "outdoor cycling",
+    "stationary cycling",
+    "resistance training",
+    "bodyweight strength",
+    "dumbbell weight training"
+  ];
+
+  const seen = new Set();
+  const results = [];
+
+  for (const query of showcaseQueries) {
+    const matches = state.db
+      .map(item => ({ item, score: scoreActivityMatch(item, query) }))
+      .filter(entry => entry.score > 0)
+      .sort((a, b) => {
+        if (b.score !== a.score) return b.score - a.score;
+        return a.item.activity.localeCompare(b.item.activity);
+      })
+      .map(entry => entry.item);
+
+    for (const item of matches) {
+      const key = item.code || item.activity;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      results.push(item);
+      break;
     }
-  
-    if (!Number.isNaN(minMet) && minMet !== null) {
-      list = list.filter(item => Number(item.met) >= minMet);
-    }
-  
-    if (!Number.isNaN(maxMet) && maxMet !== null) {
-      list = list.filter(item => Number(item.met) <= maxMet);
-    }
-  
-    if (filters.category && filters.category !== "all") {
-      list = list.filter(item => item.category === filters.category);
-    }
-  
-    if (filters.system && filters.system !== "all") {
-      list = list.filter(item => (item.metSystem || "MET") === filters.system);
-    }
-  
-    if (filters.intensity && filters.intensity !== "all") {
-      list = list.filter(item => intensityBand(item.met) === filters.intensity);
-    }
-  
-    if (!query) {
-      list = list.sort((a, b) => a.activity.localeCompare(b.activity));
-    }
-  
-    return list;
   }
+
+  return results;
+}
+
+function filterActivities(filters) {
+  const query = (filters.query || "").trim();
+  const minMet = filters.minMet === "" ? null : Number(filters.minMet);
+  const maxMet = filters.maxMet === "" ? null : Number(filters.maxMet);
+
+  if (!hasActiveLibraryFilters(filters)) {
+    return getDefaultLibraryShowcase();
+  }
+
+  let list = state.db.slice();
+
+  if (query) {
+    list = list
+      .map(item => ({ item, score: scoreActivityMatch(item, query) }))
+      .filter(entry => entry.score > 0)
+      .sort((a, b) => {
+        if (b.score !== a.score) return b.score - a.score;
+        return a.item.activity.localeCompare(b.item.activity);
+      })
+      .map(entry => entry.item);
+  }
+
+  if (!Number.isNaN(minMet) && minMet !== null) {
+    list = list.filter(item => Number(item.met) >= minMet);
+  }
+
+  if (!Number.isNaN(maxMet) && maxMet !== null) {
+    list = list.filter(item => Number(item.met) <= maxMet);
+  }
+
+  if (filters.category && filters.category !== "all") {
+    list = list.filter(item => item.category === filters.category);
+  }
+
+  if (filters.system && filters.system !== "all") {
+    list = list.filter(item => (item.metSystem || "MET") === filters.system);
+  }
+
+  if (filters.intensity && filters.intensity !== "all") {
+    list = list.filter(item => intensityBand(item.met) === filters.intensity);
+  }
+
+  if (!query) {
+    list = list.sort((a, b) => a.activity.localeCompare(b.activity));
+  }
+
+  return list;
+}
 
   function filterDoseLookup(query) {
     const q = (query || "").trim();
