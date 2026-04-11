@@ -640,8 +640,6 @@
               </div>
             </div>
           </section>
-
-          ${renderSpecifierEngine()}
           
           <section class="section-card" id="weeklyPlannerSection">
             <div class="card-head">
