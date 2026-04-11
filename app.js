@@ -713,11 +713,22 @@ function renderTopbar() {
               </ul>
             </div>
           </details>
-          <div class="button-row" style="margin-top:16px;">
-            <button class="btn btn-primary" data-action="plan-example-note">Use example note</button>
-            <button class="btn btn-soft" data-action="plan-insert-list">Insert exercise list</button>
-            <button class="btn btn-dose" data-action="plan-export">Download TXT</button>
-            <button class="btn btn-danger" data-action="plan-clear">Clear plan</button>
+          <div class="button-row">
+            <button class="btn btn-soft" type="button" data-action="plan-example-note">
+              Use example note
+            </button>
+          
+            <button class="btn btn-soft" type="button" data-action="plan-export-txt">
+              Download TXT
+            </button>
+          
+            <button class="btn btn-primary" type="button" data-action="plan-print">
+              Download PDF
+            </button>
+          
+            <button class="btn btn-soft btn-danger" type="button" data-action="plan-clear">
+              Clear Plan
+            </button>
           </div>
         </section>
       </section>
@@ -1332,18 +1343,21 @@ function renderTopbar() {
       renderApp();
       return;
     }
-    if (action === "plan-insert-list") {
-      const listText = state.plan.map((item, idx) => `${idx + 1}. ${item.activityName} — ${round(item.met, 1)} ${item.metSystem || "MET"} — ${round(item.duration, 0)} min/session × ${round(item.frequency, 0)}/week`).join("\n");
-      state.planNote = `${state.planNote ? `${state.planNote.trim()}\n\n` : ""}Selected exercise list\n${listText || "No exercise blocks added yet."}`;
-      renderApp();
+    if (action === "plan-print") {
+      window.print();
       return;
     }
-    if (action === "plan-export") {
-      downloadFile("met-clinician-plan.txt", buildPlanText(), "text/plain;charset=utf-8");
+    
+    if (action === "plan-export-txt") {
+      downloadFile("exercise-px-plan.txt", buildPlanText(), "text/plain;charset=utf-8");
       showToast("Plan summary downloaded as TXT.", "success");
       return;
     }
+    
     if (action === "plan-clear") {
+      const ok = window.confirm("Are you sure you want to clear the full plan and plan note?");
+      if (!ok) return;
+    
       state.plan = [];
       state.planNote = "";
       showToast("Plan cleared.", "warn");
