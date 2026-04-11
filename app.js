@@ -1521,7 +1521,7 @@ if (specifier) {
   persistState();
 }
 
-    
+  }
 
   function refreshDoseSection() {
     const summaryPanel = root.querySelector("#doseSummaryPanel");
@@ -2401,6 +2401,8 @@ function filterActivities(filters) {
   renderApp();
     
 })();
+
+
 
 
 
