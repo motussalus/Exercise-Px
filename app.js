@@ -57,14 +57,6 @@
   fileInput.accept = ".json,application/json";
   fileInput.className = "hidden";
   document.body.appendChild(fileInput);
-
-  const STORAGE_KEY = "exercisePxStateV1";
-  const root = document.getElementById("app");
-  const fileInput = document.createElement("input");
-  fileInput.type = "file";
-  fileInput.accept = ".json,application/json";
-  fileInput.className = "hidden";
-  document.body.appendChild(fileInput);
   
   const COMMON_LIBRARY_PRESETS = [
     { label: "Yoga", query: "yoga" },
