@@ -121,6 +121,38 @@
     return state.db.find(item => item.code === state.selectedActivityCode) || null;
   }
   
+  function computeCurrentDose() {
+    const activity = getSelectedActivity();
+    const chosen = activity || null;
+    const metSource = state.dose.manualMET !== "" ? Number(state.dose.manualMET) : chosen?.met;
+    const met = Number.isFinite(Number(metSource)) ? Number(metSource) : 0;
+    const duration = Number(state.dose.duration || 0);
+    const frequency = Number(state.dose.frequency || 0);
+    const weightKg = (state.dose.weightUnit === "lb")
+      ? Number(state.dose.weight || 0) * 0.45359237
+      : Number(state.dose.weight || 0);
+  
+    const baselineKcalPerKgHr =
+      chosen?.baselineKcalPerKgHr ??
+      baselineFromSystem(chosen?.metSystem).baselineKcalPerKgHr;
+  
+    const metSystem = chosen?.metSystem || (state.dose.manualMET !== "" ? "MET" : "MET");
+    const metMinSession = met * duration;
+    const metMinWeek = metMinSession * frequency;
+    const kcalWeek = (duration / 60) * frequency * weightKg * met * baselineKcalPerKgHr;
+  
+    return {
+      met,
+      duration,
+      frequency,
+      weightKg,
+      metSystem,
+      metMinSession,
+      metMinWeek,
+      kcalWeek
+    };
+  }
+  
   function renderApp() {
     const scale = state.uiScale || 1;
     const zoomWidth = scale > 1 ? (100 / scale) : 100;
