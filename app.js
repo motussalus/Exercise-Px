@@ -1268,12 +1268,12 @@
             </div>
           </section>
           
-                  </div>
-                </section>
-              `;
+            </div>
+            </section>
+          `;
   }
 
-  function const specifier {
+  function handleClick(event) {
     const button = event.target.closest("[data-action]");
     if (!button) return;
     const action = button.dataset.action;
@@ -1282,6 +1282,7 @@
       renderApp();
       return;
     }
+    
     if (action === "zoom-in") {
       state.uiScale = clamp(round((state.uiScale || 1) + 0.1, 2), 0.8, 1.5);
       renderApp();
@@ -1517,6 +1518,8 @@ if (specifier) {
 
   persistState();
 }
+
+    
 
   function refreshDoseSection() {
     const summaryPanel = root.querySelector("#doseSummaryPanel");
