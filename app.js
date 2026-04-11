@@ -45,6 +45,7 @@
       "Behavioral Health Integration": 6
     },
     showRadar: true,
+    specifierModalOpen: false,
     calculations: {},
     toast: null,
     lastMessage: ""
@@ -484,7 +485,53 @@
       </article>
     `;
   }
+  function renderSpecifierEngine(isModal = false) {
+  return `
+    <section class="${isModal ? "specifier-modal-card" : "section-card specifier-engine-card"}">
+      <div class="card-head">
+        <div>
+          <h2>Specifier Engine</h2>
+          <p>These controls shape what the prescription is prioritizing. Move the sliders, watch the radar change, and use the summary to clarify what matters most in the current dose.</p>
+        </div>
+        <div class="button-row">
+          ${isModal
+            ? `<button class="btn btn-soft" data-action="specifier-close">Close</button>`
+            : `<button class="btn btn-soft" data-action="specifier-expand">Expand</button>`}
+          <button class="btn btn-soft" data-action="toggle-radar">${state.showRadar ? "Hide radar" : "Show radar"}</button>
+          <button class="btn btn-soft" data-action="specifier-reset">Reset sliders</button>
+        </div>
+      </div>
 
+      <div class="specifier-engine-chart ${isModal ? "expanded" : ""}">
+        ${state.showRadar
+          ? renderRadarChart()
+          : `<div class="empty-state">Radar chart hidden. Use the button above to show it again.</div>`}
+      </div>
+
+      <div class="specifier-grid specifier-grid-compact">
+        ${SPECIFIERS.map(spec => `
+          <div class="specifier-row">
+            <label for="${isModal ? "modal-" : ""}spec-${slugify(spec)}">${escapeHtml(spec)}</label>
+            <input
+              id="${isModal ? "modal-" : ""}spec-${slugify(spec)}"
+              type="range"
+              min="0"
+              max="10"
+              value="${state.specifiers[spec]}"
+              data-specifier="${escapeAttr(spec)}"
+            />
+            <div class="specifier-score">${state.specifiers[spec]}</div>
+          </div>
+        `).join("")}
+      </div>
+
+      <div class="mini-note" style="margin-top:14px;">
+        ${renderSpecifierSummary()}
+      </div>
+    </section>
+  `;
+}
+  
   function renderDose() {
   const activity = getSelectedActivity();
   const metrics = computeCurrentDose();
@@ -594,6 +641,8 @@
             </div>
           </section>
 
+          ${renderSpecifierEngine()}
+          
           <section class="section-card" id="weeklyPlannerSection">
             <div class="card-head">
               <div>
@@ -648,22 +697,6 @@
           <section class="section-card">
             <div class="card-head">
               <div>
-                <h2>Specifier radar</h2>
-                <p>A visual profile of the current plan priorities.</p>
-              </div>
-              <div class="button-row">
-                <button class="btn btn-soft" data-action="toggle-radar">${state.showRadar ? "Hide radar chart" : "Show radar chart"}</button>
-              </div>
-            </div>
-
-            <div id="radarArea">
-              ${state.showRadar ? renderRadarChart() : `<div class="empty-state">Radar chart hidden.</div>`}
-            </div>
-          </section>
-
-          <section class="section-card">
-            <div class="card-head">
-              <div>
                 <h2>Plan quality check</h2>
                 <p>Use this checklist to see what still needs attention before exporting.</p>
               </div>
@@ -674,6 +707,14 @@
         </aside>
       </div>
     </section>
+
+    ${state.specifierModalOpen ? `
+      <div class="specifier-modal-backdrop">
+        <div class="specifier-modal-shell">
+          ${renderSpecifierEngine(true)}
+        </div>
+      </div>
+    ` : ""}
   `;
 }
 
@@ -1354,6 +1395,17 @@
     }
     if (action === "toggle-radar") {
       state.showRadar = !state.showRadar;
+      renderApp();
+      return;
+    }
+    if (action === "specifier-expand") {
+      state.specifierModalOpen = true;
+      renderApp();
+      return;
+    }
+    
+    if (action === "specifier-close") {
+      state.specifierModalOpen = false;
       renderApp();
       return;
     }
