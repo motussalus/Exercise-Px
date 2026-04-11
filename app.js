@@ -638,8 +638,10 @@
               <div id="doseSummaryPanel">
                 ${renderDoseSummary(metrics, activity)}
               </div>
-            </div>
-          </section>
+              </div>
+              </section>
+              
+              <section class="section-card" id="weeklyPlannerSection">
           
           <section class="section-card" id="weeklyPlannerSection">
             <div class="card-head">
