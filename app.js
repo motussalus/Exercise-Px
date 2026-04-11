@@ -115,7 +115,12 @@
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(safeState));
   }
-
+  
+  function getSelectedActivity() {
+    if (!state.selectedActivityCode) return null;
+    return state.db.find(item => item.code === state.selectedActivityCode) || null;
+  }
+  
   function renderApp() {
     const scale = state.uiScale || 1;
     const zoomWidth = scale > 1 ? (100 / scale) : 100;
