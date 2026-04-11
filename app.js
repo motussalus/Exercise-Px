@@ -1670,11 +1670,16 @@ function getDefaultLibraryShowcase() {
 }
   
   function filterActivities(filters) {
-    let list = state.db.slice();
     const query = (filters.query || "").trim();
     const minMet = filters.minMet === "" ? null : Number(filters.minMet);
     const maxMet = filters.maxMet === "" ? null : Number(filters.maxMet);
-
+  
+    if (!hasActiveLibraryFilters(filters)) {
+      return getDefaultLibraryShowcase();
+    }
+  
+    let list = state.db.slice();
+  
     if (query) {
       list = list
         .map(item => ({ item, score: scoreActivityMatch(item, query) }))
@@ -1685,31 +1690,31 @@ function getDefaultLibraryShowcase() {
         })
         .map(entry => entry.item);
     }
-
+  
     if (!Number.isNaN(minMet) && minMet !== null) {
       list = list.filter(item => Number(item.met) >= minMet);
     }
-
+  
     if (!Number.isNaN(maxMet) && maxMet !== null) {
       list = list.filter(item => Number(item.met) <= maxMet);
     }
-
+  
     if (filters.category && filters.category !== "all") {
       list = list.filter(item => item.category === filters.category);
     }
-
+  
     if (filters.system && filters.system !== "all") {
       list = list.filter(item => (item.metSystem || "MET") === filters.system);
     }
-
+  
     if (filters.intensity && filters.intensity !== "all") {
       list = list.filter(item => intensityBand(item.met) === filters.intensity);
     }
-
+  
     if (!query) {
       list = list.sort((a, b) => a.activity.localeCompare(b.activity));
     }
-
+  
     return list;
   }
 
