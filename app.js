@@ -59,14 +59,14 @@
   document.body.appendChild(fileInput);
 
   const STORAGE_KEY = "exercisePxStateV1";
-const root = document.getElementById("app");
-const fileInput = document.createElement("input");
-fileInput.type = "file";
-fileInput.accept = ".json,application/json";
-fileInput.className = "hidden";
-document.body.appendChild(fileInput);
-
-const COMMON_LIBRARY_PRESETS = [
+  const root = document.getElementById("app");
+  const fileInput = document.createElement("input");
+  fileInput.type = "file";
+  fileInput.accept = ".json,application/json";
+  fileInput.className = "hidden";
+  document.body.appendChild(fileInput);
+  
+  const COMMON_LIBRARY_PRESETS = [
     { label: "Yoga", query: "yoga" },
     { label: "Outdoor Running", query: "outdoor running" },
     { label: "Treadmill Running", query: "treadmill running" },
@@ -76,7 +76,7 @@ const COMMON_LIBRARY_PRESETS = [
     { label: "Bodyweight Resistance", query: "bodyweight strength" },
     { label: "Free Weights", query: "dumbbell weight training" }
   ];
-
+  
   let state = hydrateState();
   let toastTimer = null;
   let pendingScrollId = null;
@@ -105,18 +105,6 @@ const COMMON_LIBRARY_PRESETS = [
       return clone(DEFAULT_STATE);
     }
   }
-  
-  const COMMON_LIBRARY_PRESETS = [
-  { label: "Yoga", query: "yoga" },
-  { label: "Outdoor Running", query: "outdoor running" },
-  { label: "Treadmill Running", query: "treadmill running" },
-  { label: "Outdoor Cycling", query: "outdoor cycling" },
-  { label: "Stationary Cycling", query: "stationary cycling" },
-  { label: "Resistance Training", query: "resistance training" },
-  { label: "Bodyweight Resistance", query: "bodyweight strength" },
-  { label: "Free Weights", query: "dumbbell weight training" }
-];
-
   
   function persistState() {
     const safeState = {
