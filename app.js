@@ -126,48 +126,50 @@
     persistState();
   }
 
-  function renderTopbar() {
-    const datasetSummary = getDatasetSummary();
-    const tabs = [
-      ["home", "⌂", "Home"],
-      ["library", "◫", "Activity Library"],
-      ["dose", "↗", "Dose + Plan"],
-      ["calc", "∑", "Calculations"],
-      ["data", "☰", "Data & Sources"]
-    ];
-    return `
-      <header class="topbar">
-        <div class="topbar-inner">
-          <div class="brand">
-            <div class="brand-badge">
-              <img src="assets/radar-logo-sunset.png" alt="7 Specifier Engine logo" class="brand-logo" />
-            </div>
-            <div class="brand-copy">
-              <h1>Exercise Px</h1>
-              <p>Exercise prescription, planning, and clinical documentation toolkit.</p>
-            </div>
-          </div>
-          <div class="topbar-meta">
-            <div class="zoom-controls" aria-label="Page zoom controls">
-              <button class="zoom-btn" data-action="zoom-out" aria-label="Zoom out">−</button>
-              <span class="zoom-readout">${round((state.uiScale || 1) * 100, 0)}%</span>
-              <button class="zoom-btn" data-action="zoom-in" aria-label="Zoom in">+</button>
-              <button class="zoom-btn zoom-reset" data-action="zoom-reset">Reset</button>
-            </div>
-          </div>
-        <div class="topbar-inner tabs-row">
-          <nav class="tabs" aria-label="Primary navigation">
-            ${tabs.map(([key, icon, label]) => `
-              <button class="tab-btn ${state.activeTab === key ? "active" : ""}" data-action="switch-tab" data-tab="${key}">
-                <span aria-hidden="true">${icon}</span>
-                <span>${label}</span>
-              </button>
-            `).join("")}
-          </nav>
+ function renderTopbar() {
+  const datasetSummary = getDatasetSummary();
+  const tabs = [
+    ["home", "⌂", "Home"],
+    ["library", "◫", "Activity Library"],
+    ["dose", "↗", "Dose + Plan"],
+    ["calc", "∑", "Calculations"],
+    ["data", "☰", "Data & Sources"]
+  ];
+
+  return `
+    <header class="topbar">
+      <div class="brand-block">
+        <div class="brand-mark">EPx</div>
+        <div>
+          <h1>Exercise Px</h1>
+          <p>Exercise prescription, planning, and clinical documentation toolkit.</p>
         </div>
-      </header>
-    `;
-  }
+      </div>
+
+      <div class="topbar-controls">
+        <div class="zoom-controls">
+          <button class="icon-btn" data-action="zoom-out">−</button>
+          <span>${round((state.uiScale || 1) * 100, 0)}%</span>
+          <button class="icon-btn" data-action="zoom-in">+</button>
+          <button class="text-btn" data-action="zoom-reset">Reset</button>
+        </div>
+
+        <nav class="tabbar">
+          ${tabs.map(([key, icon, label]) => `
+            <button
+              class="tab-btn ${state.activeTab === key ? "active" : ""}"
+              data-action="switch-tab"
+              data-tab="${key}"
+            >
+              <span>${icon}</span>
+              <span>${label}</span>
+            </button>
+          `).join("")}
+        </nav>
+      </div>
+    </header>
+  `;
+}
 
   function renderActiveTab() {
     switch (state.activeTab) {
