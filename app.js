@@ -1631,7 +1631,44 @@
 
     return bestScore;
   }
+  function hasActiveLibraryFilters(filters) {
+  return Boolean(
+    (filters.query || "").trim() ||
+    filters.minMet !== "" ||
+    filters.maxMet !== "" ||
+    (filters.category && filters.category !== "all") ||
+    (filters.system && filters.system !== "all") ||
+    (filters.intensity && filters.intensity !== "all")
+  );
+}
 
+function getDefaultLibraryShowcase() {
+  const seen = new Set();
+  const results = [];
+
+  for (const preset of DEFAULT_LIBRARY_SHOWCASE) {
+    const matches = state.db
+      .map(item => ({ item, score: scoreActivityMatch(item, preset.query) }))
+      .filter(entry => entry.score > 0)
+      .sort((a, b) => {
+        if (b.score !== a.score) return b.score - a.score;
+        return a.item.activity.localeCompare(b.item.activity);
+      })
+      .map(entry => entry.item)
+      .filter(item => {
+        const key = item.code || item.activity;
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      })
+      .slice(0, preset.limit);
+
+    results.push(...matches);
+  }
+
+  return results;
+}
+  
   function filterActivities(filters) {
     let list = state.db.slice();
     const query = (filters.query || "").trim();
