@@ -713,6 +713,7 @@ function renderTopbar() {
               </ul>
             </div>
           </details>
+          
           <div class="button-row">
             <button class="btn btn-soft" type="button" data-action="plan-example-note">
               Use example note
@@ -730,6 +731,8 @@ function renderTopbar() {
               Clear Plan
             </button>
           </div>
+
+          
         </section>
       </section>
     `;
