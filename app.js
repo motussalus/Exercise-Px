@@ -58,6 +58,17 @@
   fileInput.className = "hidden";
   document.body.appendChild(fileInput);
 
+  const COMMON_LIBRARY_PRESETS = [
+    { label: "Yoga", query: "yoga" },
+    { label: "Outdoor Running", query: "outdoor running" },
+    { label: "Treadmill Running", query: "treadmill running" },
+    { label: "Outdoor Cycling", query: "outdoor cycling" },
+    { label: "Stationary Cycling", query: "stationary cycling" },
+    { label: "Resistance Training", query: "resistance training" },
+    { label: "Bodyweight Resistance", query: "bodyweight strength" },
+    { label: "Free Weights", query: "dumbbell weight training" }
+  ];
+
   let state = hydrateState();
   let toastTimer = null;
   let pendingScrollId = null;
@@ -86,7 +97,19 @@
       return clone(DEFAULT_STATE);
     }
   }
+  
+  const COMMON_LIBRARY_PRESETS = [
+  { label: "Yoga", query: "yoga" },
+  { label: "Outdoor Running", query: "outdoor running" },
+  { label: "Treadmill Running", query: "treadmill running" },
+  { label: "Outdoor Cycling", query: "outdoor cycling" },
+  { label: "Stationary Cycling", query: "stationary cycling" },
+  { label: "Resistance Training", query: "resistance training" },
+  { label: "Bodyweight Resistance", query: "bodyweight strength" },
+  { label: "Free Weights", query: "dumbbell weight training" }
+];
 
+  
   function persistState() {
     const safeState = {
       activeTab: state.activeTab,
@@ -440,6 +463,20 @@ function renderTopbar() {
               <p>Typing will not kick you out of the box. The library only updates when you click Search or press Enter.</p>
             </div>
           </div>
+        
+          <div class="preset-strip">
+            ${COMMON_LIBRARY_PRESETS.map(preset => `
+              <button
+                type="button"
+                class="preset-chip"
+                data-action="library-preset"
+                data-query="${escapeAttr(preset.query)}"
+              >
+                ${escapeHtml(preset.label)}
+              </button>
+            `).join("")}
+          </div>
+        
           <form data-form="library-search">
             <div class="form-grid">
               <label><span>Search activity</span><input type="text" id="libraryQuery" value="${escapeAttr(state.libraryFilters.query)}" placeholder="walking, rowing, resistance, gardening" /></label>
@@ -1218,6 +1255,35 @@ function renderTopbar() {
       renderApp();
       return;
     }
+    if (action === "library-clear") {
+      state.libraryFilters = { ...DEFAULT_STATE.libraryFilters };
+      renderApp();
+      return;
+    }
+    
+    if (action === "library-preset") {
+      state.libraryFilters = {
+        ...state.libraryFilters,
+        query: button.dataset.query || "",
+        minMet: "",
+        maxMet: "",
+        category: "all",
+        system: "all",
+        intensity: "all",
+        page: 1
+      };
+      renderApp();
+      return;
+    }
+    
+    if (action === "library-intensity") {
+      state.libraryFilters.intensity = button.dataset.intensity;
+      state.libraryFilters.page = 1;
+      renderApp();
+      return;
+    }
+
+    
     if (action === "library-intensity") {
       state.libraryFilters.intensity = button.dataset.intensity;
       state.libraryFilters.page = 1;
@@ -1334,6 +1400,7 @@ function renderTopbar() {
       showToast("Bundled compendium restored.", "success");
       renderApp();
       return;
+      
     }
   }
 
