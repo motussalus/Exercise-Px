@@ -531,193 +531,195 @@
       </section>
     `;
   }
+
+
+
   
   function renderDose() {
-  const activity = getSelectedActivity();
-  const metrics = computeCurrentDose();
-  const quickResults = filterDoseLookup(state.doseLookupQuery);
-  const quality = getPlanQuality(metrics);
-  const totals = totalPlanDose();
-
-  return `
-    <section class="panel">
-      <div class="dose-page">
-        <div class="dose-main">
-
-          <section class="section-card">
-            <div class="card-head">
-              <div>
-                <h2>Select activity</h2>
-                <p>Search once, choose the activity, then move on.</p>
-              </div>
-            </div>
-
-            <form data-form="dose-search">
-              <div class="form-grid">
-                <label>
-                  <span>Search activity</span>
-                  <input
-                    type="text"
-                    id="doseQuickSearch"
-                    value="${escapeAttr(state.doseLookupQuery)}"
-                    placeholder="walking, rowing, lifting, gardening"
-                  />
-                </label>
-              </div>
-              <div class="button-row">
-                <button class="btn btn-primary" type="submit">Search quick lookup</button>
-                <button class="btn btn-soft" type="button" data-action="dose-clear-search">Clear</button>
-              </div>
-            </form>
-
-            <div class="card-list" style="margin-top:14px;">
-              ${quickResults.length ? quickResults.map(item => `
-                <div class="mini-note">
-                  <div class="topline">
-                    <div>
-                      <strong>${escapeHtml(item.activity)}</strong>
-                      <div class="small muted">
-                        ${escapeHtml(item.category)} • ${round(item.met, 1)} ${escapeHtml(item.metSystem || "MET")} • ${escapeHtml(item.population || "Adult")}
-                      </div>
-                    </div>
-                    <button class="btn btn-soft" data-action="dose-pick" data-code="${escapeAttr(item.code)}">Select</button>
-                  </div>
+    const activity = getSelectedActivity();
+    const metrics = computeCurrentDose();
+    const quickResults = filterDoseLookup(state.doseLookupQuery);
+    const quality = getPlanQuality(metrics);
+    const totals = totalPlanDose();
+  
+    return `
+      <section class="panel">
+        <div class="dose-page">
+          <div class="dose-main">
+  
+            <section class="section-card">
+              <div class="card-head">
+                <div>
+                  <h2>Select activity</h2>
+                  <p>Search once, choose the activity, then move on.</p>
                 </div>
-              `).join("") : `<div class="mini-note">${state.doseLookupQuery ? "No quick-lookup matches yet. Try a shorter search term." : "Type a term above to search common activities from within Dose + Plan."}</div>`}
-            </div>
-          </section>
-
-          <section class="section-card" id="doseBuilderCard">
-            <div class="card-head">
-              <div>
-                <h2>Build the dose</h2>
-                <p>Set the workload and details for this exercise block.</p>
               </div>
-            </div>
-
-            <div class="dose-builder-grid">
-              <div>
-                ${activity ? renderSelectedActivityBanner(activity) : `<div class="mini-note">No activity is selected yet. Pick one from the Activity Library or quick lookup above. You can still use a manual MET value if needed.</div>`}
-
-                <div class="form-grid" style="margin-top:14px;">
-                  <label><span>Minutes per session</span><input data-bind="dose.duration" type="number" min="0" step="1" value="${escapeAttr(state.dose.duration)}" /></label>
-                  <label><span>Sessions per week</span><input data-bind="dose.frequency" type="number" min="0" step="1" value="${escapeAttr(state.dose.frequency)}" /></label>
-                  <label><span>Body weight</span><input data-bind="dose.weight" type="number" min="0" step="0.1" value="${escapeAttr(state.dose.weight)}" /></label>
-                  <label><span>Weight unit</span>
-                    <select data-bind="dose.weightUnit">
-                      <option value="kg" ${state.dose.weightUnit === "kg" ? "selected" : ""}>kg</option>
-                      <option value="lb" ${state.dose.weightUnit === "lb" ? "selected" : ""}>lb</option>
-                    </select>
+  
+              <form data-form="dose-search">
+                <div class="form-grid">
+                  <label>
+                    <span>Search activity</span>
+                    <input
+                      type="text"
+                      id="doseQuickSearch"
+                      value="${escapeAttr(state.doseLookupQuery)}"
+                      placeholder="walking, rowing, lifting, gardening"
+                    />
                   </label>
-                  <label><span>Manual MET (optional)</span><input data-bind="dose.manualMET" type="number" min="0" step="0.1" value="${escapeAttr(state.dose.manualMET)}" placeholder="Use only when you need a custom MET value" /></label>
                 </div>
-
-                <label style="margin-top:14px;">
-                  <span>Exercise details / set structure</span>
-                  <textarea data-bind="dose.note" placeholder="Document the exact exercise structure here.">${escapeHtml(state.dose.note || "")}</textarea>
-                </label>
-
-                <div class="small muted">
-                  Use this box for the exact structure that makes the block reproducible: movement selection, sets, reps, load or intensity marker, work-to-rest intervals, breathing instructions, target adaptation, environment, and timing note.
+                <div class="button-row">
+                  <button class="btn btn-primary" type="submit">Search quick lookup</button>
+                  <button class="btn btn-soft" type="button" data-action="dose-clear-search">Clear</button>
                 </div>
-
-                <details class="help-box" style="margin-top:12px;">
-                  <summary>What belongs in exercise details?</summary>
-                  <div class="helper-copy">
-                    <p>This field is where you make the exercise block specific enough to replicate later.</p>
+              </form>
+  
+              <div class="card-list" style="margin-top:14px;">
+                ${quickResults.length ? quickResults.map(item => `
+                  <div class="mini-note">
+                    <div class="topline">
+                      <div>
+                        <strong>${escapeHtml(item.activity)}</strong>
+                        <div class="small muted">
+                          ${escapeHtml(item.category)} • ${round(item.met, 1)} ${escapeHtml(item.metSystem || "MET")} • ${escapeHtml(item.population || "Adult")}
+                        </div>
+                      </div>
+                      <button class="btn btn-soft" data-action="dose-pick" data-code="${escapeAttr(item.code)}">Select</button>
+                    </div>
                   </div>
-                </details>
-
-                <div class="button-row" style="margin-top:16px;">
-                  <button class="btn btn-dose" data-action="dose-add-plan">Add block to weekly plan</button>
-                  <button class="btn btn-soft" data-action="dose-jump-planner">Jump to weekly plan</button>
-                  <button class="btn btn-soft" data-action="dose-clear-selected">Clear selected activity</button>
+                `).join("") : `<div class="mini-note">${state.doseLookupQuery ? "No quick-lookup matches yet. Try a shorter search term." : "Type a term above to search common activities from within Dose + Plan."}</div>`}
+              </div>
+            </section>
+  
+            <section class="section-card" id="doseBuilderCard">
+              <div class="card-head">
+                <div>
+                  <h2>Build the dose</h2>
+                  <p>Set the workload and details for this exercise block.</p>
                 </div>
               </div>
-
-              <div id="doseSummaryPanel">
-                ${renderDoseSummary(metrics, activity)}
+  
+              <div class="dose-builder-grid">
+                <div>
+                  ${activity ? renderSelectedActivityBanner(activity) : `<div class="mini-note">No activity is selected yet. Pick one from the Activity Library or quick lookup above. You can still use a manual MET value if needed.</div>`}
+  
+                  <div class="form-grid" style="margin-top:14px;">
+                    <label><span>Minutes per session</span><input data-bind="dose.duration" type="number" min="0" step="1" value="${escapeAttr(state.dose.duration)}" /></label>
+                    <label><span>Sessions per week</span><input data-bind="dose.frequency" type="number" min="0" step="1" value="${escapeAttr(state.dose.frequency)}" /></label>
+                    <label><span>Body weight</span><input data-bind="dose.weight" type="number" min="0" step="0.1" value="${escapeAttr(state.dose.weight)}" /></label>
+                    <label><span>Weight unit</span>
+                      <select data-bind="dose.weightUnit">
+                        <option value="kg" ${state.dose.weightUnit === "kg" ? "selected" : ""}>kg</option>
+                        <option value="lb" ${state.dose.weightUnit === "lb" ? "selected" : ""}>lb</option>
+                      </select>
+                    </label>
+                    <label><span>Manual MET (optional)</span><input data-bind="dose.manualMET" type="number" min="0" step="0.1" value="${escapeAttr(state.dose.manualMET)}" placeholder="Use only when you need a custom MET value" /></label>
+                  </div>
+  
+                  <label style="margin-top:14px;">
+                    <span>Exercise details / set structure</span>
+                    <textarea data-bind="dose.note" placeholder="Document the exact exercise structure here.">${escapeHtml(state.dose.note || "")}</textarea>
+                  </label>
+  
+                  <div class="small muted">
+                    Use this box for the exact structure that makes the block reproducible: movement selection, sets, reps, load or intensity marker, work-to-rest intervals, breathing instructions, target adaptation, environment, and timing note.
+                  </div>
+  
+                  <details class="help-box" style="margin-top:12px;">
+                    <summary>What belongs in exercise details?</summary>
+                    <div class="helper-copy">
+                      <p>This field is where you make the exercise block specific enough to replicate later.</p>
+                    </div>
+                  </details>
+  
+                  <div class="button-row" style="margin-top:16px;">
+                    <button class="btn btn-dose" data-action="dose-add-plan">Add block to weekly plan</button>
+                    <button class="btn btn-soft" data-action="dose-jump-planner">Jump to weekly plan</button>
+                    <button class="btn btn-soft" data-action="dose-clear-selected">Clear selected activity</button>
+                  </div>
+                </div>
+  
+                <div id="doseSummaryPanel">
+                  ${renderDoseSummary(metrics, activity)}
+                </div>
               </div>
+            </section>
+  
+            <section class="section-card" id="weeklyPlannerSection">
+              <div class="card-head">
+                <div>
+                  <h2>Weekly plan</h2>
+                  <p>Your completed exercise blocks live here.</p>
+                </div>
               </div>
-              </section>
-              
-              <section class="section-card" id="weeklyPlannerSection">
-          
-          <section class="section-card" id="weeklyPlannerSection">
-            <div class="card-head">
-              <div>
-                <h2>Weekly plan</h2>
-                <p>Your completed exercise blocks live here.</p>
+  
+              ${renderDraftCard(metrics, activity)}
+  
+              <div class="kpi-band" style="margin-top:14px;">
+                <div class="kpi"><span>Exercise blocks</span><strong>${state.plan.length}</strong></div>
+                <div class="kpi"><span>Total dose</span><strong>${round(totals.metMinWeek, 1)}</strong></div>
+                <div class="kpi"><span>Weekly kcal</span><strong>${round(totals.kcalWeek, 1)}</strong></div>
               </div>
-            </div>
-
-            ${renderDraftCard(metrics, activity)}
-
-            <div class="kpi-band" style="margin-top:14px;">
-              <div class="kpi"><span>Exercise blocks</span><strong>${state.plan.length}</strong></div>
-              <div class="kpi"><span>Total dose</span><strong>${round(totals.metMinWeek, 1)}</strong></div>
-              <div class="kpi"><span>Weekly kcal</span><strong>${round(totals.kcalWeek, 1)}</strong></div>
-            </div>
-
-            <div class="plan-list" style="margin-top:16px;">
-              ${state.plan.length ? state.plan.map(renderPlanCard).join("") : `<div class="empty-state">No exercise blocks added yet. Start with the selected activity above, set the dose, and click <strong>Add block to weekly plan</strong>.</div>`}
-            </div>
-          </section>
-
-          <section class="section-card">
-            <div class="card-head">
-              <div>
-                <h2>Documentation & export</h2>
-                <p>Finalize the note and export the plan.</p>
+  
+              <div class="plan-list" style="margin-top:16px;">
+                ${state.plan.length ? state.plan.map(renderPlanCard).join("") : `<div class="empty-state">No exercise blocks added yet. Start with the selected activity above, set the dose, and click <strong>Add block to weekly plan</strong>.</div>`}
               </div>
-            </div>
-
-            <textarea id="planNoteBox" data-bind="planNote" placeholder="Write your plan note here.">${escapeHtml(state.planNote)}</textarea>
-
-            <details class="help-box" style="margin-top:12px;">
-              <summary>What makes a strong plan note?</summary>
-              <div class="helper-copy">
-                <p>A strong note explains why exercise is being used, which specifiers matter most, and how the block is expected to influence the behavioral health goal.</p>
+            </section>
+  
+            <section class="section-card">
+              <div class="card-head">
+                <div>
+                  <h2>Documentation & export</h2>
+                  <p>Finalize the note and export the plan.</p>
+                </div>
               </div>
-            </details>
-
-            <div class="button-row" style="margin-top:16px;">
-              <button class="btn btn-primary" data-action="plan-example-note">Use example note</button>
-              <button class="btn btn-soft" data-action="plan-export-txt">Download TXT</button>
-              <button class="btn btn-dose" data-action="plan-print">Download PDF</button>
-              <button class="btn btn-danger" data-action="plan-clear">Clear Plan</button>
-            </div>
-
-            ${renderPlanPrintSheet()}
-          </section>
-
+  
+              <textarea id="planNoteBox" data-bind="planNote" placeholder="Write your plan note here.">${escapeHtml(state.planNote)}</textarea>
+  
+              <details class="help-box" style="margin-top:12px;">
+                <summary>What makes a strong plan note?</summary>
+                <div class="helper-copy">
+                  <p>A strong note explains why exercise is being used, which specifiers matter most, and how the block is expected to influence the behavioral health goal.</p>
+                </div>
+              </details>
+  
+              <div class="button-row" style="margin-top:16px;">
+                <button class="btn btn-primary" data-action="plan-example-note">Use example note</button>
+                <button class="btn btn-soft" data-action="plan-export-txt">Download TXT</button>
+                <button class="btn btn-dose" data-action="plan-print">Download PDF</button>
+                <button class="btn btn-danger" data-action="plan-clear">Clear Plan</button>
+              </div>
+  
+              ${renderPlanPrintSheet()}
+            </section>
+  
+          </div>
+  
+          <aside class="dose-sidebar">
+            <section class="section-card">
+              <div class="card-head">
+                <div>
+                  <h2>Plan quality check</h2>
+                  <p>Use this checklist to see what still needs attention before exporting.</p>
+                </div>
+              </div>
+  
+              ${renderQualityChecklist(quality)}
+            </section>
+  
+            ${renderSpecifierEngine()}
+          </aside>
         </div>
-
-        <aside class="dose-sidebar">
-          <section class="section-card">
-            <div class="card-head">
-              <div>
-                <h2>Plan quality check</h2>
-                <p>Use this checklist to see what still needs attention before exporting.</p>
-              </div>
-            </div>
-        
-            ${renderQualityChecklist(quality)}
-          </section>
-        
-          ${renderSpecifierEngine()}
-        </aside>
-
-    ${state.specifierModalOpen ? `
-      <div class="specifier-modal-backdrop">
-        <div class="specifier-modal-shell">
-          ${renderSpecifierEngine(true)}
+      </section>
+  
+      ${state.specifierModalOpen ? `
+        <div class="specifier-modal-backdrop">
+          <div class="specifier-modal-shell">
+            ${renderSpecifierEngine(true)}
+          </div>
         </div>
-      </div>
-      
-    ` : ""}
-  `;
-}
+      ` : ""}
+    `;
+  }
 
 
   
