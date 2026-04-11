@@ -1365,3 +1365,14 @@ input[type="range"] {
     width: 100%;
   }
 }
+.brand-badge {
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: -0.02em;
+}
+
+.brand-copy h1 {
+  letter-spacing: -0.03em;
+}
