@@ -1466,7 +1466,87 @@
       pendingScrollId = null;
     }
   }
+  function normalizeSearchText(value) {
+  return String(value || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9+\-.\s]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
 
+function getSearchTokens(value) {
+  return normalizeSearchText(value).split(" ").filter(Boolean);
+}
+
+function buildSearchIndex(item) {
+  const activity = normalizeSearchText(item.activity);
+  const category = normalizeSearchText(item.category);
+  const code = normalizeSearchText(item.code || "");
+  const tags = Array.isArray(item.tags) ? item.tags.map(normalizeSearchText) : [];
+  const activityWords = getSearchTokens(item.activity);
+  const categoryWords = getSearchTokens(item.category);
+  const tagWords = tags.flatMap(tag => getSearchTokens(tag));
+
+  return {
+    activity,
+    category,
+    code,
+    tags,
+    activityWords,
+    categoryWords,
+    tagWords,
+    allText: [activity, category, code, ...tags].join(" ").trim()
+  };
+}
+
+function scoreActivityMatch(item, rawQuery) {
+  const query = normalizeSearchText(rawQuery);
+  if (!query) return 0;
+
+  const qTokens = getSearchTokens(query);
+  const idx = buildSearchIndex(item);
+
+  let score = 0;
+
+  // Strongest: exact activity match
+  if (idx.activity === query) score += 1000;
+
+  // Strong: activity begins with query
+  if (idx.activity.startsWith(query)) score += 300;
+
+  // Strong: any activity word begins with query
+  if (idx.activityWords.some(word => word.startsWith(query))) score += 220;
+
+  // Good: every query token appears as a word-prefix in activity words
+  const tokenPrefixHits = qTokens.filter(token =>
+    idx.activityWords.some(word => word.startsWith(token))
+  ).length;
+  score += tokenPrefixHits * 80;
+
+  // Medium: tags
+  const tagPrefixHits = qTokens.filter(token =>
+    idx.tagWords.some(word => word.startsWith(token))
+  ).length;
+  score += tagPrefixHits * 45;
+
+  // Medium: category
+  const categoryPrefixHits = qTokens.filter(token =>
+    idx.categoryWords.some(word => word.startsWith(token))
+  ).length;
+  score += categoryPrefixHits * 25;
+
+  // Weak fallback: substring anywhere
+  if (idx.allText.includes(query)) score += 15;
+
+  // Bonus if all query tokens are present somewhere
+  const allTokensPresent = qTokens.every(token => idx.allText.includes(token));
+  if (allTokensPresent) score += 40;
+
+  return score;
+}
+  
   function filterActivities(filters) {
     let list = state.db.slice();
     const query = (filters.query || "").trim().toLowerCase();
