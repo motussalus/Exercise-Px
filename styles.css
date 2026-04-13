@@ -2041,88 +2041,97 @@ input[type="range"] {
   }
   
 
-  /* ===== Library page refinement ===== */
+ /* ===== Smaller Activity Library intro block ===== */
 
 .library-hero {
-  padding: 18px 22px;
-  gap: 18px;
-  grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+  padding: 16px 18px;
+  gap: 14px;
+  grid-template-columns: minmax(0, 1.1fr) minmax(260px, 0.9fr);
 }
 
 .library-hero h2 {
-  font-size: clamp(1.75rem, 2.4vw, 2.4rem);
-  margin-bottom: 10px;
+  font-size: clamp(1.6rem, 2vw, 2.2rem);
+  line-height: 1.05;
+  margin: 0 0 8px;
 }
 
 .library-hero p {
-  max-width: 62ch;
+  margin: 0;
+  line-height: 1.55;
+  max-width: 58ch;
 }
 
 .library-kpi-band {
-  grid-template-columns: repeat(3, minmax(140px, 1fr));
-  gap: 12px;
+  gap: 10px;
+  grid-template-columns: repeat(3, minmax(110px, 1fr));
 }
 
 .library-kpi-band .kpi {
-  padding: 14px 16px;
+  padding: 12px 14px;
+  border-radius: 16px;
 }
 
-.library-search-card {
-  padding: 18px;
+.library-kpi-band .kpi span {
+  font-size: 0.8rem;
 }
 
-.library-search-card .card-head {
-  margin-bottom: 10px;
-}
-
-.library-preset-head {
-  margin: 2px 0 8px;
-}
-
-.library-preset-label {
-  font-size: 0.92rem;
-  font-weight: 700;
-  color: var(--muted);
-}
-
-.library-results-continuous {
-  gap: 12px;
-}
-
-@media (max-width: 1100px) {
-  .library-hero,
-  .library-kpi-band {
-    grid-template-columns: 1fr;
-  }
+.library-kpi-band .kpi strong {
+  font-size: 1.1rem;
 }
 
 @media (max-width: 800px) {
   .library-hero {
-    padding: 16px 18px;
-    gap: 14px;
+    padding: 14px 16px;
+    gap: 12px;
+    grid-template-columns: 1fr;
   }
 
-  .library-search-card {
-    padding: 16px;
+  .library-hero h2 {
+    font-size: 1.75rem;
   }
 
   .library-kpi-band {
-    gap: 10px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .library-kpi-band .kpi {
+    padding: 10px 10px;
+  }
+
+  .library-kpi-band .kpi span {
+    font-size: 0.74rem;
+  }
+
+  .library-kpi-band .kpi strong {
+    font-size: 0.98rem;
   }
 }
 
 @media (max-width: 560px) {
   .library-hero {
-    padding: 14px 16px;
+    padding: 12px 14px;
+    gap: 10px;
   }
 
   .library-hero h2 {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
   }
 
-  .library-search-card {
-    padding: 14px;
+  .library-hero p {
+    font-size: 0.95rem;
+    line-height: 1.5;
   }
+
+  .library-kpi-band {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .library-kpi-band .kpi {
+    padding: 9px 10px;
+  }
+
 /* PASTE NEW CSS HERE, AFTER THE CLOSING BRACE */
   
 }
