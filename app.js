@@ -6,7 +6,7 @@
     "Specific Exercise Type",
     "Neurological and Physiological Targets",
     "Time and Frequency",
-    "Behavioral Health Integration"
+    "Clinician Integration Specifier"
   ];
 
   const DEFAULT_STATE = {
@@ -42,7 +42,7 @@
       "Specific Exercise Type": 8,
       "Neurological and Physiological Targets": 7,
       "Time and Frequency": 8,
-      "Behavioral Health Integration": 6
+      "Clinician Integration Specifier": 6
     },
     showRadar: true,
     specifierModalOpen: false,
@@ -1036,7 +1036,7 @@
       if (label === "Time and Frequency") {
         xShift += 22;   // moves it inward from the left edge
       }
-      if (label === "Behavioral Health Integration") {
+      if (label === "Clinician Integration Specifier") {
         xShift += 12;   // optional, if this one also feels tight
       }
 
