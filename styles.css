@@ -1557,6 +1557,22 @@ input[type="range"] {
   width: min(100%, 420px);
 }
 
+.hero-side-panel {
+  width: min(100%, 390px);
+  padding: 18px 20px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(219, 229, 241, 0.9);
+  box-shadow: 0 6px 16px rgba(13, 32, 66, 0.04);
+}
+
+.px-hero-side,
+.hero-side {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
 /* 6) soften the card system overall */
 .glass-card,
 .section-card,
