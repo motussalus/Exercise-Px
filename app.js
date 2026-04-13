@@ -375,34 +375,34 @@
   function renderLibrary() {
     const results = filterActivities(state.libraryFilters);
     const categories = getCategoryList();
-    const pageSize = 12;
-    const totalPages = Math.max(1, Math.ceil(results.length / pageSize));
-    const currentPage = clamp(state.libraryFilters.page || 1, 1, totalPages);
-    const pageSlice = results.slice((currentPage - 1) * pageSize, currentPage * pageSize);
     const selected = getSelectedActivity();
-
+  
     return `
       <section class="panel">
-        <section class="hero">
+        <section class="hero library-hero">
           <div>
             <h2>Activity Library</h2>
-            <p>Search the full compendium by name, MET range, category, system, or intensity band. When you find the right activity, send it to the dose builder and continue the plan below.</p>
+            <p>Search the activity database by name, MET range, category, system, or intensity band. When you find the right activity, send it to the dose builder and continue the plan below.</p>
           </div>
-          <div class="kpi-band">
+          <div class="kpi-band library-kpi-band">
             <div class="kpi"><span>Total results</span><strong>${numberWithCommas(results.length)}</strong></div>
             <div class="kpi"><span>Selected activity</span><strong>${selected ? escapeHtml(shortLabel(selected.activity, 36)) : "None"}</strong></div>
             <div class="kpi"><span>Current filter</span><strong>${state.libraryFilters.intensity === "all" ? "All bands" : capitalize(state.libraryFilters.intensity)}</strong></div>
           </div>
         </section>
-
-        <section class="section-card">
+  
+        <section class="section-card library-search-card">
           <div class="card-head">
             <div>
               <h2>Search and filter</h2>
-              <p>Typing will not kick you out of the box. The library only updates when you click Search or press Enter.</p>
+              <p>The exercise names come from the Compendium of Physical Activities 2024, so some entries may differ from standard clinical, coaching, or consumer naming.</p>
             </div>
           </div>
-
+  
+          <div class="library-preset-head">
+            <span class="library-preset-label">General Categories:</span>
+          </div>
+  
           <div class="preset-strip">
             ${COMMON_LIBRARY_PRESETS.map(preset => `
               <button type="button" class="preset-chip" data-action="library-preset" data-query="${escapeAttr(preset.query)}">
@@ -410,7 +410,7 @@
               </button>
             `).join("")}
           </div>
-
+  
           <form data-form="library-search">
             <div class="form-grid">
               <label><span>Search activity</span><input type="text" id="libraryQuery" value="${escapeAttr(state.libraryFilters.query)}" placeholder="walking, rowing, resistance, gardening" /></label>
@@ -428,25 +428,24 @@
                 </select>
               </label>
             </div>
+  
             <div class="button-row">
               <button class="btn btn-primary" type="submit">Search</button>
               <button class="btn btn-soft" type="button" data-action="library-clear">Clear filters</button>
             </div>
+  
             <div class="filter-row">
               ${["all","light","moderate","vigorous"].map(level => `<button type="button" class="filter-chip ${state.libraryFilters.intensity === level ? "active" : ""}" data-action="library-intensity" data-intensity="${level}">${level === "all" ? "All intensity bands" : capitalize(level)}</button>`).join("")}
             </div>
           </form>
         </section>
-
-        <section class="library-results">
-          ${pageSlice.length ? pageSlice.map(item => renderActivityCard(item)).join("") : `<div class="empty-state">No activities match the current filters. Broaden the search or clear one of the range fields.</div>`}
+  
+        <section class="library-results library-results-continuous">
+          ${results.length
+            ? results.map(item => renderActivityCard(item)).join("")
+            : `<div class="empty-state">No activities match the current filters. Broaden the search or clear one of the range fields.</div>`
+          }
         </section>
-
-        <div class="pager">
-          <button class="btn btn-soft" data-action="library-page" data-page="${currentPage - 1}" ${currentPage <= 1 ? "disabled" : ""}>Previous</button>
-          <span class="meta-pill">Page ${currentPage} of ${totalPages}</span>
-          <button class="btn btn-soft" data-action="library-page" data-page="${currentPage + 1}" ${currentPage >= totalPages ? "disabled" : ""}>Next</button>
-        </div>
       </section>
     `;
   }
