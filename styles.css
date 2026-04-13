@@ -225,26 +225,29 @@ button { cursor: pointer; }
   gap: 24px;
   grid-template-columns: minmax(0, 1.45fr) minmax(260px, 0.75fr)
 }
-/* ===== Home hero radar sizing fix ===== */
+/* homepage radar card tuning */
 
-.px-hero {
-  grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.72fr);
+.hero {
+  grid-template-columns: minmax(0, 1.4fr) minmax(300px, 0.78fr);
   align-items: start;
 }
 
-.px-hero-side {
+.px-hero-side,
+.hero-side {
   display: flex;
-  align-items: flex-start;
   justify-content: flex-end;
+  align-items: flex-start;
 }
 
-.px-hero-side .glass-card {
-  width: min(100%, 430px);
+.px-hero-side .glass-card,
+.hero-side .glass-card {
+  width: min(100%, 420px);
+  margin-top: 8px;
 }
 
 .specifier-image-wrap {
   position: relative;
-  margin: 16px 0;
+  margin: 14px 0 12px;
   display: flex;
   justify-content: center;
 }
@@ -255,6 +258,27 @@ button { cursor: pointer; }
   height: auto;
   display: block;
 }
+
+.specifier-expand-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  background: rgba(255,255,255,0.92);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  z-index: 2;
+}
+
+
 .eyebrow {
   display: none !important;
 }
