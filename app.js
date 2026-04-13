@@ -236,12 +236,13 @@
   }
 
 
-  function renderHome() {
+  function function renderHome() {
     return `
       <section class="panel">
         <div class="home-shell">
-          <section class="px-hero">
-            <div class="px-hero-copy">
+  
+          <section class="home-top-grid">
+            <div class="px-hero-copy home-top-intro">
               <div class="eyebrow">Exercise planning tool</div>
               <h2>Exercise Px</h2>
   
@@ -260,7 +261,7 @@
               </div>
             </div>
   
-            <div class="px-hero-side">
+            <div class="home-top-radar">
               <div class="hero-side-panel">
                 <div class="mini-label">Why this is different</div>
                 <h3>The seven specifiers are the point</h3>
@@ -292,42 +293,42 @@
                 </p>
   
                 <p class="subtle">
-                  As seen in this radar diagram example, current literature suggests that different disorders can vary in specifier priorities. As noted here, one of the differences in exercise prescription between ADHD and Eating Disorders is the role of clinician or specialist oversight and involvement.
+                  As seen in this radar diagram example, current literature suggests that different disorders can vary in specifier priorities. As noted here the difference in ADHD and Eating Disorders is the role of clinician or specialist oversight and involvement.
                 </p>
               </div>
             </div>
-          </section>
   
-          <section class="home-card-section">
-            <div class="section-header">
-              <div>
-                <div class="eyebrow">Start here</div>
-                <h3>Use the app in the same order you would build a clinical plan</h3>
+            <section class="home-card-section home-top-start">
+              <div class="section-header">
+                <div>
+                  <div class="eyebrow">Start here</div>
+                  <h3>Use the app in the same order you would build a clinical plan</h3>
+                </div>
               </div>
-            </div>
   
-            <div class="px-card-grid three">
-              <article class="feature-card feature-card-apple">
-                <div class="feature-icon">◫</div>
-                <h4>Activity Library</h4>
-                <p>Search activities by term, MET range, system, category, and intensity to identify realistic movement options.</p>
-                <button class="btn btn-primary" data-action="switch-tab" data-tab="library">Open Library</button>
-              </article>
+              <div class="px-card-grid three">
+                <article class="feature-card feature-card-apple">
+                  <div class="feature-icon">◫</div>
+                  <h4>Activity Library</h4>
+                  <p>Search activities by term, MET range, system, category, and intensity to identify realistic movement options.</p>
+                  <button class="btn btn-primary" data-action="switch-tab" data-tab="library">Open Library</button>
+                </article>
   
-              <article class="feature-card feature-card-apple">
-                <div class="feature-icon">↗</div>
-                <h4>Dose + Plan</h4>
-                <p>Turn selected activities into weekly dosage blocks, structure them, and organize them into a usable exercise plan.</p>
-                <button class="btn btn-dose" data-action="switch-tab" data-tab="dose">Open Planner</button>
-              </article>
+                <article class="feature-card feature-card-apple">
+                  <div class="feature-icon">↗</div>
+                  <h4>Dose + Plan</h4>
+                  <p>Turn selected activities into weekly dosage blocks, structure them, and organize them into a usable exercise plan.</p>
+                  <button class="btn btn-dose" data-action="switch-tab" data-tab="dose">Open Planner</button>
+                </article>
   
-              <article class="feature-card feature-card-apple">
-                <div class="feature-icon">∑</div>
-                <h4>Calculations</h4>
-                <p>Use exercise-prescription calculations to support more defensible documentation and planning.</p>
-                <button class="btn btn-calc" data-action="switch-tab" data-tab="calc">Open Calculations</button>
-              </article>
-            </div>
+                <article class="feature-card feature-card-apple">
+                  <div class="feature-icon">∑</div>
+                  <h4>Calculations</h4>
+                  <p>Use exercise-prescription calculations to support more defensible documentation and planning.</p>
+                  <button class="btn btn-calc" data-action="switch-tab" data-tab="calc">Open Calculations</button>
+                </article>
+              </div>
+            </section>
           </section>
   
           <section class="home-card-section">
