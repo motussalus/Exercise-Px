@@ -848,7 +848,70 @@ input[type="range"] {
   gap: 18px;
   align-items: start;
 }
+.hero-side-head-stack {
+  display: block;
+}
 
+.radar-example-card {
+  display: grid;
+  gap: 14px;
+}
+
+.radar-image-wrap {
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background: linear-gradient(180deg, rgba(248,250,252,1), rgba(255,255,255,1));
+}
+
+.radar-example-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.radar-caption {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.future-dev-panel {
+  display: grid;
+  gap: 18px;
+  margin-top: 14px;
+}
+
+.future-dev-intro {
+  max-width: 70ch;
+}
+
+.future-dev-intro p {
+  margin: 0;
+  line-height: 1.75;
+  color: var(--muted);
+}
+
+.future-dev-compare {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  align-items: start;
+}
+
+.dev-tier-card {
+  min-height: 100%;
+}
+
+.dev-tier-card h4 {
+  margin-bottom: 8px;
+}
+
+@media (max-width: 1100px) {
+  .future-dev-compare {
+    grid-template-columns: 1fr;
+  }
+}
 /* =========================================================
    MOBILE / TABLET RESPONSIVE LAYOUT
    These rules change the desktop layout for smaller screens.
