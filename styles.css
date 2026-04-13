@@ -1959,4 +1959,87 @@ input[type="range"] {
     height: 42px;
     border-radius: 12px;
   }
+  /* ===== Dose page mobile overlap fix ===== */
+
+.dose-page > *,
+.dose-builder-grid > *,
+.dose-main > *,
+.dose-sidebar > * {
+  min-width: 0;
+}
+
+@media (max-width: 1100px) {
+  .dose-page,
+  .dose-builder-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 800px) {
+  .dose-page,
+  .dose-main,
+  .dose-sidebar,
+  .dose-builder-grid {
+    gap: 14px;
+  }
+
+  .dose-page .section-card,
+  .dose-page .glass-card,
+  .dose-page .plan-card,
+  .dose-page .calc-card,
+  .dose-page .info-card,
+  .dose-page .activity-card {
+    min-width: 0;
+    overflow-x: hidden;
+  }
+
+  .dose-page .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dose-page .card-head,
+  .dose-page .topline,
+  .dose-page .section-title-row {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 560px) {
+  .dose-page {
+    gap: 12px;
+  }
+
+  .dose-builder-grid {
+    gap: 12px;
+  }
+
+  .dose-page .section-card,
+  .dose-page .glass-card,
+  .dose-page .plan-card,
+  .dose-page .calc-card,
+  .dose-page .info-card,
+  .dose-page .activity-card,
+  .dose-page .feature-card,
+  .dose-page .step-card {
+    padding: 14px;
+  }
+
+  .dose-page .badge-row,
+  .dose-page .chip-row,
+  .dose-page .filter-row,
+  .dose-page .meta-row,
+  .dose-page .stats-row,
+  .dose-page .inline-meta {
+    gap: 6px;
+  }
+
+  .dose-page .btn,
+  .dose-page .button-row .btn,
+  .dose-page .action-row .btn,
+  .dose-page .inline-actions .btn {
+    width: 100%;
+  }
+}
+
+  
 }
