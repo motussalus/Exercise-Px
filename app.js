@@ -226,33 +226,50 @@
     const totalActivities = Array.isArray(state.db) ? state.db.length : 0;
     const totalBlocks = Array.isArray(state.plan) ? state.plan.length : 0;
     const totals = totalPlanDose();
-
+  
     return `
       <section class="panel panel-home">
         <div class="home-shell">
+  
           <section class="px-hero px-hero-refined">
             <div class="px-hero-copy">
               <div class="hero-kicker-row">
                 <span class="eyebrow">Exercise prescription platform</span>
                 <span class="hero-inline-pill">Built around seven specifiers</span>
               </div>
+  
               <h2>Exercise Px</h2>
-              <p class="hero-lead">A cleaner way for clinicians, students, and researchers to build, organize, and document exercise prescriptions with measurable structure.</p>
-              <p class="hero-sub">Search activity data, build dosage blocks, profile the seven specifiers, and generate clearer exercise-planning language in one place.</p>
-
+  
+              <p class="hero-lead">
+                A cleaner way for clinicians, students, and researchers to build, organize, and document exercise prescriptions with measurable structure.
+              </p>
+  
+              <p class="hero-sub">
+                Search activity data, build dosage blocks, profile the seven specifiers, and generate clearer exercise-planning language in one place.
+              </p>
+  
               <div class="hero-actions">
                 <button class="btn btn-dose" data-action="switch-tab" data-tab="dose">Open Dose + Plan</button>
                 <button class="btn btn-primary" data-action="switch-tab" data-tab="library">Browse Activity Library</button>
                 <button class="btn btn-soft" data-action="switch-tab" data-tab="calc">Open Calculations</button>
               </div>
-
+  
               <div class="px-stats compact">
-                <div class="px-stat-card"><span>Bundled activities</span><strong>${numberWithCommas(totalActivities)}</strong></div>
-                <div class="px-stat-card"><span>Weekly plan blocks</span><strong>${numberWithCommas(totalBlocks)}</strong></div>
-                <div class="px-stat-card"><span>Current weekly MET-min</span><strong>${round(totals.metMinWeek || 0, 1)}</strong></div>
+                <div class="px-stat-card">
+                  <span>Bundled activities</span>
+                  <strong>${numberWithCommas(totalActivities)}</strong>
+                </div>
+                <div class="px-stat-card">
+                  <span>Weekly plan blocks</span>
+                  <strong>${numberWithCommas(totalBlocks)}</strong>
+                </div>
+                <div class="px-stat-card">
+                  <span>Current weekly MET-min</span>
+                  <strong>${round(totals.metMinWeek || 0, 1)}</strong>
+                </div>
               </div>
             </div>
-
+  
             <div class="px-hero-side">
               <div class="glass-card glass-card-hero radar-example-card">
                 <div class="hero-side-head hero-side-head-stack">
@@ -261,13 +278,22 @@
                     <h3>ADHD vs. Eating Disorders</h3>
                   </div>
                 </div>
+  
                 <div class="radar-image-wrap">
-                  <img src="assets/specifier-radar-example.png" alt="Example radar comparing ADHD and eating disorders across the seven exercise specifiers" class="radar-example-image" />
+                  <img
+                    src="assets/specifier-radar-example.png"
+                    alt="Example radar comparing ADHD and eating disorders across the seven exercise specifiers"
+                    class="radar-example-image"
+                  />
                 </div>
-                <p class="radar-caption">The goal is not to maximize every specifier equally. The goal is to show, transparently, what the exercise intervention is trying to accomplish and which variables matter most for that case. As seen in this radar diagram example, current literature suggests that different disorders can vary in specifier priorities. As noted here the difference in ADHD and Eating Disorders is the role of clinician or specialist oversight and involvement.</p>
+  
+                <p class="radar-caption">
+                  The goal is not to maximize every specifier equally. The goal is to show, transparently, what the exercise intervention is trying to accomplish and which variables matter most for that case. As seen in this radar diagram example, current literature suggests that different disorders can vary in specifier priorities. As noted here, the difference in ADHD and Eating Disorders is the role of clinician or specialist oversight and involvement.
+                </p>
               </div>
             </div>
-
+          </section>
+  
           <section class="home-card-section">
             <div class="section-header">
               <div>
@@ -275,7 +301,7 @@
                 <h3>Use the app in the same order you would build a clinical plan</h3>
               </div>
             </div>
-
+  
             <div class="px-card-grid three">
               <article class="feature-card feature-card-apple">
                 <div class="feature-icon">◫</div>
@@ -283,14 +309,14 @@
                 <p>Search activities by term, MET range, system, category, and intensity to identify realistic movement options.</p>
                 <button class="btn btn-primary" data-action="switch-tab" data-tab="library">Open Library</button>
               </article>
-
+  
               <article class="feature-card feature-card-apple">
                 <div class="feature-icon">↗</div>
                 <h4>Dose + Plan</h4>
                 <p>Turn selected activities into weekly dosage blocks, structure them, and organize them into a usable exercise plan.</p>
                 <button class="btn btn-dose" data-action="switch-tab" data-tab="dose">Open Planner</button>
               </article>
-
+  
               <article class="feature-card feature-card-apple">
                 <div class="feature-icon">∑</div>
                 <h4>Calculations</h4>
@@ -299,9 +325,7 @@
               </article>
             </div>
           </section>
-
-
-
+  
           <section class="home-card-section home-card-section-app">
             <div class="section-header">
               <div>
@@ -309,12 +333,14 @@
                 <h3>App</h3>
               </div>
             </div>
-          
+  
             <div class="future-dev-panel">
               <div class="future-dev-intro">
-                <p>The app is meant to make Exercise Px easier to use in real settings, with a cleaner interface, smoother navigation, and a more convenient experience for repeat clinical or educational use.</p>
+                <p>
+                  The app is meant to make Exercise Px easier to use in real settings, with a cleaner interface, smoother navigation, and a more convenient experience for repeat clinical or educational use.
+                </p>
               </div>
-          
+  
               <div class="future-dev-compare">
                 <article class="glass-card dev-tier-card">
                   <div class="mini-label">Free Version</div>
@@ -326,7 +352,7 @@
                     <li>Core calculations and basic planning text</li>
                   </ul>
                 </article>
-          
+  
                 <article class="glass-card dev-tier-card pro-card">
                   <div class="mini-label">Premium Version</div>
                   <h4>Expanded workflow</h4>
@@ -340,58 +366,7 @@
               </div>
             </div>
           </section>
-
-            <div class="px-card-grid two">
-              <article class="glass-card product-card">
-                <div class="mini-label">Free build</div>
-                <h4>Core workflow stays open</h4>
-                <p>Keep lookup, dose planning, radar profiling, calculations, and text-based planning available in the free version.</p>
-                <p class="subtle">Good for students, testing, and broad access.</p>
-              </article>
-
-              <article class="glass-card product-card pro-card">
-                <div class="mini-label">Planned Pro</div>
-                <h4>Advanced clinician workflow</h4>
-                <p>Expand into reusable templates, example prescription libraries, richer exports, and more structured clinical documentation tools.</p>
-                <p class="subtle">Built for repeat clinical use and cleaner delivery.</p>
-              </article>
-            </div>
-          </section>
-
-            <div class="coming-soon-panel">
-              <div class="coming-soon-left">
-                <h4>Exercise Px for Apple platforms</h4>
-                <p>The goal is to bring the core planning workflow into a cleaner, app-centered Mac and iPhone experience while keeping the web tool useful and accessible.</p>
-                <ul class="coming-list">
-                  <li>Native wrapper for the current web build</li>
-                  <li>Cleaner app-first onboarding</li>
-                  <li>Future export and saved-plan improvements</li>
-                </ul>
-              </div>
-
-              <div class="device-mock-wrap">
-                <div class="device-mock desktop-mock">
-                  <div class="mock-topbar"></div>
-                  <div class="mock-content">
-                    <div class="mock-pill"></div>
-                    <div class="mock-chart"></div>
-                    <div class="mock-row"></div>
-                    <div class="mock-row short"></div>
-                  </div>
-                </div>
-
-                <div class="device-mock phone-mock">
-                  <div class="mock-topbar"></div>
-                  <div class="mock-content">
-                    <div class="mock-pill"></div>
-                    <div class="mock-chart small"></div>
-                    <div class="mock-row"></div>
-                    <div class="mock-row short"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
+  
         </div>
       </section>
     `;
