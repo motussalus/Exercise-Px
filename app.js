@@ -280,12 +280,12 @@
                 <div class="specifier-image-wrap">
                   <img
                     class="specifier-figure"
-                    src="specifier-radar-example.png"
+                    src="assets/specifier-radar-example.png"
                     alt="Example radar chart showing seven exercise specifiers"
                   />
                   <a
                     class="specifier-expand-btn"
-                    href="specifier-radar-example.png"
+                    href="assets/specifier-radar-example.png"
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Open radar image full size"
