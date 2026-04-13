@@ -225,6 +225,13 @@ button { cursor: pointer; }
   gap: 24px;
   grid-template-columns: minmax(0, 1.45fr) minmax(260px, 0.75fr)
 }
+/* ===== Home hero radar sizing fix ===== */
+
+.px-hero {
+  grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.72fr);
+  align-items: start;
+}
+
 .px-hero-side {
   display: flex;
   align-items: flex-start;
@@ -233,6 +240,20 @@ button { cursor: pointer; }
 
 .px-hero-side .glass-card {
   width: min(100%, 430px);
+}
+
+.specifier-image-wrap {
+  position: relative;
+  margin: 16px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.specifier-figure {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  display: block;
 }
 .eyebrow {
   display: none !important;
