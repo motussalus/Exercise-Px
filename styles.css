@@ -945,7 +945,7 @@ input[type="range"] {
    If mobile looks broken later, check these three media queries first.
    ========================================================= */
 
-@media (max-width: 1100px) {
+@media (max-width: 900px) {
   .hero,
   .plan-grid,
   .specifier-layout,
