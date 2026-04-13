@@ -6,7 +6,7 @@
     "Specific Exercise Type",
     "Neurological and Physiological Targets",
     "Time and Frequency",
-    "Clinician Integration Specifier"
+    "Behavioral Health Integration"
   ];
 
   const DEFAULT_STATE = {
@@ -42,7 +42,7 @@
       "Specific Exercise Type": 8,
       "Neurological and Physiological Targets": 7,
       "Time and Frequency": 8,
-      "Clinician Integration Specifier": 6
+      "Behavioral Health Integration": 6
     },
     showRadar: true,
     specifierModalOpen: false,
@@ -155,20 +155,13 @@
   }
   
   function renderApp() {
-    const scale = state.uiScale || 1;
-    const zoomWidth = scale > 1 ? (100 / scale) : 100;
-  
     root.innerHTML = `
       <div class="app-shell">
         ${renderTopbar()}
-        <div class="zoom-outer">
-          <div class="zoom-shell" style="--ui-scale:${scale}; --ui-width:${zoomWidth}%;">
-            <main class="page">
-              ${renderActiveTab()}
-            </main>
-            <div class="toast-stack">${renderToast()}</div>
-          </div>
-        </div>
+        <main class="page">
+          ${renderActiveTab()}
+        </main>
+        <div class="toast-stack">${renderToast()}</div>
       </div>
     `;
     afterRender();
@@ -189,35 +182,29 @@
       <header class="topbar">
         <div class="topbar-inner">
           <div class="brand">
-            <div class="brand-badge">EPx</div>
+            <div class="brand-badge brand-badge-image">
+              <img src="assets/radar-logo-sunset.png" alt="Exercise Px logo" class="brand-logo" />
+            </div>
             <div class="brand-copy">
               <h1>Exercise Px</h1>
               <p>Exercise prescription, planning, and clinical documentation toolkit.</p>
             </div>
           </div>
-          
           <div class="topbar-meta">
             <span class="meta-pill">${numberWithCommas(state.db.length)} activities</span>
             <span class="meta-pill">${datasetSummary.categories} categories</span>
-            <div class="zoom-controls">
-              <button class="zoom-btn" data-action="zoom-out">−</button>
-              <span class="zoom-readout">${round((state.uiScale || 1) * 100, 0)}%</span>
-              <button class="zoom-btn" data-action="zoom-in">+</button>
-              <button class="zoom-btn zoom-reset" data-action="zoom-reset">Reset</button>
-            </div>
+            <span class="meta-pill meta-pill-soft">Seven-specifier workflow</span>
           </div>
         </div>
 
         <div class="tabs-row">
-          <div class="page">
-            <div class="tabs">
-              ${tabs.map(([key, icon, label]) => `
-                <button class="tab-btn ${state.activeTab === key ? "active" : ""}" data-action="switch-tab" data-tab="${key}">
-                  <span>${icon}</span>
-                  <span>${label}</span>
-                </button>
-              `).join("")}
-            </div>
+          <div class="tabs tabs-inner">
+            ${tabs.map(([key, icon, label]) => `
+              <button class="tab-btn ${state.activeTab === key ? "active" : ""}" data-action="switch-tab" data-tab="${key}">
+                <span>${icon}</span>
+                <span>${label}</span>
+              </button>
+            `).join("")}
           </div>
         </div>
       </header>
@@ -235,251 +222,150 @@
     }
   }
 
-
   function renderHome() {
+    const totalActivities = Array.isArray(state.db) ? state.db.length : 0;
+    const totalBlocks = Array.isArray(state.plan) ? state.plan.length : 0;
+    const totals = totalPlanDose();
+
     return `
-      <section class="panel">
+      <section class="panel panel-home">
         <div class="home-shell">
-  
-          <section class="home-top-grid">
-            <div class="px-hero-copy home-top-intro">
-              <div class="eyebrow">Exercise planning tool</div>
+          <section class="px-hero px-hero-refined">
+            <div class="px-hero-copy">
+              <div class="hero-kicker-row">
+                <span class="eyebrow">Exercise prescription platform</span>
+                <span class="hero-inline-pill">Built around seven specifiers</span>
+              </div>
               <h2>Exercise Px</h2>
-  
-              <p class="hero-lead">
-                This website, and the eventual apps and programs in development around it, are meant as a tool for clinicians, students, and researchers to build better exercise prescriptions and document them with more accuracy.
-              </p>
-  
-              <p class="hero-sub">
-                The seven-specifier model highlights seven core aspects of exercise that can change the effects it has on clinical outcomes. The goal is not to overcomplicate exercise, but to make it easier to explain why a particular exercise was chosen and what part of it mattered most.
-              </p>
-  
+              <p class="hero-lead">A cleaner way for clinicians, students, and researchers to build, organize, and document exercise prescriptions with measurable structure.</p>
+              <p class="hero-sub">Search activity data, build dosage blocks, profile the seven specifiers, and generate clearer exercise-planning language in one place.</p>
+
               <div class="hero-actions">
                 <button class="btn btn-dose" data-action="switch-tab" data-tab="dose">Open Dose + Plan</button>
                 <button class="btn btn-primary" data-action="switch-tab" data-tab="library">Browse Activity Library</button>
                 <button class="btn btn-soft" data-action="switch-tab" data-tab="calc">Open Calculations</button>
               </div>
-            </div>
-  
-            <div class="home-top-radar">
-              <div class="hero-side-panel">
-                <div class="mini-label">Why this is different</div>
-                <h3>The seven specifiers are the point</h3>
-  
-                <p class="subtle">
-                  This tool is meant to make the important parts of exercise easier to see, explain, and document when they matter for clinical outcomes.
-                </p>
-  
-                <div class="specifier-image-wrap">
-                  <img
-                    class="specifier-figure"
-                    src="assets/specifier-radar-example.png"
-                    alt="Example radar chart showing seven exercise specifiers"
-                  />
-                  <a
-                    class="specifier-expand-btn"
-                    href="assets/specifier-radar-example.png"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Open radar image full size"
-                    title="Open full size"
-                  >
-                    ⤢
-                  </a>
-                </div>
-  
-                <p class="subtle">
-                  Not every exercise plan needs every specifier to matter equally. The point is to clarify which parts of exercise are actually driving the clinical decision.
-                </p>
-  
-                <p class="subtle">
-                  As seen in this radar diagram example, current literature suggests that different disorders can vary in specifier priorities. As noted here the difference in ADHD and Eating Disorders is the role of clinician or specialist oversight and involvement.
-                </p>
+
+              <div class="px-stats compact">
+                <div class="px-stat-card"><span>Bundled activities</span><strong>${numberWithCommas(totalActivities)}</strong></div>
+                <div class="px-stat-card"><span>Weekly plan blocks</span><strong>${numberWithCommas(totalBlocks)}</strong></div>
+                <div class="px-stat-card"><span>Current weekly MET-min</span><strong>${round(totals.metMinWeek || 0, 1)}</strong></div>
               </div>
             </div>
-  
-            <section class="home-card-section home-top-start">
-              <div class="section-header">
-                <div>
-                  <div class="eyebrow">Start here</div>
-                  <h3>Use the app in the same order you would build a clinical plan</h3>
+
+            <div class="px-hero-side">
+              <div class="glass-card glass-card-hero">
+                <div class="hero-side-head">
+                  <div>
+                    <div class="mini-label">Live radar</div>
+                    <h3>Specifier emphasis at a glance</h3>
+                  </div>
+                  <img src="assets/radar-logo-sunset.png" alt="Exercise Px logo" class="hero-corner-logo" />
                 </div>
+                <p class="subtle">The point is not to maximize every specifier equally. The point is to show what the exercise intervention is actually trying to do.</p>
+                ${renderRadarChart()}
               </div>
-  
-              <div class="px-card-grid three">
-                <article class="feature-card feature-card-apple">
-                  <div class="feature-icon">◫</div>
-                  <h4>Activity Library</h4>
-                  <p>Search activities by term, MET range, system, category, and intensity to identify realistic movement options.</p>
-                  <button class="btn btn-primary" data-action="switch-tab" data-tab="library">Open Library</button>
-                </article>
-  
-                <article class="feature-card feature-card-apple">
-                  <div class="feature-icon">↗</div>
-                  <h4>Dose + Plan</h4>
-                  <p>Turn selected activities into weekly dosage blocks, structure them, and organize them into a usable exercise plan.</p>
-                  <button class="btn btn-dose" data-action="switch-tab" data-tab="dose">Open Planner</button>
-                </article>
-  
-                <article class="feature-card feature-card-apple">
-                  <div class="feature-icon">∑</div>
-                  <h4>Calculations</h4>
-                  <p>Use exercise-prescription calculations to support more defensible documentation and planning.</p>
-                  <button class="btn btn-calc" data-action="switch-tab" data-tab="calc">Open Calculations</button>
-                </article>
-              </div>
-            </section>
+            </div>
           </section>
-  
-  
+
           <section class="home-card-section">
             <div class="section-header">
               <div>
-                <div class="eyebrow">App development</div>
-                <h3>App version and premium tools are in development</h3>
+                <div class="eyebrow">Workflow</div>
+                <h3>Use the app in the same order you would build a clinical plan</h3>
               </div>
             </div>
-          
-            <div class="app-dev-stack">
-              <div class="app-dev-intro">
-                <h4>Built to make the current website easier to use</h4>
-                <p>
-                  The web version is the current working build. The main goal of the app is simple:
-                  to bring this same planning workflow into a cleaner, easier-to-use format for regular
-                  use on phones, tablets, and computers.
-                </p>
-                <p>
-                  Over time, the app will also make it easier to build out more polished clinical tools
-                  and premium features around the same core workflow.
-                </p>
-              </div>
-          
-              <div class="app-dev-comparison px-card-grid two">
-                <article class="glass-card comparison-card">
-                  <div class="mini-label">Free version</div>
-                  <h4>Core workflow stays open</h4>
-                  <ul class="coming-list">
-                    <li>Activity lookup and search</li>
-                    <li>Dose + Plan workflow</li>
-                    <li>Radar/specifier profiling</li>
-                    <li>Calculations and planning tools</li>
-                    <li>Basic documentation support</li>
-                  </ul>
-                </article>
-          
-                <article class="glass-card comparison-card pro-card">
-                  <div class="mini-label">Planned premium</div>
-                  <h4>Expanded clinician tools</h4>
-                  <ul class="coming-list">
-                    <li>Saved plans and reusable exercise templates</li>
-                    <li>Example prescription libraries and guided examples</li>
-                    <li>Improved export tools for cleaner documentation</li>
-                    <li>Movement examples, teaching visuals, and reference material</li>
-                    <li>Future educational content, guides, and premium clinician tools</li>
-                  </ul>
-                </article>
-              </div>
-          
-              <div class="app-dev-newsletter glass-card">
-                <h4>Get notified when premium launches</h4>
-                <p class="subtle">
-                  By signing up for the Substack newsletter below, you will be among the first to hear when the premium version goes live.
-                </p>
-          
-                <div class="newsletter-row">
-                  <a
-                    class="btn btn-primary"
-                    href="https://YOUR-SUBSTACK-NAME.substack.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Join the Substack
-                  </a>
-                </div>
-              </div>
-          
-              <div class="device-mock-wrap app-dev-mocks">
-                <div class="device-mock desktop-mock">
-                  <div class="mock-topbar"></div>
-                  <div class="mock-content">
-                    <div class="mock-pill"></div>
-                    <div class="mock-chart"></div>
-                    <div class="mock-row"></div>
-                    <div class="mock-row short"></div>
-                  </div>
-                </div>
-          
-                <div class="device-mock phone-mock">
-                  <div class="mock-topbar"></div>
-                  <div class="mock-content">
-                    <div class="mock-pill"></div>
-                    <div class="mock-chart small"></div>
-                    <div class="mock-row"></div>
-                    <div class="mock-row short"></div>
-                  </div>
-                </div>
-              </div>
+
+            <div class="px-card-grid three">
+              <article class="feature-card feature-card-apple">
+                <div class="feature-icon">◫</div>
+                <h4>Activity Library</h4>
+                <p>Search activities by term, MET range, system, category, and intensity to identify realistic movement options.</p>
+                <button class="btn btn-primary" data-action="switch-tab" data-tab="library">Open Library</button>
+              </article>
+
+              <article class="feature-card feature-card-apple">
+                <div class="feature-icon">↗</div>
+                <h4>Dose + Plan</h4>
+                <p>Turn selected activities into weekly dosage blocks, structure them, and organize them into a usable exercise plan.</p>
+                <button class="btn btn-dose" data-action="switch-tab" data-tab="dose">Open Planner</button>
+              </article>
+
+              <article class="feature-card feature-card-apple">
+                <div class="feature-icon">∑</div>
+                <h4>Calculations</h4>
+                <p>Use exercise-prescription calculations to support more defensible documentation and planning.</p>
+                <button class="btn btn-calc" data-action="switch-tab" data-tab="calc">Open Calculations</button>
+              </article>
             </div>
           </section>
 
-
-          
-              <div class="device-mock-wrap">
-                <div class="device-mock desktop-mock">
-                  <div class="mock-topbar"></div>
-                  <div class="mock-content">
-                    <div class="mock-pill"></div>
-                    <div class="mock-chart"></div>
-                    <div class="mock-row"></div>
-                    <div class="mock-row short"></div>
-                  </div>
-                </div>
-          
-                <div class="device-mock phone-mock">
-                  <div class="mock-topbar"></div>
-                  <div class="mock-content">
-                    <div class="mock-pill"></div>
-                    <div class="mock-chart small"></div>
-                    <div class="mock-row"></div>
-                    <div class="mock-row short"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-  
-              <div class="device-mock-wrap">
-                <div class="device-mock desktop-mock">
-                  <div class="mock-topbar"></div>
-                  <div class="mock-content">
-                    <div class="mock-pill"></div>
-                    <div class="mock-chart"></div>
-                    <div class="mock-row"></div>
-                    <div class="mock-row short"></div>
-                  </div>
-                </div>
-  
-                <div class="device-mock phone-mock">
-                  <div class="mock-topbar"></div>
-                  <div class="mock-content">
-                    <div class="mock-pill"></div>
-                    <div class="mock-chart small"></div>
-                    <div class="mock-row"></div>
-                    <div class="mock-row short"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-  
-          <section class="home-card-section compact-bottom">
+          <section class="home-card-section">
             <div class="section-header">
               <div>
-                <div class="eyebrow">Why it matters</div>
-                <h3>Move exercise closer to a real prescription language</h3>
+                <div class="eyebrow">Platform direction</div>
+                <h3>Keep the website clean and put the heavier app messaging lower on the page</h3>
               </div>
             </div>
-            <p class="home-bottom-copy">Exercise Px is built around the same seven-specifier framework already used throughout your planning tools. The purpose is to make exercise easier to describe, compare, teach, and document with more clarity.</p>
+
+            <div class="px-card-grid two">
+              <article class="glass-card product-card">
+                <div class="mini-label">Free build</div>
+                <h4>Core workflow stays open</h4>
+                <p>Keep lookup, dose planning, radar profiling, calculations, and text-based planning available in the free version.</p>
+                <p class="subtle">Good for students, testing, and broad access.</p>
+              </article>
+
+              <article class="glass-card product-card pro-card">
+                <div class="mini-label">Planned Pro</div>
+                <h4>Advanced clinician workflow</h4>
+                <p>Expand into reusable templates, example prescription libraries, richer exports, and more structured clinical documentation tools.</p>
+                <p class="subtle">Built for repeat clinical use and cleaner delivery.</p>
+              </article>
+            </div>
+          </section>
+
+          <section class="home-card-section home-card-section-app">
+            <div class="section-header">
+              <div>
+                <div class="eyebrow">App build</div>
+                <h3>Mac and iPhone build in progress</h3>
+              </div>
+            </div>
+
+            <div class="coming-soon-panel">
+              <div class="coming-soon-left">
+                <h4>Exercise Px for Apple platforms</h4>
+                <p>The goal is to bring the core planning workflow into a cleaner, app-centered Mac and iPhone experience while keeping the web tool useful and accessible.</p>
+                <ul class="coming-list">
+                  <li>Native wrapper for the current web build</li>
+                  <li>Cleaner app-first onboarding</li>
+                  <li>Future export and saved-plan improvements</li>
+                </ul>
+              </div>
+
+              <div class="device-mock-wrap">
+                <div class="device-mock desktop-mock">
+                  <div class="mock-topbar"></div>
+                  <div class="mock-content">
+                    <div class="mock-pill"></div>
+                    <div class="mock-chart"></div>
+                    <div class="mock-row"></div>
+                    <div class="mock-row short"></div>
+                  </div>
+                </div>
+
+                <div class="device-mock phone-mock">
+                  <div class="mock-topbar"></div>
+                  <div class="mock-content">
+                    <div class="mock-pill"></div>
+                    <div class="mock-chart small"></div>
+                    <div class="mock-row"></div>
+                    <div class="mock-row short"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </section>
         </div>
       </section>
@@ -779,7 +665,7 @@
               <details class="help-box" style="margin-top:12px;">
                 <summary>What makes a strong plan note?</summary>
                 <div class="helper-copy">
-                  <p>A strong note explains why exercise is being used, which specifiers matter most, and how the block is expected to influence the health goal.</p>
+                  <p>A strong note explains why exercise is being used, which specifiers matter most, and how the block is expected to influence the behavioral health goal.</p>
                 </div>
               </details>
   
@@ -1103,14 +989,14 @@
       if (label === "Time and Frequency") {
         xShift += 22;   // moves it inward from the left edge
       }
-      if (label === "Clinician Integration Specifier") {
+      if (label === "Behavioral Health Integration") {
         xShift += 12;   // optional, if this one also feels tight
       }
 
       const lines = wrapRadarLabel(label, 20);
 
       return `
-        <text x="${x + xShift}" y="${y + yShift}" text-anchor="${anchor}" font-size="20" font-weight="700" fill="#475569">
+        <text x="${x + xShift}" y="${y + yShift}" text-anchor="${anchor}" font-size="15" font-weight="700" fill="#475569">
         ${lines.map((line, i) => `<tspan x="${x + xShift}" dy="${i === 0 ? 0 : 17}">${escapeHtml(line)}</tspan>`).join("")}
         </text>
       `;
@@ -1942,7 +1828,7 @@ function filterActivities(filters) {
     const primary = entries.slice(0, 4).map(([name]) => name).join(", ");
     const secondary = entries.slice(4).map(([name]) => name).join(", ");
     const totals = totalPlanDose();
-    return `Client has a diagnosis of ADHD (F90.9) and is assigned exercise as a behavioral health intervention to support regulation, attention, and activities of daily living. The current plan includes ${activities}. The seven specifiers receiving the greatest emphasis in this plan are ${primary}, while ${secondary} remain visible but are treated as lower priority or more flexible based on current tolerance, adherence, and the resources available to monitor them. The planned weekly workload across selected exercise blocks is ${round(totals.metMinWeek, 1)} MET-minutes with an estimated ${round(totals.kcalWeek, 1)} kcal per week. METs are used to quantify external load, while the exercise-details field is used to document the exact modality, structure, load marker, rest intervals, breathing strategy, and intended neurological or physiological target when those details meaningfully affect the intervention. Clinician Integration should state the therapeutic intent of the exercise block, such as improving self-efficacy, supporting social activation, providing interoceptive exposure, downregulating post-session arousal, or reducing symptom burden. When heart-rate monitoring, laboratory metrics, or formal breathing coaching are unavailable, feasible proxies and omitted specifiers should be reported transparently rather than leaving the exercise description vague. Continue to monitor symptom response, recovery, functional carryover, and treatment timing, then adjust the plan by revisiting the prioritized specifiers instead of changing every variable at once.`;
+    return `Client has a diagnosis of ADHD (F90.9) and is assigned exercise as a behavioral health intervention to support regulation, attention, and activities of daily living. The current plan includes ${activities}. The seven specifiers receiving the greatest emphasis in this plan are ${primary}, while ${secondary} remain visible but are treated as lower priority or more flexible based on current tolerance, adherence, and the resources available to monitor them. The planned weekly workload across selected exercise blocks is ${round(totals.metMinWeek, 1)} MET-minutes with an estimated ${round(totals.kcalWeek, 1)} kcal per week. METs are used to quantify external load, while the exercise-details field is used to document the exact modality, structure, load marker, rest intervals, breathing strategy, and intended neurological or physiological target when those details meaningfully affect the intervention. Behavioral Health Integration should state the therapeutic intent of the exercise block, such as improving self-efficacy, supporting social activation, providing interoceptive exposure, downregulating post-session arousal, or reducing symptom burden. When heart-rate monitoring, laboratory metrics, or formal breathing coaching are unavailable, feasible proxies and omitted specifiers should be reported transparently rather than leaving the exercise description vague. Continue to monitor symptom response, recovery, functional carryover, and treatment timing, then adjust the plan by revisiting the prioritized specifiers instead of changing every variable at once.`;
   }
 
   function buildPlanText() {
@@ -2502,6 +2388,8 @@ function filterActivities(filters) {
   renderApp();
     
 })();
+
+
 
 
 
