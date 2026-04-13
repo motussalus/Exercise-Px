@@ -300,13 +300,46 @@
             </div>
           </section>
 
-          <section class="home-card-section">
+
+
+          <section class="home-card-section home-card-section-app">
             <div class="section-header">
               <div>
-                <div class="eyebrow">Platform direction</div>
-                <h3>Keep the website clean and put the heavier app messaging lower on the page</h3>
+                <div class="eyebrow">Future Development</div>
+                <h3>App</h3>
               </div>
             </div>
+          
+            <div class="future-dev-panel">
+              <div class="future-dev-intro">
+                <p>The app is meant to make Exercise Px easier to use in real settings, with a cleaner interface, smoother navigation, and a more convenient experience for repeat clinical or educational use.</p>
+              </div>
+          
+              <div class="future-dev-compare">
+                <article class="glass-card dev-tier-card">
+                  <div class="mini-label">Free Version</div>
+                  <h4>Core access</h4>
+                  <ul class="coming-list">
+                    <li>Activity lookup and MET browsing</li>
+                    <li>Dose building and weekly plan blocks</li>
+                    <li>Seven-specifier radar profile</li>
+                    <li>Core calculations and basic planning text</li>
+                  </ul>
+                </article>
+          
+                <article class="glass-card dev-tier-card pro-card">
+                  <div class="mini-label">Premium Version</div>
+                  <h4>Expanded workflow</h4>
+                  <ul class="coming-list">
+                    <li>Saved client templates and reusable prescriptions</li>
+                    <li>Cleaner documentation exports and print-ready outputs</li>
+                    <li>More structured clinician workflow tools</li>
+                    <li>Future app-first features for regular professional use</li>
+                  </ul>
+                </article>
+              </div>
+            </div>
+          </section>
 
             <div class="px-card-grid two">
               <article class="glass-card product-card">
@@ -324,14 +357,6 @@
               </article>
             </div>
           </section>
-
-          <section class="home-card-section home-card-section-app">
-            <div class="section-header">
-              <div>
-                <div class="eyebrow">App build</div>
-                <h3>Mac and iPhone build in progress</h3>
-              </div>
-            </div>
 
             <div class="coming-soon-panel">
               <div class="coming-soon-left">
