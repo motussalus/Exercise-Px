@@ -273,6 +273,34 @@ button { cursor: pointer; }
   border-radius: var(--radius);
   padding: 18px;
 }
+
+.specifier-image-wrap {
+  position: relative;
+}
+
+.specifier-expand-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+
+.specifier-expand-btn:hover {
+  background: var(--surface-soft);
+  transform: translateY(-1px);
+}
+
 .specifier-figure {
   width: 100%;
   display: block;
