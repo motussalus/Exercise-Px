@@ -292,7 +292,7 @@
                 </p>
   
                 <p class="subtle">
-                  As seen in this radar diagram, current literature suggests that different conditions can depend on very different specifier priorities, including the role of clinician interpretation, oversight, or specialist involvement.
+                  As seen in this radar diagram example, current literature suggests that different disorders can vary in specifier priorities. As noted here, one of the differences in exercise prescription between ADHD and Eating Disorders is the role of clinician or specialist oversight and involvement.
                 </p>
               </div>
             </div>
@@ -705,7 +705,7 @@
               <details class="help-box" style="margin-top:12px;">
                 <summary>What makes a strong plan note?</summary>
                 <div class="helper-copy">
-                  <p>A strong note explains why exercise is being used, which specifiers matter most, and how the block is expected to influence the behavioral health goal.</p>
+                  <p>A strong note explains why exercise is being used, which specifiers matter most, and how the block is expected to influence the health goal.</p>
                 </div>
               </details>
   
