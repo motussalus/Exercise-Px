@@ -236,7 +236,7 @@
   }
 
 
-  function function renderHome() {
+  function renderHome() {
     return `
       <section class="panel">
         <div class="home-shell">
