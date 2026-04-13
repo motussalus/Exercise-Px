@@ -235,48 +235,40 @@
     }
   }
 
-  function renderHome() {
-    const totalActivities = Array.isArray(state.db) ? state.db.length : 0;
-    const totalBlocks = Array.isArray(state.plan) ? state.plan.length : 0;
-    const totals = totalPlanDose();
 
+  function renderHome() {
     return `
       <section class="panel">
         <div class="home-shell">
           <section class="px-hero">
             <div class="px-hero-copy">
-              <div class="eyebrow">Exercise Prescription Tool</div>
+              <div class="eyebrow">Exercise planning tool</div>
               <h2>Exercise Px</h2>
+  
               <p class="hero-lead">
                 This website, and the eventual apps and programs in development around it, are meant as a tool for clinicians, students, and researchers to build better exercise prescriptions and document them with more accuracy.
               </p>
+  
               <p class="hero-sub">
                 The seven-specifier model highlights seven core aspects of exercise that can change the effects it has on clinical outcomes. The goal is not to overcomplicate exercise, but to make it easier to explain why a particular exercise was chosen and what part of it mattered most.
               </p>
-
-              
+  
               <div class="hero-actions">
                 <button class="btn btn-dose" data-action="switch-tab" data-tab="dose">Open Dose + Plan</button>
                 <button class="btn btn-primary" data-action="switch-tab" data-tab="library">Browse Activity Library</button>
                 <button class="btn btn-soft" data-action="switch-tab" data-tab="calc">Open Calculations</button>
               </div>
-
-              <div class="px-stats">
-                <div class="px-stat-card"><span>Bundled activities</span><strong>${numberWithCommas(totalActivities)}</strong></div>
-                <div class="px-stat-card"><span>Weekly plan blocks</span><strong>${numberWithCommas(totalBlocks)}</strong></div>
-                <div class="px-stat-card"><span>Current weekly MET-min</span><strong>${round(totals.metMinWeek || 0, 1)}</strong></div>
-              </div>
             </div>
-
+  
             <div class="px-hero-side">
               <div class="hero-side-panel">
                 <div class="mini-label">Why this is different</div>
                 <h3>The seven specifiers are the point</h3>
-            
+  
                 <p class="subtle">
                   This tool is meant to make the important parts of exercise easier to see, explain, and document when they matter for clinical outcomes.
                 </p>
-            
+  
                 <div class="specifier-image-wrap">
                   <img
                     class="specifier-figure"
@@ -294,17 +286,18 @@
                     ⤢
                   </a>
                 </div>
-            
+  
                 <p class="subtle">
                   Not every exercise plan needs every specifier to matter equally. The point is to clarify which parts of exercise are actually driving the clinical decision.
                 </p>
-            
+  
                 <p class="subtle">
-                  As seen in this radar diagram, current literature suggests that a general medical practitioner or therapist (as noted by the behavioral health specifier) may not reduce symtpoms of ADHD, whereas with eating disorders a medical practitioner, therapist, or specialist can affect outcomes, as noted in the SEES guidelines.
+                  As seen in this radar diagram, current literature suggests that different conditions can depend on very different specifier priorities, including the role of clinician interpretation, oversight, or specialist involvement.
                 </p>
               </div>
             </div>
-
+          </section>
+  
           <section class="home-card-section">
             <div class="section-header">
               <div>
@@ -312,7 +305,7 @@
                 <h3>Use the app in the same order you would build a clinical plan</h3>
               </div>
             </div>
-
+  
             <div class="px-card-grid three">
               <article class="feature-card feature-card-apple">
                 <div class="feature-icon">◫</div>
@@ -320,14 +313,14 @@
                 <p>Search activities by term, MET range, system, category, and intensity to identify realistic movement options.</p>
                 <button class="btn btn-primary" data-action="switch-tab" data-tab="library">Open Library</button>
               </article>
-
+  
               <article class="feature-card feature-card-apple">
                 <div class="feature-icon">↗</div>
                 <h4>Dose + Plan</h4>
                 <p>Turn selected activities into weekly dosage blocks, structure them, and organize them into a usable exercise plan.</p>
                 <button class="btn btn-dose" data-action="switch-tab" data-tab="dose">Open Planner</button>
               </article>
-
+  
               <article class="feature-card feature-card-apple">
                 <div class="feature-icon">∑</div>
                 <h4>Calculations</h4>
@@ -336,7 +329,7 @@
               </article>
             </div>
           </section>
-          
+  
           <section class="home-card-section">
             <div class="section-header">
               <div>
@@ -344,7 +337,7 @@
                 <h3>Clean core now, deeper clinical tools later</h3>
               </div>
             </div>
-
+  
             <div class="px-card-grid two">
               <article class="glass-card product-card">
                 <div class="mini-label">Free build</div>
@@ -352,7 +345,7 @@
                 <p>Keep lookup, dose planning, radar profiling, calculations, and text-based planning available in the free version.</p>
                 <p class="subtle">Good for students, early testing, and broad access.</p>
               </article>
-
+  
               <article class="glass-card product-card pro-card">
                 <div class="mini-label">Planned Pro</div>
                 <h4>Advanced clinician workflow</h4>
@@ -361,7 +354,7 @@
               </article>
             </div>
           </section>
-
+  
           <section class="home-card-section">
             <div class="section-header">
               <div>
@@ -369,7 +362,7 @@
                 <h3>Mac and iPhone build in progress</h3>
               </div>
             </div>
-
+  
             <div class="coming-soon-panel">
               <div class="coming-soon-left">
                 <h4>Exercise Px for Apple platforms</h4>
@@ -380,7 +373,7 @@
                   <li>Future export and saved-plan improvements</li>
                 </ul>
               </div>
-
+  
               <div class="device-mock-wrap">
                 <div class="device-mock desktop-mock">
                   <div class="mock-topbar"></div>
@@ -391,7 +384,7 @@
                     <div class="mock-row short"></div>
                   </div>
                 </div>
-
+  
                 <div class="device-mock phone-mock">
                   <div class="mock-topbar"></div>
                   <div class="mock-content">
@@ -404,7 +397,7 @@
               </div>
             </div>
           </section>
-
+  
           <section class="home-card-section compact-bottom">
             <div class="section-header">
               <div>
