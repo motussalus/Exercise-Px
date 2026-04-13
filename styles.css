@@ -223,8 +223,9 @@ button { cursor: pointer; }
   padding: clamp(24px, 3vw, 38px);
   display: grid;
   gap: 24px;
-  grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.9fr);
+  grid-template-columns: minmax(0, 1.45fr) minmax(260px, 0.75fr)
 }
+
 .eyebrow {
   display: none !important;
 }
