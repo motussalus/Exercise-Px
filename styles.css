@@ -223,61 +223,8 @@ button { cursor: pointer; }
   padding: clamp(24px, 3vw, 38px);
   display: grid;
   gap: 24px;
-  grid-template-columns: minmax(0, 1.45fr) minmax(260px, 0.75fr)
+  grid-template-columns: minmax(0, 1.45fr) minmax(260px, 0.75fr);
 }
-/* homepage radar card tuning */
-
-.hero {
-  grid-template-columns: minmax(0, 1.4fr) minmax(300px, 0.78fr);
-  align-items: start;
-}
-
-.px-hero-side,
-.hero-side {
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-start;
-}
-
-.px-hero-side .glass-card,
-.hero-side .glass-card {
-  width: min(100%, 420px);
-  margin-top: 8px;
-}
-
-.specifier-image-wrap {
-  position: relative;
-  margin: 14px 0 12px;
-  display: flex;
-  justify-content: center;
-}
-
-.specifier-figure {
-  width: 100%;
-  max-width: 320px;
-  height: auto;
-  display: block;
-}
-
-.specifier-expand-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 34px;
-  height: 34px;
-  border-radius: 999px;
-  display: grid;
-  place-items: center;
-  text-decoration: none;
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--text);
-  background: rgba(255,255,255,0.92);
-  border: 1px solid var(--line);
-  box-shadow: var(--shadow);
-  z-index: 2;
-}
-
 
 .eyebrow {
   display: none !important;
@@ -328,53 +275,6 @@ button { cursor: pointer; }
   padding: 18px;
 }
 
-.specifier-image-wrap {
-  position: relative;
-  margin: 16px 0;
-  display: flex;
-  justify-content: center;
-}
-
-.specifier-figure {
-  width: 100%;
-  max-width: 420px;
-  height: auto;
-  display: block;
-  border-radius: 16px;
-  border: 1px solid var(--line);
-  background: #f7f7f7;
-}
-
-.specifier-expand-btn {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 38px;
-  height: 38px;
-  border-radius: 999px;
-  display: grid;
-  place-items: center;
-  text-decoration: none;
-  font-size: 1.1rem;
-  font-weight: 800;
-  color: var(--text);
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid var(--line);
-  box-shadow: var(--shadow);
-}
-
-.specifier-expand-btn:hover {
-  background: var(--surface-soft);
-  transform: translateY(-1px);
-}
-
-.specifier-figure {
-  width: 100%;
-  display: block;
-  border-radius: 16px;
-  border: 1px solid var(--line);
-  background: #f7f7f7;
-}
 .specifier-copy {
   display: grid;
   gap: 14px;
@@ -1565,6 +1465,179 @@ input[type="range"] {
   border-bottom: 1px solid #e2e8f0;
   padding-bottom: 6px;
 }
+
+/* =========================================
+   CLEANER UI PASS — paste at very bottom
+   ========================================= */
+
+/* 1) tighten the global page width */
+.topbar-inner,
+.page,
+.tabs-row .tabs {
+  width: min(1200px, calc(100% - 40px));
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 2) make the top row feel cleaner */
+.topbar {
+  background: rgba(249, 251, 255, 0.92);
+  border-bottom: 1px solid rgba(219, 229, 241, 0.75);
+}
+
+.topbar-inner {
+  padding: 14px 0;
+  gap: 14px;
+}
+
+.topbar-meta {
+  gap: 8px;
+}
+
+.meta-pill {
+  padding: 8px 12px;
+  font-size: 0.86rem;
+  background: rgba(255,255,255,0.72);
+}
+
+/* 3) make the tabs look less chunky */
+.tabs-row {
+  border-top: 1px solid rgba(219, 229, 241, 0.72);
+}
+
+.tabs {
+  gap: 8px;
+  padding: 10px 0 14px;
+}
+
+.tab-btn {
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  border-radius: 999px;
+  box-shadow: none;
+}
+
+.tab-btn:hover {
+  transform: translateY(0);
+  box-shadow: none;
+  background: rgba(255,255,255,0.96);
+}
+
+/* 4) tighten the home page hero */
+.hero {
+  grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.72fr);
+  gap: 20px;
+  padding: clamp(22px, 2.5vw, 30px);
+  border-radius: 24px;
+  box-shadow: 0 10px 24px rgba(13, 32, 66, 0.06);
+}
+
+.hero h2 {
+  font-size: clamp(1.9rem, 1.8vw + 1rem, 2.5rem);
+  margin: 8px 0 12px;
+}
+
+.hero p {
+  max-width: 68ch;
+  line-height: 1.7;
+}
+
+/* 5) make the right radar panel feel like a companion,
+      not a second giant slab */
+.px-hero-side,
+.hero-side {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.px-hero-side .glass-card,
+.hero-side .glass-card,
+.hero .glass-card {
+  width: min(100%, 420px);
+}
+
+/* 6) soften the card system overall */
+.glass-card,
+.section-card,
+.calc-card,
+.activity-card,
+.plan-card,
+.feature-card,
+.step-card,
+.info-card,
+.home-card-section {
+  border-radius: 20px;
+  border: 1px solid rgba(219, 229, 241, 0.82);
+  box-shadow: 0 8px 22px rgba(13, 32, 66, 0.05);
+}
+
+/* 7) reduce the "boxy" feeling on cards */
+.glass-card,
+.home-card-section {
+  padding: 20px;
+}
+
+/* 8) make the radar image section cleaner */
+.specifier-image-wrap {
+  position: relative;
+  margin: 14px 0 12px;
+  display: flex;
+  justify-content: center;
+}
+
+.specifier-figure {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  display: block;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: #f7f7f7;
+}
+
+.specifier-expand-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid var(--line);
+  box-shadow: 0 8px 18px rgba(13, 32, 66, 0.08);
+}
+
+/* 9) make buttons cleaner */
+.btn,
+button.btn {
+  border-radius: 12px;
+}
+
+.hero-actions .btn,
+.button-row .btn,
+.inline-actions .btn,
+.action-row .btn {
+  padding: 10px 14px;
+}
+
+/* 10) keep the hero 2-column layout a little longer */
+@media (max-width: 980px) {
+  .hero,
+  .px-hero,
+  .plan-grid,
+  .specifier-layout,
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 
 @page {
   size: auto;
