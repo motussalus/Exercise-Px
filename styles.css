@@ -848,7 +848,33 @@ input[type="range"] {
   gap: 18px;
   align-items: start;
 }
+.newsletter-form {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+}
 
+.newsletter-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.newsletter-row input[type="email"] {
+  flex: 1 1 220px;
+  min-width: 220px;
+}
+
+@media (max-width: 640px) {
+  .newsletter-row {
+    flex-direction: column;
+  }
+
+  .newsletter-row input[type="email"],
+  .newsletter-row button {
+    width: 100%;
+  }
+}
 /* =========================================================
    MOBILE / TABLET RESPONSIVE LAYOUT
    These rules change the desktop layout for smaller screens.
