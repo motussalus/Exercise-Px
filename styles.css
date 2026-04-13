@@ -629,7 +629,7 @@ textarea {
 .summary-grid {
   display: grid;
   gap: 20px;
-  grid-template-columns: minmax(250px, 0.78fr) minmax(520px, 1.22fr);
+  grid-template-columns: minmax(320px, 0.95fr) minmax(520px, 1.05fr);
   align-items: start;
 }
 
@@ -705,11 +705,12 @@ input[type="range"] {
   padding: 20px;
 }
 .radar-shell svg {
-  width: min(100%, 900px);
+  width: min(100%, 980px);
   height: auto;
   display: block;
   overflow: visible;
 }
+
 .specifier-summary-scale {
   display: grid;
   gap: 12px;
