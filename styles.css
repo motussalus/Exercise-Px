@@ -221,9 +221,7 @@ button { cursor: pointer; }
   gap: 24px;
   grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.9fr);
 }
-.eyebrow {
-  display: none !important;
-}
+
 
 .hero h2 {
   font-size: clamp(1.7rem, 2vw + 1rem, 2.7rem);
@@ -1670,10 +1668,14 @@ input[type="range"] {
   --soft-border: rgba(148, 163, 184, 0.16);
 }
 
+
 .zoom-outer,
-.zoom-shell,
-.zoom-controls {
+.zoom-shell {
   all: unset;
+}
+
+.zoom-controls {
+  display: none;
 }
 
 .app-shell {
