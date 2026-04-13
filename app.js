@@ -254,19 +254,19 @@
             </div>
 
             <div class="px-hero-side">
-              <div class="glass-card glass-card-hero">
-                <div class="hero-side-head">
+              <div class="glass-card glass-card-hero radar-example-card">
+                <div class="hero-side-head hero-side-head-stack">
                   <div>
-                    <div class="mini-label">Live radar</div>
-                    <h3>Specifier emphasis at a glance</h3>
+                    <div class="mini-label">Radar example</div>
+                    <h3>ADHD vs. Eating Disorders</h3>
                   </div>
-                  <img src="assets/radar-logo-sunset.png" alt="Exercise Px logo" class="hero-corner-logo" />
                 </div>
-                <p class="subtle">The point is not to maximize every specifier equally. The point is to show what the exercise intervention is actually trying to do.</p>
-                ${renderRadarChart()}
+                <div class="radar-image-wrap">
+                  <img src="assets/specifier-radar-example.png" alt="Example radar comparing ADHD and eating disorders across the seven exercise specifiers" class="radar-example-image" />
+                </div>
+                <p class="radar-caption">The goal is not to maximize every specifier equally. The goal is to show, transparently, what the exercise intervention is trying to accomplish and which variables matter most for that case. As seen in this radar diagram example, current literature suggests that different disorders can vary in specifier priorities. As noted here the difference in ADHD and Eating Disorders is the role of clinician or specialist oversight and involvement.</p>
               </div>
             </div>
-          </section>
 
           <section class="home-card-section">
             <div class="section-header">
