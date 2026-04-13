@@ -1646,13 +1646,79 @@ input[type="range"] {
   border: 1px solid rgba(219, 229, 241, 0.9);
   box-shadow: 0 6px 16px rgba(13, 32, 66, 0.04);
 }
+/* ===== tie intro + radar + start-here together ===== */
 
+.home-top-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.42fr) minmax(300px, 0.82fr);
+  grid-template-areas:
+    "intro radar"
+    "start radar";
+  gap: 14px;
+  align-items: start;
+}
+
+.home-top-intro {
+  grid-area: intro;
+  padding: 24px 26px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.96), rgba(245,249,255,0.96));
+  border: 1px solid rgba(219, 229, 241, 0.92);
+  box-shadow: 0 10px 24px rgba(13, 32, 66, 0.05);
+}
+
+.home-top-radar {
+  grid-area: radar;
+  display: flex;
+  justify-content: flex-end;
+  align-items: start;
+}
+
+.home-top-start {
+  grid-area: start;
+  margin-top: 0;
+}
+
+.hero-side-panel {
+  width: min(100%, 400px);
+  padding: 18px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.9);
+  border: 1px solid rgba(219, 229, 241, 0.9);
+  box-shadow: 0 6px 16px rgba(13, 32, 66, 0.04);
+}
+
+.home-top-start.home-card-section {
+  padding: 20px;
+  border-radius: 20px;
+}
+
+@media (max-width: 980px) {
+  .home-top-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "intro"
+      "radar"
+      "start";
+    gap: 16px;
+  }
+
+  .home-top-radar {
+    justify-content: flex-start;
+  }
+
+  .hero-side-panel {
+    width: 100%;
+    max-width: 520px;
+  }
+}
 .px-hero-side,
 .hero-side {
   display: flex;
   align-items: flex-start;
   justify-content: flex-end;
 }
+
 
 /* 6) soften the card system overall */
 .glass-card,
