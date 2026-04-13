@@ -245,11 +245,19 @@
         <div class="home-shell">
           <section class="px-hero">
             <div class="px-hero-copy">
-              <div class="eyebrow">Exercise prescription platform</div>
+              <div class="eyebrow">Exercise Prescription Tool</div>
               <h2>Exercise Px</h2>
-              <p class="hero-lead">A cleaner way for clinicians, students, and researchers to build, organize, and document exercise prescriptions with measurable structure.</p>
-              <p class="hero-sub">Search activity data, build dosage blocks, profile the seven specifiers, and generate clearer exercise-planning language in one place.</p>
+              <p class="hero-lead">
+                This website, and the eventual apps and programs in development around it, are meant as a tool for clinicians, students, and researchers to build better exercise prescriptions and document them with more accuracy.
+              </p>
+              <p class="hero-sub">
+                The seven-specifier model highlights seven core aspects of exercise that can change the effects it has on clinical outcomes. The goal is not to overcomplicate exercise, but to make it easier to explain why a particular exercise was chosen and what part of it mattered most.
+              </p>
+              <p class="hero-sub">
+                For example, in John Ratey’s lectures on ADHD, he discussed how constant stimulation of the motor cortex may help explain why forms of exercise like running can work differently than others such as weightlifting. In a case like that, the neurological and physiological target may deserve a very high priority because it governs the exercise choice so strongly.
+              </p>
 
+              
               <div class="hero-actions">
                 <button class="btn btn-dose" data-action="switch-tab" data-tab="dose">Open Dose + Plan</button>
                 <button class="btn btn-primary" data-action="switch-tab" data-tab="library">Browse Activity Library</button>
@@ -265,14 +273,21 @@
 
             <div class="px-hero-side">
               <div class="glass-card">
-                <div class="mini-label">Specifier profile</div>
-                <h3>Visual planning at a glance</h3>
-                <p class="subtle">Exercise Px helps make prescription choices more visible by showing how emphasis can vary across the seven exercise specifiers.</p>
-                ${renderRadarChart()}
-                <p class="subtle">The goal is not to maximize every specifier equally. The goal is to clarify what the intervention is actually trying to do.</p>
+                <div class="mini-label">Why this is different</div>
+                <h3>The seven specifiers are the point</h3>
+                <p class="subtle">
+                  This tool is meant to make the important parts of exercise easier to see, explain, and document when they matter for clinical outcomes.
+                </p>
+                <img
+                  class="specifier-figure"
+                  src="assets/specifier-radar-example.png"
+                  alt="Example radar chart showing seven exercise specifiers"
+                />
+                <p class="subtle">
+                  Not every exercise plan needs every specifier to matter equally. The point is to clarify which parts of exercise are actually driving the clinical decision.
+                </p>
               </div>
             </div>
-          </section>
 
           <section class="home-card-section">
             <div class="section-header">
