@@ -1946,3 +1946,59 @@ button.btn {
     color: #111827;
   }
 }
+/* ===== app development cleanup ===== */
+
+.app-dev-stack {
+  display: grid;
+  gap: 18px;
+}
+
+.app-dev-intro p {
+  line-height: 1.75;
+}
+
+.app-dev-comparison {
+  margin-top: 2px;
+}
+
+.comparison-card {
+  min-height: 100%;
+}
+
+.comparison-card h4 {
+  margin-bottom: 10px;
+}
+
+.app-dev-newsletter {
+  padding: 18px 20px;
+}
+
+.app-dev-newsletter h4 {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.app-dev-mocks {
+  gap: 14px;
+  justify-content: flex-start;
+}
+
+.app-dev-mocks .desktop-mock {
+  width: 240px;
+  height: 185px;
+}
+
+.app-dev-mocks .phone-mock {
+  width: 120px;
+  height: 205px;
+}
+
+@media (max-width: 800px) {
+  .app-dev-comparison {
+    grid-template-columns: 1fr;
+  }
+
+  .app-dev-mocks {
+    justify-content: flex-start;
+  }
+}
