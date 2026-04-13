@@ -195,6 +195,7 @@
               <p>Exercise prescription, planning, and clinical documentation toolkit.</p>
             </div>
           </div>
+          
           <div class="topbar-meta">
             <span class="meta-pill">${numberWithCommas(state.db.length)} activities</span>
             <span class="meta-pill">${datasetSummary.categories} categories</span>
@@ -208,13 +209,15 @@
         </div>
 
         <div class="tabs-row">
-          <div class="tabs">
-            ${tabs.map(([key, icon, label]) => `
-              <button class="tab-btn ${state.activeTab === key ? "active" : ""}" data-action="switch-tab" data-tab="${key}">
-                <span>${icon}</span>
-                <span>${label}</span>
-              </button>
-            `).join("")}
+          <div class="page">
+            <div class="tabs">
+              ${tabs.map(([key, icon, label]) => `
+                <button class="tab-btn ${state.activeTab === key ? "active" : ""}" data-action="switch-tab" data-tab="${key}">
+                  <span>${icon}</span>
+                  <span>${label}</span>
+                </button>
+              `).join("")}
+            </div>
           </div>
         </div>
       </header>
@@ -302,7 +305,7 @@
               </article>
             </div>
           </section>
-
+          
           <section class="home-card-section">
             <div class="section-header">
               <div>
