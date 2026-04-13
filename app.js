@@ -278,14 +278,32 @@
                 <p class="subtle">
                   This tool is meant to make the important parts of exercise easier to see, explain, and document when they matter for clinical outcomes.
                 </p>
+                <div class="specifier-image-wrap">
+                
                 <img
                   class="specifier-figure"
                   src="assets/specifier-radar-example.png"
                   alt="Example radar chart showing seven exercise specifiers"
                 />
-                <p class="subtle">
-                  Not every exercise plan needs every specifier to matter equally. The point is to clarify which parts of exercise are actually driving the clinical decision.
-                </p>
+                <a
+                  class="specifier-expand-btn"
+                  href="assets/specifier-radar-example.png"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Open radar image full size"
+                  title="Open full size"
+                >
+                  ⤢
+                </a>
+              </div>
+              
+              <p class="subtle">
+                Not every exercise plan needs every specifier to matter equally. The point is to clarify which parts of exercise are actually driving the clinical decision.
+              </p>
+              
+              <p class="subtle">
+                As seen in this radar diagram, current literature suggests that a general medical practitioner or therapist may not strongly shift outcomes in some conditions, whereas with eating disorders a medical practitioner, specialist, or therapist can affect outcomes, as noted in the SEES guidelines.
+              </p>
               </div>
             </div>
 
