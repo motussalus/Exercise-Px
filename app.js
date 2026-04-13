@@ -1043,7 +1043,7 @@
       const lines = wrapRadarLabel(label, 20);
 
       return `
-        <text x="${x + xShift}" y="${y + yShift}" text-anchor="${anchor}" font-size="15" font-weight="700" fill="#475569">
+        <text x="${x + xShift}" y="${y + yShift}" text-anchor="${anchor}" font-size="20" font-weight="700" fill="#475569">
         ${lines.map((line, i) => `<tspan x="${x + xShift}" dy="${i === 0 ? 0 : 17}">${escapeHtml(line)}</tspan>`).join("")}
         </text>
       `;
