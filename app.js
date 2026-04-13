@@ -269,7 +269,7 @@
             </div>
 
             <div class="px-hero-side">
-              <div class="glass-card">
+              <div class="hero-side-panel">
                 <div class="mini-label">Why this is different</div>
                 <h3>The seven specifiers are the point</h3>
             
