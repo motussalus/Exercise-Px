@@ -75,7 +75,7 @@ button { cursor: pointer; }
 }
 .topbar-inner,
 .page {
-  width: min(1600px, calc(100% - 32px));
+  width: min(1200px, calc(100% - 40px));
   margin: 0 auto;
 }
 .topbar-inner {
@@ -174,6 +174,10 @@ button { cursor: pointer; }
 .tabs-row {
   border-top: 1px solid rgba(219, 229, 241, 0.9);
 }
+.tabs-row .page {
+  padding: 0;
+}
+
 .tabs {
   display: flex;
   gap: 10px;
