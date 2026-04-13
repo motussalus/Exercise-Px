@@ -253,9 +253,6 @@
               <p class="hero-sub">
                 The seven-specifier model highlights seven core aspects of exercise that can change the effects it has on clinical outcomes. The goal is not to overcomplicate exercise, but to make it easier to explain why a particular exercise was chosen and what part of it mattered most.
               </p>
-              <p class="hero-sub">
-                For example, in John Ratey’s lectures on ADHD, he discussed how constant stimulation of the motor cortex may help explain why forms of exercise like running can work differently than others such as weightlifting. In a case like that, the neurological and physiological target may deserve a very high priority because it governs the exercise choice so strongly.
-              </p>
 
               
               <div class="hero-actions">
