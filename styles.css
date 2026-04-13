@@ -225,7 +225,15 @@ button { cursor: pointer; }
   gap: 24px;
   grid-template-columns: minmax(0, 1.45fr) minmax(260px, 0.75fr)
 }
+.px-hero-side {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
 
+.px-hero-side .glass-card {
+  width: min(100%, 430px);
+}
 .eyebrow {
   display: none !important;
 }
