@@ -300,7 +300,7 @@
                 </p>
             
                 <p class="subtle">
-                  As seen in this radar diagram, current literature suggests that a general medical practitioner or therapist may not strongly shift outcomes in some conditions, whereas with eating disorders a medical specialist can affect outcomes, as noted in the SEES guidelines.
+                  As seen in this radar diagram, current literature suggests that a general medical practitioner or therapist (as noted by the behavioral health specifier) may not reduce symtpoms of ADHD, whereas with eating disorders a medical practitioner, therapist, or specialist can affect outcomes, as noted in the SEES guidelines.
                 </p>
               </div>
             </div>
