@@ -331,32 +331,6 @@
             </section>
           </section>
   
-          <section class="home-card-section">
-            <div class="section-header">
-              <div>
-                <div class="eyebrow">Product direction</div>
-                <h3>Clean core now, deeper clinical tools later</h3>
-              </div>
-            </div>
-  
-            <div class="px-card-grid two">
-              <article class="glass-card product-card">
-                <div class="mini-label">Free build</div>
-                <h4>Core workflow stays open</h4>
-                <p>Keep lookup, dose planning, radar profiling, calculations, and text-based planning available in the free version.</p>
-                <p class="subtle">Good for students, early testing, and broad access.</p>
-              </article>
-  
-              <article class="glass-card product-card pro-card">
-                <div class="mini-label">Planned Pro</div>
-                <h4>Advanced clinician workflow</h4>
-                <p>Expand into reusable templates, example prescription libraries, richer exports, and more structured clinical documentation tools.</p>
-                <p class="subtle">Built for repeat clinical use and more polished delivery.</p>
-              </article>
-            </div>
-          </section>
-
-
   
           <section class="home-card-section">
             <div class="section-header">
@@ -366,47 +340,87 @@
               </div>
             </div>
           
-            <div class="coming-soon-panel">
-              <div class="coming-soon-left">
+            <div class="app-dev-stack">
+              <div class="app-dev-intro">
                 <h4>Built to make the current website easier to use</h4>
                 <p>
-                  The web version is the current working build. The goal of the app is mostly straightforward:
-                  to bring this same planning workflow into a cleaner, easier-to-use format for regular use on
-                  phones, tablets, and computers.
+                  The web version is the current working build. The main goal of the app is simple:
+                  to bring this same planning workflow into a cleaner, easier-to-use format for regular
+                  use on phones, tablets, and computers.
                 </p>
-          
                 <p>
-                  The long-term value is not just putting the site into an app shell, but gradually building out
-                  a more polished clinical workflow around it.
+                  Over time, the app will also make it easier to build out more polished clinical tools
+                  and premium features around the same core workflow.
+                </p>
+              </div>
+          
+              <div class="app-dev-comparison px-card-grid two">
+                <article class="glass-card comparison-card">
+                  <div class="mini-label">Free version</div>
+                  <h4>Core workflow stays open</h4>
+                  <ul class="coming-list">
+                    <li>Activity lookup and search</li>
+                    <li>Dose + Plan workflow</li>
+                    <li>Radar/specifier profiling</li>
+                    <li>Calculations and planning tools</li>
+                    <li>Basic documentation support</li>
+                  </ul>
+                </article>
+          
+                <article class="glass-card comparison-card pro-card">
+                  <div class="mini-label">Planned premium</div>
+                  <h4>Expanded clinician tools</h4>
+                  <ul class="coming-list">
+                    <li>Saved plans and reusable exercise templates</li>
+                    <li>Example prescription libraries and guided examples</li>
+                    <li>Improved export tools for cleaner documentation</li>
+                    <li>Movement examples, teaching visuals, and reference material</li>
+                    <li>Future educational content, guides, and premium clinician tools</li>
+                  </ul>
+                </article>
+              </div>
+          
+              <div class="app-dev-newsletter glass-card">
+                <h4>Get notified when premium launches</h4>
+                <p class="subtle">
+                  By signing up for the Substack newsletter below, you will be among the first to hear when the premium version goes live.
                 </p>
           
-                <h4 style="margin-top:18px;">Planned premium features</h4>
-                <ul class="coming-list">
-                  <li>Saved plans and reusable exercise templates</li>
-                  <li>Example prescription libraries and guided clinical examples</li>
-                  <li>Improved export tools for cleaner documentation</li>
-                  <li>Movement examples, teaching visuals, and reference material</li>
-                  <li>Future educational content, guides, and premium clinician tools</li>
-                </ul>
-          
-                <form class="newsletter-form" action="#" method="post">
-                  <label for="newsletter-email"><strong>Get updates on the app and premium tools</strong></label>
-                  <p class="subtle">
-                    Join the newsletter for release updates, feature announcements, and early access to premium tools.
-                  </p>
-          
-                  <div class="newsletter-row">
-                    <input
-                      id="newsletter-email"
-                      type="email"
-                      name="email"
-                      placeholder="you@example.com"
-                      required
-                    />
-                    <button class="btn btn-primary" type="submit">Join Newsletter</button>
-                  </div>
-                </form>
+                <div class="newsletter-row">
+                  <a
+                    class="btn btn-primary"
+                    href="https://YOUR-SUBSTACK-NAME.substack.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Join the Substack
+                  </a>
+                </div>
               </div>
+          
+              <div class="device-mock-wrap app-dev-mocks">
+                <div class="device-mock desktop-mock">
+                  <div class="mock-topbar"></div>
+                  <div class="mock-content">
+                    <div class="mock-pill"></div>
+                    <div class="mock-chart"></div>
+                    <div class="mock-row"></div>
+                    <div class="mock-row short"></div>
+                  </div>
+                </div>
+          
+                <div class="device-mock phone-mock">
+                  <div class="mock-topbar"></div>
+                  <div class="mock-content">
+                    <div class="mock-pill"></div>
+                    <div class="mock-chart small"></div>
+                    <div class="mock-row"></div>
+                    <div class="mock-row short"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
 
 
           
