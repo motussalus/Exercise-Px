@@ -355,25 +355,84 @@
               </article>
             </div>
           </section>
+
+
   
           <section class="home-card-section">
             <div class="section-header">
               <div>
-                <div class="eyebrow">Mobile app</div>
-                <h3>Mac and iPhone build in progress</h3>
+                <div class="eyebrow">App development</div>
+                <h3>App version and premium tools are in development</h3>
               </div>
             </div>
-  
+          
             <div class="coming-soon-panel">
               <div class="coming-soon-left">
-                <h4>Exercise Px for Apple platforms</h4>
-                <p>The goal is to bring the core planning workflow into a cleaner, app-centered Mac and iPhone experience while keeping the web tool useful and accessible.</p>
+                <h4>Built to make the current website easier to use</h4>
+                <p>
+                  The web version is the current working build. The goal of the app is mostly straightforward:
+                  to bring this same planning workflow into a cleaner, easier-to-use format for regular use on
+                  phones, tablets, and computers.
+                </p>
+          
+                <p>
+                  The long-term value is not just putting the site into an app shell, but gradually building out
+                  a more polished clinical workflow around it.
+                </p>
+          
+                <h4 style="margin-top:18px;">Planned premium features</h4>
                 <ul class="coming-list">
-                  <li>Native wrapper for the current web build</li>
-                  <li>Cleaner app-first onboarding</li>
-                  <li>Future export and saved-plan improvements</li>
+                  <li>Saved plans and reusable exercise templates</li>
+                  <li>Example prescription libraries and guided clinical examples</li>
+                  <li>Improved export tools for cleaner documentation</li>
+                  <li>Movement examples, teaching visuals, and reference material</li>
+                  <li>Future educational content, guides, and premium clinician tools</li>
                 </ul>
+          
+                <form class="newsletter-form" action="#" method="post">
+                  <label for="newsletter-email"><strong>Get updates on the app and premium tools</strong></label>
+                  <p class="subtle">
+                    Join the newsletter for release updates, feature announcements, and early access to premium tools.
+                  </p>
+          
+                  <div class="newsletter-row">
+                    <input
+                      id="newsletter-email"
+                      type="email"
+                      name="email"
+                      placeholder="you@example.com"
+                      required
+                    />
+                    <button class="btn btn-primary" type="submit">Join Newsletter</button>
+                  </div>
+                </form>
               </div>
+
+
+          
+              <div class="device-mock-wrap">
+                <div class="device-mock desktop-mock">
+                  <div class="mock-topbar"></div>
+                  <div class="mock-content">
+                    <div class="mock-pill"></div>
+                    <div class="mock-chart"></div>
+                    <div class="mock-row"></div>
+                    <div class="mock-row short"></div>
+                  </div>
+                </div>
+          
+                <div class="device-mock phone-mock">
+                  <div class="mock-topbar"></div>
+                  <div class="mock-content">
+                    <div class="mock-pill"></div>
+                    <div class="mock-chart small"></div>
+                    <div class="mock-row"></div>
+                    <div class="mock-row short"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
   
               <div class="device-mock-wrap">
                 <div class="device-mock desktop-mock">
