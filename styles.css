@@ -2131,6 +2131,53 @@ input[type="range"] {
   .library-kpi-band .kpi {
     padding: 9px 10px;
   }
+  /* ===== Brand textmark logo ===== */
+
+.brand-badge-textmark {
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(145deg, #4338ca, #7c3aed 58%, #a855f7);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.18);
+}
+
+.brand-badge-e,
+.brand-badge-px {
+  position: absolute;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: #ffffff;
+}
+
+.brand-badge-e {
+  font-size: 1.15rem;
+  left: 11px;
+  top: 9px;
+}
+
+.brand-badge-px {
+  font-size: 1rem;
+  right: 9px;
+  bottom: 10px;
+  transform: rotate(-18deg);
+}
+
+@media (max-width: 560px) {
+  .brand-badge-e {
+    font-size: 1rem;
+    left: 9px;
+    top: 8px;
+  }
+
+  .brand-badge-px {
+    font-size: 0.9rem;
+    right: 8px;
+    bottom: 8px;
+  }
 
 /* PASTE NEW CSS HERE, AFTER THE CLOSING BRACE */
   
