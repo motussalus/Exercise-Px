@@ -276,6 +276,19 @@ button { cursor: pointer; }
 
 .specifier-image-wrap {
   position: relative;
+  margin: 16px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.specifier-figure {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  display: block;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: #f7f7f7;
 }
 
 .specifier-expand-btn {
