@@ -182,8 +182,9 @@
       <header class="topbar">
         <div class="topbar-inner">
           <div class="brand">
-            <div class="brand-badge brand-badge-image">
-              <img src="assets/radar-logo-sunset.png" alt="Exercise Px logo" class="brand-logo" />
+            <div class="brand-badge brand-badge-textmark" aria-label="Exercise Px logo">
+              <span class="brand-badge-e">E</span>
+              <span class="brand-badge-px">Px</span>
             </div>
             <div class="brand-copy">
               <h1>Exercise Px</h1>
@@ -236,12 +237,17 @@
               <div class="hero-kicker-row">
                 <span class="eyebrow">Exercise prescription platform</span>
                 <span class="hero-inline-pill">Built around seven specifiers</span>
+              </div><div class="hero-kicker-row">
+                <span class="eyebrow">Exercise prescription platform</span>
+                <span class="hero-inline-pill">Built around seven specifiers</span>
               </div>
-  
+              
+              <p class="hero-lead">A cleaner way for clinicians, students, and researchers to build, organize, and document exercise prescriptions with measurable structure.</p>
+              
               <h2>Exercise Px</h2>
-  
-              <p class="hero-lead">
-                A cleaner way for clinicians, students, and researchers to build, organize, and document exercise prescriptions with measurable structure.
+              
+              <p class="hero-sub">
+                This program works by allowing users to look up exercises on the Activity Library page for general reference, then use the Dose + Plan page to build how exercise should be assigned for a specific disorder or intended outcome. This is generally guided by the seven-specifier framework, which gives exercise prescribers a practical layout of what variables may matter most for the intended effect.
               </p>
   
               <p class="hero-sub">
