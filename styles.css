@@ -75,7 +75,7 @@ button { cursor: pointer; }
 }
 .topbar-inner,
 .page {
-  width: min(1600px, calc(100% - 32px));
+  width: min(1200px, calc(100% - 40px));
   margin: 0 auto;
 }
 .topbar-inner {
@@ -174,6 +174,10 @@ button { cursor: pointer; }
 .tabs-row {
   border-top: 1px solid rgba(219, 229, 241, 0.9);
 }
+.tabs-row .page {
+  padding: 0;
+}
+
 .tabs {
   display: flex;
   gap: 10px;
@@ -219,8 +223,9 @@ button { cursor: pointer; }
   padding: clamp(24px, 3vw, 38px);
   display: grid;
   gap: 24px;
-  grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.9fr);
+  grid-template-columns: minmax(0, 1.45fr) minmax(260px, 0.75fr);
 }
+
 .eyebrow {
   display: none !important;
 }
@@ -269,13 +274,7 @@ button { cursor: pointer; }
   border-radius: var(--radius);
   padding: 18px;
 }
-.specifier-figure {
-  width: 100%;
-  display: block;
-  border-radius: 16px;
-  border: 1px solid var(--line);
-  background: #f7f7f7;
-}
+
 .specifier-copy {
   display: grid;
   gap: 14px;
@@ -630,7 +629,7 @@ textarea {
 .summary-grid {
   display: grid;
   gap: 20px;
-  grid-template-columns: minmax(250px, 0.78fr) minmax(520px, 1.22fr);
+  grid-template-columns: minmax(320px, 0.95fr) minmax(520px, 1.05fr);
   align-items: start;
 }
 
@@ -706,11 +705,12 @@ input[type="range"] {
   padding: 20px;
 }
 .radar-shell svg {
-  width: min(100%, 900px);
+  width: min(100%, 980px);
   height: auto;
   display: block;
   overflow: visible;
 }
+
 .specifier-summary-scale {
   display: grid;
   gap: 12px;
@@ -848,7 +848,33 @@ input[type="range"] {
   gap: 18px;
   align-items: start;
 }
+.newsletter-form {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+}
 
+.newsletter-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.newsletter-row input[type="email"] {
+  flex: 1 1 220px;
+  min-width: 220px;
+}
+
+@media (max-width: 640px) {
+  .newsletter-row {
+    flex-direction: column;
+  }
+
+  .newsletter-row input[type="email"],
+  .newsletter-row button {
+    width: 100%;
+  }
+}
 /* =========================================================
    MOBILE / TABLET RESPONSIVE LAYOUT
    These rules change the desktop layout for smaller screens.
@@ -870,7 +896,7 @@ input[type="range"] {
    If mobile looks broken later, check these three media queries first.
    ========================================================= */
 
-@media (max-width: 1100px) {
+@media (max-width: 900px) {
   .hero,
   .plan-grid,
   .specifier-layout,
@@ -1100,24 +1126,91 @@ input[type="range"] {
   gap: 24px;
 }
 
+/* ===== homepage hero cleanup ===== */
+
 .px-hero {
   display: grid;
-  grid-template-columns: 1.2fr 0.9fr;
-  gap: 24px;
-  align-items: stretch;
-  padding: 28px;
-  border-radius: 28px;
-  background:
-    radial-gradient(circle at top left, rgba(99, 102, 241, 0.14), transparent 34%),
-    linear-gradient(180deg, rgba(255,255,255,0.98), rgba(248,250,252,0.96));
-  border: 1px solid rgba(148, 163, 184, 0.18);
-  box-shadow: 0 24px 50px rgba(15, 23, 42, 0.08);
+  grid-template-columns: minmax(0, 1.42fr) minmax(300px, 0.82fr);
+  gap: 10px;
+  align-items: start;
 }
 
 .px-hero-copy {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  max-width: 700px;
+}
+
+.px-hero-side {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.hero-side-panel {
+  width: min(100%, 400px);
+  padding: 18px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.9);
+  border: 1px solid rgba(219, 229, 241, 0.9);
+  box-shadow: 0 6px 16px rgba(13, 32, 66, 0.04);
+}
+
+.hero-side-panel h3 {
+  margin-top: 6px;
+  margin-bottom: 10px;
+}
+
+.specifier-image-wrap {
+  position: relative;
+  margin: 14px 0 12px;
+  display: flex;
+  justify-content: center;
+}
+
+.specifier-figure {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  display: block;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: #f7f7f7;
+}
+
+.specifier-expand-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid var(--line);
+  box-shadow: 0 8px 18px rgba(13, 32, 66, 0.08);
+}
+
+@media (max-width: 980px) {
+  .px-hero {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .px-hero-side {
+    justify-content: flex-start;
+  }
+
+  .hero-side-panel {
+    width: 100%;
+    max-width: 520px;
+  }
 }
 
 .eyebrow {
@@ -1480,6 +1573,261 @@ input[type="range"] {
   padding-bottom: 6px;
 }
 
+/* =========================================
+   CLEANER UI PASS — paste at very bottom
+   ========================================= */
+
+/* 1) tighten the global page width */
+.topbar-inner,
+.page,
+.tabs-row .tabs {
+  width: min(1200px, calc(100% - 40px));
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 2) make the top row feel cleaner */
+.topbar {
+  background: rgba(249, 251, 255, 0.92);
+  border-bottom: 1px solid rgba(219, 229, 241, 0.75);
+}
+
+.topbar-inner {
+  padding: 14px 0;
+  gap: 14px;
+}
+
+.topbar-meta {
+  gap: 8px;
+}
+
+.meta-pill {
+  padding: 8px 12px;
+  font-size: 0.86rem;
+  background: rgba(255,255,255,0.72);
+}
+
+/* 3) make the tabs look less chunky */
+.tabs-row {
+  border-top: 1px solid rgba(219, 229, 241, 0.72);
+}
+
+.tabs {
+  gap: 8px;
+  padding: 10px 0 14px;
+}
+
+.tab-btn {
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  border-radius: 999px;
+  box-shadow: none;
+}
+
+.tab-btn:hover {
+  transform: translateY(0);
+  box-shadow: none;
+  background: rgba(255,255,255,0.96);
+}
+
+/* 4) tighten the home page hero */
+.hero {
+  grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.72fr);
+  gap: 20px;
+  padding: clamp(22px, 2.5vw, 30px);
+  border-radius: 24px;
+  box-shadow: 0 10px 24px rgba(13, 32, 66, 0.06);
+}
+
+.hero h2 {
+  font-size: clamp(1.9rem, 1.8vw + 1rem, 2.5rem);
+  margin: 8px 0 12px;
+}
+
+.hero p {
+  max-width: 68ch;
+  line-height: 1.7;
+}
+
+/* 5) make the right radar panel feel like a companion,
+      not a second giant slab */
+.px-hero-side,
+.hero-side {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.px-hero-side .glass-card,
+.hero-side .glass-card,
+.hero .glass-card {
+  width: min(100%, 420px);
+}
+
+.hero-side-panel {
+  width: min(100%, 390px);
+  padding: 18px 20px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(219, 229, 241, 0.9);
+  box-shadow: 0 6px 16px rgba(13, 32, 66, 0.04);
+}
+/* ===== tie intro + radar + start-here together ===== */
+
+.home-top-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.42fr) minmax(300px, 0.82fr);
+  grid-template-areas:
+    "intro radar"
+    "start radar";
+  gap: 14px;
+  align-items: start;
+}
+
+.home-top-intro {
+  grid-area: intro;
+  padding: 24px 26px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.96), rgba(245,249,255,0.96));
+  border: 1px solid rgba(219, 229, 241, 0.92);
+  box-shadow: 0 10px 24px rgba(13, 32, 66, 0.05);
+}
+
+.home-top-radar {
+  grid-area: radar;
+  display: flex;
+  justify-content: flex-end;
+  align-items: start;
+}
+
+.home-top-start {
+  grid-area: start;
+  margin-top: 0;
+}
+
+.hero-side-panel {
+  width: min(100%, 400px);
+  padding: 18px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.9);
+  border: 1px solid rgba(219, 229, 241, 0.9);
+  box-shadow: 0 6px 16px rgba(13, 32, 66, 0.04);
+}
+
+.home-top-start.home-card-section {
+  padding: 20px;
+  border-radius: 20px;
+}
+
+@media (max-width: 980px) {
+  .home-top-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "intro"
+      "radar"
+      "start";
+    gap: 16px;
+  }
+
+  .home-top-radar {
+    justify-content: flex-start;
+  }
+
+  .hero-side-panel {
+    width: 100%;
+    max-width: 520px;
+  }
+}
+.px-hero-side,
+.hero-side {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+
+/* 6) soften the card system overall */
+.glass-card,
+.section-card,
+.calc-card,
+.activity-card,
+.plan-card,
+.feature-card,
+.step-card,
+.info-card,
+.home-card-section {
+  border-radius: 20px;
+  border: 1px solid rgba(219, 229, 241, 0.82);
+  box-shadow: 0 8px 22px rgba(13, 32, 66, 0.05);
+}
+
+/* 7) reduce the "boxy" feeling on cards */
+.glass-card,
+.home-card-section {
+  padding: 20px;
+}
+
+/* 8) make the radar image section cleaner */
+.specifier-image-wrap {
+  position: relative;
+  margin: 14px 0 12px;
+  display: flex;
+  justify-content: center;
+}
+
+.specifier-figure {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  display: block;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: #f7f7f7;
+}
+
+.specifier-expand-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid var(--line);
+  box-shadow: 0 8px 18px rgba(13, 32, 66, 0.08);
+}
+
+/* 9) make buttons cleaner */
+.btn,
+button.btn {
+  border-radius: 12px;
+}
+
+.hero-actions .btn,
+.button-row .btn,
+.inline-actions .btn,
+.action-row .btn {
+  padding: 10px 14px;
+}
+
+/* 10) keep the hero 2-column layout a little longer */
+@media (max-width: 980px) {
+  .hero,
+  .px-hero,
+  .plan-grid,
+  .specifier-layout,
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
 @page {
   size: auto;
   margin: 0.5in;
@@ -1596,508 +1944,5 @@ input[type="range"] {
     margin: 0;
     background: #ffffff;
     color: #111827;
-  }
-}
-
-
-
-
-/* =========================================================
-   2026 HOME / APP CLEANUP
-   Added as a single coherent override block so the home page
-   matches the current app.js structure that uses:
-   - home-top-grid
-   - home-top-intro
-   - home-top-radar
-   - home-top-start
-   - app-dev-* blocks
-   ========================================================= */
-
-.topbar-inner,
-.page {
-  width: min(1200px, calc(100% - 40px));
-}
-
-.tabs-row .page {
-  padding: 0;
-}
-
-.topbar {
-  background: rgba(249, 251, 255, 0.92);
-  border-bottom: 1px solid rgba(219, 229, 241, 0.75);
-}
-
-.topbar-inner {
-  padding: 14px 0;
-  gap: 14px;
-}
-
-.topbar-meta {
-  gap: 8px;
-}
-
-.meta-pill {
-  padding: 8px 12px;
-  font-size: 0.86rem;
-  background: rgba(255,255,255,0.72);
-}
-
-.tabs-row {
-  border-top: 1px solid rgba(219, 229, 241, 0.72);
-}
-
-.tabs {
-  gap: 8px;
-  padding: 10px 0 14px;
-}
-
-.tab-btn {
-  padding: 10px 14px;
-  font-size: 0.95rem;
-  box-shadow: none;
-}
-
-.tab-btn:hover {
-  transform: translateY(0);
-  box-shadow: none;
-  background: rgba(255,255,255,0.96);
-}
-
-.summary-grid {
-  grid-template-columns: minmax(320px, 0.95fr) minmax(520px, 1.05fr);
-}
-
-.radar-shell svg {
-  width: min(100%, 980px);
-}
-
-.newsletter-form {
-  display: grid;
-  gap: 10px;
-  margin-top: 18px;
-}
-
-.newsletter-row {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.newsletter-row input[type="email"] {
-  flex: 1 1 220px;
-  min-width: 220px;
-}
-
-.home-shell {
-  display: grid;
-  gap: 18px;
-}
-
-.eyebrow {
-  display: inline-block !important;
-  margin-bottom: 8px;
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #4f46e5;
-}
-
-.hero {
-  grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.72fr);
-  gap: 20px;
-  padding: clamp(22px, 2.5vw, 30px);
-  border-radius: 24px;
-  box-shadow: 0 10px 24px rgba(13, 32, 66, 0.06);
-}
-
-.hero h2 {
-  font-size: clamp(1.9rem, 1.8vw + 1rem, 2.5rem);
-  margin: 8px 0 12px;
-}
-
-.hero p {
-  max-width: 68ch;
-  line-height: 1.7;
-}
-
-/* ----- Home page top cluster ----- */
-
-.home-top-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.28fr) minmax(320px, 410px);
-  grid-template-areas:
-    "intro radar"
-    "start radar";
-  gap: 16px;
-  align-items: start;
-}
-
-.home-top-intro {
-  grid-area: intro;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 22px 24px;
-  border-radius: 22px;
-  background: linear-gradient(135deg, rgba(255,255,255,0.97), rgba(245,249,255,0.96));
-  border: 1px solid rgba(219, 229, 241, 0.92);
-  box-shadow: 0 8px 20px rgba(13, 32, 66, 0.05);
-}
-
-.home-top-intro h2 {
-  margin: 0;
-  font-size: clamp(2.05rem, 3.8vw, 3.35rem);
-  line-height: 1.02;
-  letter-spacing: -0.04em;
-}
-
-.hero-lead {
-  font-size: 1.06rem;
-  line-height: 1.72;
-  margin: 14px 0 10px;
-  max-width: 60ch;
-}
-
-.hero-sub {
-  color: var(--muted);
-  line-height: 1.72;
-  max-width: 62ch;
-  margin-bottom: 18px;
-}
-
-.home-top-radar {
-  grid-area: radar;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-start;
-}
-
-.hero-side-panel {
-  width: 100%;
-  max-width: 410px;
-  padding: 18px;
-  border-radius: 18px;
-  background: rgba(255,255,255,0.92);
-  border: 1px solid rgba(219, 229, 241, 0.9);
-  box-shadow: 0 6px 16px rgba(13, 32, 66, 0.04);
-}
-
-.hero-side-panel h3 {
-  margin-top: 6px;
-  margin-bottom: 10px;
-}
-
-.home-top-start {
-  grid-area: start;
-  margin-top: 0;
-}
-
-.home-top-start.home-card-section {
-  padding: 20px;
-  border-radius: 20px;
-}
-
-.home-top-start .px-card-grid.three {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-}
-
-.home-top-start .feature-card {
-  padding: 18px;
-}
-
-.specifier-image-wrap {
-  position: relative;
-  margin: 12px 0 10px;
-  display: flex;
-  justify-content: center;
-}
-
-.specifier-figure {
-  width: 100%;
-  max-width: 300px;
-  height: auto;
-  display: block;
-  border-radius: 14px;
-  border: 1px solid var(--line);
-  background: #f7f7f7;
-}
-
-.specifier-expand-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 34px;
-  height: 34px;
-  border-radius: 999px;
-  display: grid;
-  place-items: center;
-  text-decoration: none;
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--text);
-  background: rgba(255, 255, 255, 0.94);
-  border: 1px solid var(--line);
-  box-shadow: 0 8px 18px rgba(13, 32, 66, 0.08);
-}
-
-/* ----- Refreshed section cards used by home page ----- */
-
-.home-card-section {
-  padding: 24px;
-  border-radius: 24px;
-  background: rgba(255,255,255,0.92);
-  border: 1px solid rgba(219, 229, 241, 0.82);
-  box-shadow: 0 8px 22px rgba(13, 32, 66, 0.05);
-}
-
-.section-header h3 {
-  margin: 6px 0 0;
-  font-size: 1.5rem;
-  letter-spacing: -0.03em;
-}
-
-.mini-label {
-  display: inline-block;
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #64748b;
-}
-
-.px-card-grid {
-  display: grid;
-  gap: 16px;
-  margin-top: 18px;
-}
-
-.px-card-grid.two {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.px-card-grid.three {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.feature-card-apple {
-  border-radius: 24px;
-  padding: 22px;
-  background: linear-gradient(180deg, rgba(248,250,252,1), rgba(255,255,255,1));
-  border: 1px solid rgba(148, 163, 184, 0.14);
-  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.05);
-}
-
-.feature-icon {
-  width: 42px;
-  height: 42px;
-  border-radius: 14px;
-  display: grid;
-  place-items: center;
-  margin-bottom: 14px;
-  font-size: 1.05rem;
-  font-weight: 700;
-  background: rgba(99, 102, 241, 0.1);
-  color: #4338ca;
-}
-
-/* ----- App development / comparison area ----- */
-
-.app-dev-stack {
-  display: grid;
-  gap: 18px;
-}
-
-.app-dev-intro p,
-.coming-soon-left p {
-  line-height: 1.75;
-}
-
-.app-dev-comparison {
-  margin-top: 2px;
-}
-
-.comparison-card,
-.product-card {
-  min-height: 100%;
-}
-
-.comparison-card h4,
-.product-card h4 {
-  margin-bottom: 10px;
-}
-
-.pro-card {
-  background:
-    radial-gradient(circle at top right, rgba(216, 180, 254, 0.22), transparent 30%),
-    rgba(255,255,255,0.84);
-}
-
-.app-dev-newsletter {
-  padding: 18px 20px;
-}
-
-.app-dev-newsletter h4 {
-  margin-top: 0;
-  margin-bottom: 8px;
-}
-
-/* ----- Device mocks ----- */
-
-.coming-soon-panel {
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(220px, 0.85fr);
-  gap: 18px;
-  align-items: start;
-  margin-top: 18px;
-}
-
-.device-mock-wrap {
-  display: flex;
-  gap: 12px;
-  align-items: end;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-}
-
-.device-mock {
-  border-radius: 28px;
-  background: linear-gradient(180deg, #f8fafc, #eef2ff);
-  border: 1px solid rgba(148, 163, 184, 0.22);
-  box-shadow: 0 20px 36px rgba(15, 23, 42, 0.08);
-  overflow: hidden;
-}
-
-.desktop-mock {
-  width: 220px;
-  height: 170px;
-}
-
-.phone-mock {
-  width: 110px;
-  height: 190px;
-  border-radius: 30px;
-}
-
-.mock-topbar {
-  height: 18px;
-  background: rgba(99, 102, 241, 0.14);
-}
-
-.mock-content {
-  padding: 14px;
-}
-
-.mock-pill {
-  height: 12px;
-  width: 46%;
-  border-radius: 999px;
-  background: rgba(99, 102, 241, 0.2);
-  margin-bottom: 14px;
-}
-
-.mock-chart {
-  height: 84px;
-  border-radius: 18px;
-  background:
-    radial-gradient(circle at center, rgba(99,102,241,0.22), transparent 45%),
-    rgba(255,255,255,0.76);
-  margin-bottom: 12px;
-}
-
-.mock-chart.small {
-  height: 64px;
-}
-
-.mock-row {
-  height: 12px;
-  border-radius: 999px;
-  background: rgba(148, 163, 184, 0.28);
-  margin-bottom: 10px;
-}
-
-.mock-row.short {
-  width: 66%;
-}
-
-/* ----- Responsive ----- */
-
-@media (max-width: 980px) {
-  .home-top-grid {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "intro"
-      "radar"
-      "start";
-    gap: 16px;
-  }
-
-  .home-top-radar {
-    justify-content: flex-start;
-  }
-
-  .hero-side-panel {
-    max-width: 520px;
-  }
-
-  .hero,
-  .plan-grid,
-  .specifier-layout,
-  .summary-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 800px) {
-  .app-dev-comparison,
-  .px-card-grid.two {
-    grid-template-columns: 1fr;
-  }
-
-  .coming-soon-panel {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 760px) {
-  .home-top-start .px-card-grid.three,
-  .px-card-grid.three {
-    grid-template-columns: 1fr;
-  }
-
-  .newsletter-row {
-    flex-direction: column;
-  }
-
-  .newsletter-row input[type="email"],
-  .newsletter-row button {
-    width: 100%;
-  }
-}
-
-@media (max-width: 640px) {
-  .home-card-section,
-  .home-top-intro,
-  .hero-side-panel,
-  .glass-card {
-    padding: 18px;
-  }
-
-  .home-top-intro h2 {
-    font-size: 2.2rem;
-  }
-
-  .hero-actions {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .hero-actions .btn {
-    width: 100%;
-  }
-
-  .tabs {
-    grid-template-columns: 1fr;
   }
 }
