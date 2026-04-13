@@ -234,9 +234,6 @@
   
           <section class="px-hero px-hero-refined">
             <div class="px-hero-copy">
-              <div class="hero-kicker-row">
-                <span class="eyebrow">Exercise prescription platform</span>
-                <span class="hero-inline-pill">Built around seven specifiers</span>
               </div><div class="hero-kicker-row">
                 <span class="eyebrow">Exercise prescription platform</span>
                 <span class="hero-inline-pill">Built around seven specifiers</span>
