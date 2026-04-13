@@ -1108,14 +1108,7 @@ input[type="range"] {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  max-width: 560px;
-}
-
-.px-hero-copy {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  max-width: 560px;
+  max-width: 660px;
 }
 
 .eyebrow {
