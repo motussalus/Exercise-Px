@@ -329,7 +329,7 @@
                 </div>
   
                 <p class="radar-caption">
-                  The 7 Specifiers capture the core domains needed to specify, interpret, and compare exercise interventions across disorders and diagnoses with greater fidelity, reproducibility, and therapeutic precision.<br><br>
+                  The 7 Specifiers capture the core domains needed to specify, interpret, and compare exercise interventions across disorders and diagnoses with greater fidelity, reproducibility, and therapeutic precision.<br>
                   As seen in this radar diagram example, current literature suggests that a key difference between ADHD and eating disorders is the role and need for clinician or specialist oversight and involvement. The goal is not to maximize every specifier equally, but to identify which specifiers deserve greater or lesser priority in shaping clinically meaningful outcomes. <em>See the Data &amp; Sources page for a brief overview of each specifier.</em>
                 </p>
               </div>
