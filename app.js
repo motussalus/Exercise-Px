@@ -464,7 +464,7 @@
         <section class="hero library-hero">
           <div>
             <h2>Activity Library</h2>
-            <p>Search the activity database by name, MET range, category, system, or intensity band. When you find the right activity, send it to the dose builder and continue the plan below.</p>
+            <p>Search the activity database by name, Metabolic Equivalents of Task (METs) range, category, system, or intensity band. When you find the right activity, send it to the dose builder, and then continue to the plan section below.</p>
           </div>
           <div class="kpi-band library-kpi-band">
             <div class="kpi"><span>Total results</span><strong>${numberWithCommas(results.length)}</strong></div>
