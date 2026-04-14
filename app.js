@@ -267,21 +267,55 @@
                 <span class="eyebrow">Exercise prescription platform</span>
                 <span class="hero-inline-pill">Built around seven specifiers</span>
               </div>
-    
-              <p class="hero-lead">A cleaner way for clinicians, students, and researchers to build, organize, and document exercise prescriptions with measurable structure.</p>
-    
+              
               <h2>Exercise Px</h2>
-    
-              <p class="hero-sub">
-                This program works by allowing users to look up exercises on the Activity Library page for general reference, then use the Dose + Plan page to build how exercise should be assigned for a specific disorder or intended outcome. This is generally guided by the seven-specifier framework, which gives exercise prescribers a practical layout of what variables may matter most for the intended effect.
+              
+              <p class="hero-lead hero-lead-italic">
+                <em>A cleaner way for clinicians, students, and researchers to build, organize, and document exercise prescriptions with measurable structure.</em>
               </p>
-    
+              
               <p class="hero-sub">
-                Search activity data, build dosage blocks, profile the seven specifiers, and generate clearer exercise-planning language in one place.
+                This program is built from the seven specifiers framework:
+                <strong>Metabolic Equivalents of Task (METs), Heart Rate, Breathing Control and Pacing, Specific Exercise Type, Neurological and Physiological Targets, Time and Frequency, and Clinician Integration Specifier.</strong>
               </p>
-    
+              
+              <p class="hero-sub">
+                These seven specifiers are key categories of exercise prescription to note, prioritize, and control in order to improve replicability, clarity, and clinical outcomes. Use the Dose + Plan page to see how each specifier can be weighted and translated into a practical prescription structure.
+              </p>
+              
+              <div class="hero-specifier-blurb">
+                <div class="hero-specifier-card">
+                  <strong>Metabolic Equivalents of Task (METs)</strong>
+                  <span>Defines workload and helps quantify the energetic dose of activity.</span>
+                </div>
+                <div class="hero-specifier-card">
+                  <strong>Heart Rate</strong>
+                  <span>Tracks internal physiological strain and helps guide exercise intensity.</span>
+                </div>
+                <div class="hero-specifier-card">
+                  <strong>Breathing Control and Pacing</strong>
+                  <span>Captures breathing strategy, pacing, and regulation demands during exercise.</span>
+                </div>
+                <div class="hero-specifier-card">
+                  <strong>Specific Exercise Type</strong>
+                  <span>Clarifies the exact mode, structure, and characteristics of the prescribed activity.</span>
+                </div>
+                <div class="hero-specifier-card">
+                  <strong>Neurological and Physiological Targets</strong>
+                  <span>Identifies the intended biological or performance-related adaptation being targeted.</span>
+                </div>
+                <div class="hero-specifier-card">
+                  <strong>Time and Frequency</strong>
+                  <span>Specifies session duration, weekly frequency, and timing relative to treatment.</span>
+                </div>
+                <div class="hero-specifier-card">
+                  <strong>Clinician Integration Specifier</strong>
+                  <span>Describes how much professional oversight, structure, and clinical integration are needed.</span>
+                </div>
+              </div>
+              
               <div class="hero-actions">
-                <button class="btn btn-dose" data-action="switch-tab" data-tab="dose">Open Dose + Plan</button>
+                <button class="btn btn-dose" data-action="switch-tab" data-tab="dose">Explore the 7 Specifiers in Dose + Plan</button>
                 <button class="btn btn-primary" data-action="switch-tab" data-tab="library">Browse Activity Library</button>
                 <button class="btn btn-soft" data-action="switch-tab" data-tab="calc">Open Calculations</button>
               </div>
