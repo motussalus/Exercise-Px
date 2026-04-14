@@ -2289,3 +2289,50 @@ input[type="range"] {
   width: 100%;
   height: auto;
 }
+/* ===== Home hero specifier rewrite ===== */
+
+.hero-lead-italic {
+  margin-top: 10px;
+  margin-bottom: 12px;
+}
+
+.hero-specifier-blurb {
+  display: grid;
+  gap: 10px;
+  margin: 16px 0 18px;
+}
+
+.hero-specifier-card {
+  display: grid;
+  gap: 4px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(148, 163, 184, 0.14);
+}
+
+.hero-specifier-card strong {
+  font-size: 0.95rem;
+  line-height: 1.3;
+  color: var(--text);
+}
+
+.hero-specifier-card span {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+@media (max-width: 800px) {
+  .hero-specifier-card {
+    padding: 10px 12px;
+  }
+
+  .hero-specifier-card strong {
+    font-size: 0.92rem;
+  }
+
+  .hero-specifier-card span {
+    font-size: 0.88rem;
+  }
+}
