@@ -2560,3 +2560,21 @@ input[type="range"] {
     color: #475569;
   }
 }
+/* ===== Empty field highlight for Documentation & Export ===== */
+
+#doseDocumentationSection input:placeholder-shown,
+#doseDocumentationSection textarea:placeholder-shown {
+  background: #fff1f2;
+  border-color: #f5c2d0;
+}
+
+#doseDocumentationSection input:placeholder-shown:focus,
+#doseDocumentationSection textarea:placeholder-shown:focus {
+  background: #ffe8ee;
+  border-color: #e8799b;
+}
+
+#doseDocumentationSection input:placeholder-shown + *,
+#doseDocumentationSection textarea:placeholder-shown + * {
+  color: var(--muted);
+}
