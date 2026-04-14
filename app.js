@@ -276,8 +276,8 @@
               
               <p class="hero-sub">
                 This program is built from the seven specifiers framework:<br>
-                <strong>Metabolic Equivalents of Task (METs), Heart Rate, Breathing Control and Pacing, Specific Exercise Type, Neurological and Physiological Targets, Time and Frequency, and Clinician Integration Specifier.</strong> <br>
-                Use the Data & Sources page to see a breif overview of each specifier and an example of its necessity in clinical use.
+                <strong>Metabolic Equivalents of Task (METs), Heart Rate, Breathing Control and Pacing, Specific Exercise Type, Neurological and Physiological Targets, Time and Frequency, and Clinician Integration Specifier.</strong><br>
+                Use the Data & Sources page to see a brief overview of each specifier and an example of its necessity in clinical use.
               </p>
               
               <p class="hero-sub">
