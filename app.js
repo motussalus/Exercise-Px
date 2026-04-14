@@ -1653,9 +1653,9 @@
         <section class="section-card">
           <div class="card-head">
             <div>
-              <h2>The 7 Specifiers Framework</h2>
+              <h2>A Brief Overview of the 7 Specifiers Framework</h2>
               <p>
-                The seven specifiers help healthcare professionals, providers, and students move beyond vague exercise recommendations by identifying the major parts of a prescription that can be intentionally noted, prioritized, and controlled. Together, they improve clarity, replicability, and the ability to match exercise more precisely to diagnosis, treatment goals, and individual client needs.
+                The seven specifiers framework was made to help healthcare professionals, providers, and students move beyond vague exercise recommendations by identifying the major parts of a prescription that can be intentionally noted, prioritized, and controlled. Together, they improve clarity, replicability, and the ability to match exercise more precisely to diagnosis, treatment goals, and individual client needs.
               </p>
             </div>
           </div>
@@ -1663,7 +1663,7 @@
           <div class="source-list">
             <div class="source-item">
               <p><strong>Metabolic Equivalents of Task (METs)</strong><br>
-              Metabolic Equivalents of Task (METs) are a standardized unit of external load that estimate the energy cost of an activity relative to rest. METs are fundamental for exercise prescription because they help healthcare professionals quantify whether activity is light, moderate, or vigorous, compare different exercise options, estimate weekly dose through MET-minutes, and review a client’s current level of physical exertion before building a plan.<br>
+              Metabolic Equivalents of Task (METs) are a standardized unit of external load that estimate the energy cost of an activity relative to rest. METs are fundamental for exercise prescription because they help healthcare professionals quantify whether activity is light, moderate, or vigorous, compare different exercise options, estimate weekly dose through MET-minutes, and review a client’s current physical exertion before building a plan.<br>
               <span class="small muted">Example: A provider could prescribe either brisk walking or light cycling if both reach the same target MET range. This also allows clinicians to adjust exercise choices based on client preferences and environments, such as cycling and running in the summer and cross-country skiing in the winter.</span></p>
             </div>
         
