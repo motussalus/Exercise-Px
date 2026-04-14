@@ -593,10 +593,12 @@
           `).join("")}
         </div>
   
-        <div class="mini-note specifier-summary-note" style="margin-top:14px;">
-          ${renderSpecifierSummary()}
-        </div>
-      </section>
+        <details class="help-box specifier-summary-toggle" style="margin-top:14px;" open>
+          <summary>Specifier scoring guide</summary>
+          <div class="helper-copy">
+            ${renderSpecifierSummary()}
+          </div>
+        </details>
     `;
   }
 
@@ -760,7 +762,7 @@
               </div>
             </section>
   
-            <section class="section-card">
+            <section class="section-card" id="doseDocumentationSection">
               <div class="card-head">
                 <div>
                   <h2>Documentation & export</h2>
