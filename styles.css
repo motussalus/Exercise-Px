@@ -1959,7 +1959,9 @@ input[type="range"] {
     height: 42px;
     border-radius: 12px;
   }
-  /* ===== Dose page mobile overlap fix ===== */
+}
+
+/* ===== Dose page mobile overlap fix ===== */
 
 .dose-page > *,
 .dose-builder-grid > *,
@@ -2040,6 +2042,7 @@ input[type="range"] {
     width: 100%;
   }
   
+}
 
  /* ===== Smaller Activity Library intro block ===== */
 
@@ -2131,7 +2134,9 @@ input[type="range"] {
   .library-kpi-band .kpi {
     padding: 9px 10px;
   }
-  /* ===== Brand textmark logo ===== */
+}
+
+/* ===== Brand textmark logo ===== */
 
 .brand-badge-textmark {
   display: grid;
@@ -2179,6 +2184,108 @@ input[type="range"] {
     bottom: 8px;
   }
 
-/* PASTE NEW CSS HERE, AFTER THE CLOSING BRACE */
-  
+}
+  /* ===== Dose page text wrapping cleanup ===== */
+
+.session-chip,
+.session-chip-name,
+.weekday-empty,
+.plan-card h4,
+.plan-day-summary,
+.inline-meta .badge,
+.print-week-content,
+.print-structure-row strong,
+.print-monitor-row strong {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.session-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: left;
+  min-height: 56px;
+  height: auto;
+}
+
+.session-chip-name {
+  display: block;
+  line-height: 1.25;
+}
+
+.inline-meta .badge {
+  text-align: center;
+}
+
+.plan-card .topline {
+  align-items: flex-start;
+}
+
+.print-week-content {
+  line-height: 1.45;
+}
+
+  /* ===== Quality check radar preview ===== */
+
+.quality-radar-wrap {
+  margin-top: 10px;
+}
+
+.quality-radar-wrap .print-radar-svg {
+  max-width: 240px;
+  margin: 0 auto;
+}
+
+.quality-radar-wrap .print-radar-svg svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+  /* ===== Print sheet layout improvements ===== */
+
+.print-meta-grid {
+  display: grid;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.print-meta-row {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: 16px;
+  align-items: start;
+}
+
+.print-meta-row span {
+  font-weight: 700;
+  color: #475569;
+}
+
+.print-meta-row strong {
+  font-weight: 600;
+  color: #111827;
+}
+
+.print-week-radar-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(260px, 0.82fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.print-radar-card-inline {
+  border: 1px solid #dbe3ee;
+  border-radius: 12px;
+  padding: 12px 14px;
+  background: #fff;
+}
+
+.print-radar-card-inline .print-radar-svg svg {
+  display: block;
+  width: 100%;
+  height: auto;
 }
