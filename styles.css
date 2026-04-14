@@ -2540,3 +2540,23 @@ input[type="range"] {
     order: 3;
   }
 }
+/* ===== Print footer ===== */
+
+.print-sheet-footer {
+  margin-top: 28px;
+  padding-top: 12px;
+  border-top: 1px solid #dbe3ee;
+  text-align: center;
+  font-size: 0.82rem;
+  color: #64748b;
+  line-height: 1.4;
+}
+
+@media print {
+  .print-sheet-footer {
+    margin-top: 24px;
+    padding-top: 10px;
+    font-size: 0.78rem;
+    color: #475569;
+  }
+}
