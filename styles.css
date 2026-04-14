@@ -2455,3 +2455,44 @@ input[type="range"] {
     width: 100%;
   }
 }
+/* ===== Mobile-only dose page reorder ===== */
+
+@media (max-width: 800px) {
+  .dose-page {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dose-main,
+  .dose-sidebar {
+    display: contents;
+  }
+
+  #doseSelectActivitySection {
+    order: 1;
+  }
+
+  .specifier-engine-card {
+    order: 2;
+  }
+
+  .dose-specifier-intro-card {
+    order: 3;
+  }
+
+  #doseBuilderCard {
+    order: 4;
+  }
+
+  #weeklyPlannerSection {
+    order: 5;
+  }
+
+  .quality-check-card {
+    order: 6;
+  }
+
+  .dose-sidebar .specifier-modal-card {
+    order: 2;
+  }
+}
