@@ -283,41 +283,12 @@
                 These seven specifiers are key categories of exercise prescription to note, prioritize, and control in order to improve replicability, clarity, and clinical outcomes. Use the Dose + Plan page to see how each specifier can be weighted and translated into a practical prescription structure.
               </p>
               
-              <div class="hero-specifier-blurb">
-                <div class="hero-specifier-card">
-                  <strong>Metabolic Equivalents of Task (METs)</strong>
-                  <span>Defines workload and helps quantify the energetic dose of activity.</span>
-                </div>
-                <div class="hero-specifier-card">
-                  <strong>Heart Rate</strong>
-                  <span>Tracks internal physiological strain and helps guide exercise intensity.</span>
-                </div>
-                <div class="hero-specifier-card">
-                  <strong>Breathing Control and Pacing</strong>
-                  <span>Captures breathing strategy, pacing, and regulation demands during exercise.</span>
-                </div>
-                <div class="hero-specifier-card">
-                  <strong>Specific Exercise Type</strong>
-                  <span>Clarifies the exact mode, structure, and characteristics of the prescribed activity.</span>
-                </div>
-                <div class="hero-specifier-card">
-                  <strong>Neurological and Physiological Targets</strong>
-                  <span>Identifies the intended biological or performance-related adaptation being targeted.</span>
-                </div>
-                <div class="hero-specifier-card">
-                  <strong>Time and Frequency</strong>
-                  <span>Specifies session duration, weekly frequency, and timing relative to treatment.</span>
-                </div>
-                <div class="hero-specifier-card">
-                  <strong>Clinician Integration Specifier</strong>
-                  <span>Describes how much professional oversight, structure, and clinical integration are needed.</span>
-                </div>
-              </div>
               
-              <div class="hero-actions">
-                <button class="btn btn-dose" data-action="switch-tab" data-tab="dose">Explore the 7 Specifiers in Dose + Plan</button>
-                <button class="btn btn-primary" data-action="switch-tab" data-tab="library">Browse Activity Library</button>
-                <button class="btn btn-soft" data-action="switch-tab" data-tab="calc">Open Calculations</button>
+              <div class="hero-actions hero-actions-four">
+                <button class="btn btn-dose" data-action="switch-tab" data-tab="dose">Dose + Plan</button>
+                <button class="btn btn-primary" data-action="switch-tab" data-tab="library">Activity Library</button>
+                <button class="btn btn-calc" data-action="switch-tab" data-tab="calc">Calculations</button>
+                <button class="btn btn-soft" data-action="switch-tab" data-tab="data">Data & Sources</button>
               </div>
 
 
@@ -602,7 +573,33 @@
       <section class="panel">
         <div class="dose-page">
           <div class="dose-main">
-  
+            <section class="section-card dose-specifier-intro-card">
+              <div class="card-head">
+                <div>
+                  <h2>The 7 Specifiers Framework</h2>
+                  <p>Use this page to build exercise prescriptions with the seven specifiers in mind.</p>
+                </div>
+              </div>
+            
+              <div class="dose-specifier-intro-copy">
+                <p>
+                  This framework organizes exercise prescription into seven major categories that can be noted, prioritized, and controlled to improve replicability, clarity, and clinical usefulness.
+                </p>
+            
+                <p>
+                  The seven specifiers are:
+                  <strong>
+                    Metabolic Equivalents of Task (METs), Heart Rate, Breathing Control and Pacing, Specific Exercise Type, Neurological and Physiological Targets, Time and Frequency, and Clinician Integration Specifier.
+                  </strong>
+                </p>
+            
+                <p>
+                  On this page, you can select an activity, build the dose, shape the specifier profile, and translate the result into a weekly plan and printable prescription sheet.
+                </p>
+              </div>
+            </section>
+
+            
             <section class="section-card">
               <div class="card-head">
                 <div>
