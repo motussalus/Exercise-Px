@@ -376,13 +376,54 @@
               </div>
             </div>
   
-            <div class="future-dev-panel">
-              <div class="future-dev-intro">
-                <p>
-                  The app is meant to make Exercise Px easier to use in real settings, with a cleaner interface, smoother navigation, and a more convenient experience for repeat clinical or educational use.
-                </p>
-              </div>
-  
+
+              <div class="future-dev-panel">
+                <div class="future-dev-intro">
+                  <p>
+                    The app is meant to make Exercise Px easier to use in real settings, with a cleaner interface, smoother navigation, and a more convenient experience for repeat clinical or educational use.
+                  </p>
+                </div>
+              
+                <div class="substack-callout">
+                  <div class="substack-copy">
+                    <div class="mini-label">Education Content</div>
+                    <h4>Follow Exercise Px on Substack</h4>
+                    <p>
+                      As I continue developing this app and program, I expect it to grow into both free and paid tiers. My intention is for the platform’s foundational tools to remain accessible, while expanded features, clinical tools, and services are added through premium offerings over time to support the continued development of the platform.
+                    </p>
+                    <p>
+                      I plan to keep more of the clinical tools and services on the website, while Substack will be where I publish more educational content. You can scan the QR code with your phone or click the link below.
+                    </p>
+                    <p class="substack-thanks">
+                      Thank you to all of you who choose to support me in this endeavor.
+                    </p>
+                    <a
+                      class="btn btn-soft substack-link-btn"
+                      href="https://exercisepx.substack.com/?r=87ocx9&utm_campaign=pub-share-checklist"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Open Substack
+                    </a>
+                  </div>
+              
+                  <a
+                    class="substack-qr-link"
+                    href="https://exercisepx.substack.com/?r=87ocx9&utm_campaign=pub-share-checklist"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Open the Exercise Px Substack"
+                  >
+                    <img
+                      src="assets/exercisepx-substack-qr.svg"
+                      alt="QR code linking to the Exercise Px Substack"
+                      class="substack-qr"
+                    />
+                  </a>
+                </div>
+              
+                <div class="future-dev-compare">
+    
               <div class="future-dev-compare">
                 <article class="glass-card dev-tier-card">
                   <div class="mini-label">Free Version</div>
