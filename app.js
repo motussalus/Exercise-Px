@@ -6,7 +6,7 @@
     "Specific Exercise Type",
     "Neurological and Physiological Targets",
     "Time and Frequency",
-    "Behavioral Health Integration"
+    "Clinician Integration Specifier"
   ];
 
   const DEFAULT_PRINT_META = {
@@ -62,7 +62,7 @@
       "Specific Exercise Type": 8,
       "Neurological and Physiological Targets": 7,
       "Time and Frequency": 8,
-      "Behavioral Health Integration": 6
+      "Clinician Integration Specifier": 6
     },
     showRadar: true,
     specifierModalOpen: false,
@@ -1035,7 +1035,7 @@
         : `This exercise plan is designed to support ${state.printMeta.diagnosis || "the identified treatment target"} through a structured weekly exercise prescription.`,
       whyDistinct: `The prescription prioritizes ${primary} because those variables are expected to matter most for this case. Lower-priority specifiers remain visible but are treated more flexibly based on tolerance, supervision, and available monitoring.`,
       modality,
-      supervision: state.specifiers["Behavioral Health Integration"] >= 7 ? "Closer clinician oversight or structured check-ins as indicated" : "Independent or lightly supervised as tolerated",
+      supervision: state.specifiers["Clinician Integration Specifier"] >= 7 ? "Closer clinician oversight or structured check-ins as indicated" : "Independent or lightly supervised as tolerated",
       delivery: "Solo or clinician-guided depending on symptom burden and setting",
       timing: "Coordinate with therapy timing when symptom regulation or activation is a treatment target",
       progression: "Increase one variable at a time as tolerance, adherence, and symptom response allow",
