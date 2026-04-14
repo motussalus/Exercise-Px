@@ -2665,3 +2665,13 @@ input[type="range"] {
     grid-template-columns: 180px 1fr;
   }
 }
+
+/* ===== Documentation editor cleanup ===== */
+
+#doseDocumentationSection textarea {
+  min-height: 88px;
+}
+
+#doseDocumentationSection label textarea {
+  line-height: 1.55;
+}
