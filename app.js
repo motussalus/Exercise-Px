@@ -395,7 +395,7 @@
                       I plan to keep more of the clinical tools and services on the website, while Substack will be where I publish more educational content. You can scan the QR code with your phone or click the link below.
                     </p>
                     <p class="substack-thanks">
-                      Thank you to all of you who choose to support me in this endeavor.
+                      Thank you to all of you who choose to support me in this endeavor!
                     </p>
                     <a
                       class="btn btn-soft substack-link-btn"
