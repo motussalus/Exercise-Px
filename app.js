@@ -942,7 +942,7 @@
         ` : ""}
         
         <div class="print-sheet-footer">
-          Powered by Exercise Px by Motus Salus
+          Powered by <strong>Exercise Px</strong> by <strong>Motus Salus</strong>
         </div>
         </section>
     `;
