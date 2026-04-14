@@ -271,7 +271,7 @@
               <h2>Exercise Px</h2>
               
               <p class="hero-lead hero-lead-italic">
-                <em>A cleaner way for clinicians, students, and researchers to build, organize, and document exercise prescriptions with measurable structure.</em>
+                <em>A cleaner way for healthcare providers, clinicians, students, researchers, and specialists to build, organize, and document exercise prescriptions with measurable, repeatable, and clinically impactful structure.</em>
               </p>
               
               <p class="hero-sub">
