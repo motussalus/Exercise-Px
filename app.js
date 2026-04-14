@@ -639,12 +639,11 @@
   
                   <label style="margin-top:14px;">
                     <span>Exercise details / set structure</span>
-                    <textarea data-bind="dose.note" placeholder="Document the exact exercise structure here.">${escapeHtml(state.dose.note || "")}</textarea>
+                    <textarea
+                      data-bind="dose.note"
+                      placeholder="Use this box for the exact structure that makes the block reproducible: movement selection, sets, reps, load or intensity marker, work-to-rest intervals, breathing instructions, target adaptation, environment, and timing note."
+                    >${escapeHtml(state.dose.note || "")}</textarea>
                   </label>
-  
-                  <div class="small muted">
-                    Use this box for the exact structure that makes the block reproducible: movement selection, sets, reps, load or intensity marker, work-to-rest intervals, breathing instructions, target adaptation, environment, and timing note.
-                  </div>
   
                   <details class="help-box" style="margin-top:12px;">
                     <summary>What belongs in exercise details?</summary>
@@ -787,18 +786,13 @@
           <div class="print-sheet-title-copy">
             <h1>EXERCISE PRESCRIPTION SHEET</h1>
             <div class="print-meta-grid">
-              <div><span>Date</span><strong>${escapeHtml(today)}</strong></div>
-              <div><span>Clinician</span><strong>${escapeHtml(meta.clinician || "—")}</strong></div>
-              <div><span>Client</span><strong>${escapeHtml(meta.client || "—")}</strong></div>
-              <div><span>Diagnosis / Target</span><strong>${escapeHtml(meta.diagnosis || "—")}</strong></div>
-              <div><span>Setting</span><strong>${escapeHtml(meta.setting || "—")}</strong></div>
-              <div><span>Goal / Intended Outcome</span><strong>${escapeHtml(meta.goal || "—")}</strong></div>
+              <div class="print-meta-row"><span>Date</span><strong>${escapeHtml(today)}</strong></div>
+              <div class="print-meta-row"><span>Clinician</span><strong>${escapeHtml(meta.clinician || "—")}</strong></div>
+              <div class="print-meta-row"><span>Client</span><strong>${escapeHtml(meta.client || "—")}</strong></div>
+              <div class="print-meta-row"><span>Diagnosis / Target</span><strong>${escapeHtml(meta.diagnosis || "—")}</strong></div>
+              <div class="print-meta-row"><span>Setting</span><strong>${escapeHtml(meta.setting || "—")}</strong></div>
+              <div class="print-meta-row"><span>Goal / Intended Outcome</span><strong>${escapeHtml(meta.goal || "—")}</strong></div>
             </div>
-          </div>
-  
-          <div class="print-radar-card">
-            <div class="print-radar-label">Specifier Profile</div>
-            ${renderPrintRadarChart()}
           </div>
         </div>
   
@@ -813,7 +807,14 @@
   
         <section class="print-section">
           <h2>Weekly Plan</h2>
-          <div class="print-week-grid">${weeklyRows}</div>
+          <div class="print-week-radar-layout">
+            <div class="print-week-grid">${weeklyRows}</div>
+        
+            <div class="print-radar-card print-radar-card-inline">
+              <div class="print-radar-label">Specifier Profile</div>
+              ${renderPrintRadarChart()}
+            </div>
+          </div>
         </section>
   
         <section class="print-section">
@@ -972,8 +973,9 @@
   }
   
   function defaultAssignmentsForFrequency(frequency) {
-    const count = Math.max(1, Math.round(Number(frequency || 0)));
-    return Array.from({ length: count }, (_, idx) => WEEKDAYS[idx % WEEKDAYS.length]);
+    const count = Math.max(1, Math.min(7, Math.round(Number(frequency || 0))));
+    const spreadOrder = ["Monday", "Wednesday", "Friday", "Sunday", "Tuesday", "Thursday", "Saturday"];
+    return spreadOrder.slice(0, count);
   }
   
   function normalizeStoredPlanItem(item) {
@@ -1283,12 +1285,27 @@
       [quality.hasPlanBlock, "Block saved to weekly plan", "At least one exercise card has been added below."],
       [quality.hasNote, "Plan note started", "A summary note is present for export."]
     ];
-    return `<div class="checklist">${items.map(([good, title, detail]) => `
-      <div class="check-item">
-        <span>${good ? "✓" : "•"}</span>
-        <div><strong>${title}</strong><br/>${detail}</div>
+  
+    return `
+      <div class="quality-check-shell">
+        <div class="checklist">
+          ${items.map(([good, title, detail]) => `
+            <div class="check-item">
+              <span>${good ? "✓" : "•"}</span>
+              <div><strong>${title}</strong><br/>${detail}</div>
+            </div>
+          `).join("")}
+        </div>
+  
+        <div class="mini-note quality-radar-note" style="margin-top:14px;">
+          <strong>Specifier profile preview</strong><br/>
+          <span class="small muted">Use this as a quick check that the current slider pattern matches the plan you are building.</span>
+          <div class="quality-radar-wrap">
+            ${renderPrintRadarChart()}
+          </div>
+        </div>
       </div>
-    `).join("")}</div>`;
+    `;
   }
 
   function specifierRelevanceMeta(score) {
