@@ -641,7 +641,7 @@
             </section>
 
             
-            <section class="section-card">
+            <section class="section-card" id="doseSelectActivitySection">
               <div class="card-head">
                 <div>
                   <h2>Select activity</h2>
@@ -793,7 +793,7 @@
           </div>
   
           <aside class="dose-sidebar">
-            <section class="section-card">
+            <section class="section-card quality-check-card">
               <div class="card-head">
                 <div>
                   <h2>Plan quality check</h2>
