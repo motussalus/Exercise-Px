@@ -9,6 +9,25 @@
     "Behavioral Health Integration"
   ];
 
+  const DEFAULT_PRINT_META = {
+    clinician: "",
+    client: "",
+    diagnosis: "",
+    setting: "",
+    goal: "",
+    summary: "",
+    whyDistinct: "",
+    modality: "",
+    supervision: "",
+    delivery: "",
+    timing: "",
+    progression: "",
+    response: "",
+    risk: "",
+    trigger: "",
+    reviewDate: ""
+  };
+
   const DEFAULT_STATE = {
     activeTab: "home",
     uiScale: 1,
@@ -35,6 +54,7 @@
     },
     plan: [],
     planNote: "",
+    printMeta: clone(DEFAULT_PRINT_META),
     specifiers: {
       "Metabolic Equivalents of Task (METs)": 8,
       "Heart Rate": 6,
@@ -63,6 +83,9 @@
     { label: "Bodyweight Resistance", query: "bodyweight strength" },
     { label: "Free Weights", query: "dumbbell weight training" }
   ];
+
+  const WEEKDAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+  
   const root = document.getElementById("app");
   const fileInput = document.createElement("input");
   fileInput.type = "file";
@@ -77,6 +100,10 @@
   root.addEventListener("click", handleClick);
   root.addEventListener("submit", handleSubmit);
   root.addEventListener("input", handleInput);
+  root.addEventListener("dragstart", handleDragStart);
+  root.addEventListener("dragover", handleDragOver);
+  root.addEventListener("drop", handleDrop);
+  root.addEventListener("dragend", handleDragEnd);
   fileInput.addEventListener("change", handleFileImport);
 
   function hydrateState() {
@@ -92,7 +119,8 @@
         dose: { ...DEFAULT_STATE.dose, ...(saved.dose || {}) },
         specifiers: { ...DEFAULT_STATE.specifiers, ...(saved.specifiers || {}) },
         calculations: saved.calculations || {},
-        plan: Array.isArray(saved.plan) ? saved.plan : []
+        printMeta: { ...DEFAULT_PRINT_META, ...(saved.printMeta || {}) },
+        plan: Array.isArray(saved.plan) ? saved.plan.map(normalizeStoredPlanItem) : []
       };
     } catch (error) {
       return clone(DEFAULT_STATE);
@@ -109,6 +137,7 @@
       dose: state.dose,
       plan: state.plan,
       planNote: state.planNote,
+      printMeta: state.printMeta,
       specifiers: state.specifiers,
       showRadar: state.showRadar,
       calculations: state.calculations,
@@ -652,6 +681,8 @@
                 <div class="kpi"><span>Total dose</span><strong>${round(totals.metMinWeek, 1)}</strong></div>
                 <div class="kpi"><span>Weekly kcal</span><strong>${round(totals.kcalWeek, 1)}</strong></div>
               </div>
+
+              ${renderWeeklyPlannerBoard()}
   
               <div class="plan-list" style="margin-top:16px;">
                 ${state.plan.length ? state.plan.map(renderPlanCard).join("") : `<div class="empty-state">No exercise blocks added yet. Start with the selected activity above, set the dose, and click <strong>Add block to weekly plan</strong>.</div>`}
@@ -665,6 +696,8 @@
                   <p>Finalize the note and export the plan.</p>
                 </div>
               </div>
+
+              ${renderPrintMetaEditor()}
   
               <textarea id="planNoteBox" data-bind="planNote" placeholder="Write your plan note here.">${escapeHtml(state.planNote)}</textarea>
   
@@ -676,6 +709,7 @@
               </details>
   
               <div class="button-row" style="margin-top:16px;">
+                <button class="btn btn-primary" data-action="plan-autofill-sheet">Auto-fill prescription sheet</button>
                 <button class="btn btn-primary" data-action="plan-example-note">Use example note</button>
                 <button class="btn btn-soft" data-action="plan-export-txt">Download TXT</button>
                 <button class="btn btn-dose" data-action="plan-print">Download PDF</button>
@@ -715,69 +749,444 @@
   }
 
 
-  
-
-
   function renderPlanPrintSheet() {
     const totals = totalPlanDose();
     const today = new Date().toLocaleDateString();
-
-    const blocks = state.plan.length
-      ? state.plan.map((item, idx) => `
-        <div class="print-block">
-          <div class="print-block-head">
-            <strong>${idx + 1}. ${escapeHtml(item.activityName)}</strong>
-            <span>${round(item.met, 1)} ${escapeHtml(item.metSystem || "MET")}</span>
-          </div>
-          <div class="print-block-meta">
-            ${round(item.duration, 0)} min/session × ${round(item.frequency, 0)}/week · ${round(item.metMinWeek, 1)} ${escapeHtml(item.metSystem || "MET")}-min/week · ${round(item.kcalWeek, 1)} kcal/week
-          </div>
-          ${item.blockDetails ? `<div class="print-block-details"><strong>Exercise details:</strong> ${escapeHtml(item.blockDetails)}</div>` : ``}
+    const meta = resolvePrintMeta();
+    const schedule = getWeeklySchedule();
+    const primarySpecifier = getPrimarySpecifierSummary(3);
+  
+    const weeklyRows = WEEKDAYS.map(day => {
+      const sessions = schedule[day];
+      const content = sessions.length
+        ? sessions.map(session => `${escapeHtml(session.item.activityName)} (${round(session.item.duration, 0)} min)`).join("<br>")
+        : "—";
+      return `
+        <div class="print-week-row">
+          <div class="print-week-day">${escapeHtml(day)}</div>
+          <div class="print-week-content">${content}</div>
         </div>
+      `;
+    }).join("");
+  
+    const dosageRows = state.plan.length
+      ? state.plan.map(item => `
+        <tr>
+          <td>${escapeHtml(item.activityName)}</td>
+          <td>${round(item.met, 1)} ${escapeHtml(item.metSystem || "MET")}</td>
+          <td>${round(item.duration, 0)}</td>
+          <td>${round(item.frequency, 0)}</td>
+          <td>${round(item.metMinWeek, 1)}</td>
+        </tr>
       `).join("")
-      : `<div class="print-empty">No exercise blocks added yet.</div>`;
-
+      : `<tr><td colspan="5">No exercise blocks added yet.</td></tr>`;
+  
     return `
       <section id="printPlanSheet" class="print-sheet">
-        <div class="print-sheet-head">
-          <div>
-            <h1>Exercise Px</h1>
-            <p class="print-subtitle">Exercise Prescription Summary</p>
+        <div class="print-sheet-head print-sheet-head-advanced">
+          <div class="print-sheet-title-copy">
+            <h1>EXERCISE PRESCRIPTION SHEET</h1>
+            <div class="print-meta-grid">
+              <div><span>Date</span><strong>${escapeHtml(today)}</strong></div>
+              <div><span>Clinician</span><strong>${escapeHtml(meta.clinician || "—")}</strong></div>
+              <div><span>Client</span><strong>${escapeHtml(meta.client || "—")}</strong></div>
+              <div><span>Diagnosis / Target</span><strong>${escapeHtml(meta.diagnosis || "—")}</strong></div>
+              <div><span>Setting</span><strong>${escapeHtml(meta.setting || "—")}</strong></div>
+              <div><span>Goal / Intended Outcome</span><strong>${escapeHtml(meta.goal || "—")}</strong></div>
+            </div>
           </div>
-          <div class="print-date">Date: ${escapeHtml(today)}</div>
+  
+          <div class="print-radar-card">
+            <div class="print-radar-label">Specifier Profile</div>
+            ${renderPrintRadarChart()}
+          </div>
         </div>
-
-        <div class="print-summary-grid">
-          <div class="print-summary-card"><span>Exercise blocks</span><strong>${state.plan.length}</strong></div>
-          <div class="print-summary-card"><span>Total weekly dose</span><strong>${round(totals.metMinWeek, 1)} MET-min</strong></div>
-          <div class="print-summary-card"><span>Estimated weekly kcal</span><strong>${round(totals.kcalWeek, 1)}</strong></div>
-        </div>
-
+  
         <section class="print-section">
-          <h2>Selected exercise blocks</h2>
-          ${blocks}
-        </section>
-
-        <section class="print-section">
-          <h2>7-specifier emphasis profile</h2>
-          <div class="print-spec-grid">
-            ${SPECIFIERS.map(name => `
-              <div class="print-spec-row">
-                <span>${escapeHtml(name)}</span>
-                <strong>${state.specifiers[name]}</strong>
-              </div>
-            `).join("")}
+          <h2>Summary / Rationale</h2>
+          <div class="print-summary-rationale">
+            <p><strong>This exercise plan is designed to support</strong><br>${escapeHtml(meta.summary || "—")}</p>
+            <p><strong>Why this differs for this patient</strong><br>${escapeHtml(meta.whyDistinct || "—")}</p>
+            <p><strong>Primary specifier emphasis</strong><br>${escapeHtml(primarySpecifier)}</p>
           </div>
         </section>
-
+  
         <section class="print-section">
-          <h2>Plan note</h2>
-          <div class="print-note">${state.planNote ? escapeHtml(state.planNote).replace(/\n/g, "<br>") : "No plan note entered."}</div>
+          <h2>Weekly Plan</h2>
+          <div class="print-week-grid">${weeklyRows}</div>
         </section>
+  
+        <section class="print-section">
+          <h2>Dosage Block Details</h2>
+          <table class="print-dose-table">
+            <thead>
+              <tr>
+                <th>Activity</th>
+                <th>MET</th>
+                <th>Minutes</th>
+                <th>Sessions/week</th>
+                <th>Estimated weekly MET-min</th>
+              </tr>
+            </thead>
+            <tbody>${dosageRows}</tbody>
+          </table>
+  
+          <div class="print-summary-grid print-summary-grid-compact">
+            <div class="print-summary-card"><span>Exercise blocks</span><strong>${state.plan.length}</strong></div>
+            <div class="print-summary-card"><span>Total weekly dose</span><strong>${round(totals.metMinWeek, 1)} MET-min</strong></div>
+            <div class="print-summary-card"><span>Estimated weekly kcal</span><strong>${round(totals.kcalWeek, 1)}</strong></div>
+          </div>
+        </section>
+  
+        <section class="print-section">
+          <h2>Prescribed Exercise Structure</h2>
+          <div class="print-structure-grid">
+            <div class="print-structure-row"><span>Modality</span><strong>${escapeHtml(meta.modality || "—")}</strong></div>
+            <div class="print-structure-row"><span>Supervision level</span><strong>${escapeHtml(meta.supervision || "—")}</strong></div>
+            <div class="print-structure-row"><span>Solo / group / clinician-led</span><strong>${escapeHtml(meta.delivery || "—")}</strong></div>
+            <div class="print-structure-row"><span>Timing relative to therapy</span><strong>${escapeHtml(meta.timing || "—")}</strong></div>
+            <div class="print-structure-row"><span>Progression logic</span><strong>${escapeHtml(meta.progression || "—")}</strong></div>
+          </div>
+        </section>
+  
+        <section class="print-section">
+          <h2>Monitoring Notes</h2>
+          <div class="print-monitor-grid">
+            <div class="print-monitor-row"><span>Response to exercise</span><strong>${escapeHtml(meta.response || "—")}</strong></div>
+            <div class="print-monitor-row"><span>Risk / caution</span><strong>${escapeHtml(meta.risk || "—")}</strong></div>
+            <div class="print-monitor-row"><span>Progression trigger</span><strong>${escapeHtml(meta.trigger || "—")}</strong></div>
+            <div class="print-monitor-row"><span>Review date / reassessment</span><strong>${escapeHtml(meta.reviewDate || "—")}</strong></div>
+          </div>
+        </section>
+  
+        ${state.planNote ? `
+          <section class="print-section">
+            <h2>Additional Note</h2>
+            <div class="print-note">${escapeHtml(state.planNote).replace(/\n/g, "<br>")}</div>
+          </section>
+        ` : ""}
       </section>
     `;
   }
+  
 
+
+
+  function renderPrintMetaEditor() {
+    const suggested = buildPrintMetaSuggestions();
+    return `
+      <section class="print-editor-shell">
+        <div class="card-head">
+          <div>
+            <h3>Printable sheet details</h3>
+            <p>These fields feed the printable prescription sheet. Use Auto-fill to pre-populate the guidance fields from the current plan.</p>
+          </div>
+        </div>
+  
+        <div class="form-grid print-form-grid">
+          <label><span>Clinician</span><input data-bind="printMeta.clinician" type="text" value="${escapeAttr(state.printMeta.clinician)}" placeholder="Name and credentials" /></label>
+          <label><span>Client</span><input data-bind="printMeta.client" type="text" value="${escapeAttr(state.printMeta.client)}" placeholder="Client name or identifier" /></label>
+          <label><span>Diagnosis / Target</span><input data-bind="printMeta.diagnosis" type="text" value="${escapeAttr(state.printMeta.diagnosis)}" placeholder="ADHD, PTSD, eating disorder, pain, etc." /></label>
+          <label><span>Setting</span><input data-bind="printMeta.setting" type="text" value="${escapeAttr(state.printMeta.setting)}" placeholder="${escapeAttr(suggested.setting)}" /></label>
+          <label><span>Goal / Intended Outcome</span><input data-bind="printMeta.goal" type="text" value="${escapeAttr(state.printMeta.goal)}" placeholder="${escapeAttr(suggested.goal)}" /></label>
+        </div>
+  
+        <label style="margin-top:14px;">
+          <span>Summary / Rationale</span>
+          <textarea data-bind="printMeta.summary" placeholder="${escapeAttr(suggested.summary)}">${escapeHtml(state.printMeta.summary || "")}</textarea>
+        </label>
+  
+        <label style="margin-top:14px;">
+          <span>Why this differs for this patient</span>
+          <textarea data-bind="printMeta.whyDistinct" placeholder="${escapeAttr(suggested.whyDistinct)}">${escapeHtml(state.printMeta.whyDistinct || "")}</textarea>
+        </label>
+  
+        <div class="form-grid print-form-grid" style="margin-top:14px;">
+          <label><span>Modality</span><input data-bind="printMeta.modality" type="text" value="${escapeAttr(state.printMeta.modality)}" placeholder="${escapeAttr(suggested.modality)}" /></label>
+          <label><span>Supervision level</span><input data-bind="printMeta.supervision" type="text" value="${escapeAttr(state.printMeta.supervision)}" placeholder="${escapeAttr(suggested.supervision)}" /></label>
+          <label><span>Solo / group / clinician-led</span><input data-bind="printMeta.delivery" type="text" value="${escapeAttr(state.printMeta.delivery)}" placeholder="${escapeAttr(suggested.delivery)}" /></label>
+          <label><span>Timing relative to therapy</span><input data-bind="printMeta.timing" type="text" value="${escapeAttr(state.printMeta.timing)}" placeholder="${escapeAttr(suggested.timing)}" /></label>
+          <label><span>Progression logic</span><input data-bind="printMeta.progression" type="text" value="${escapeAttr(state.printMeta.progression)}" placeholder="${escapeAttr(suggested.progression)}" /></label>
+        </div>
+  
+        <div class="form-grid print-form-grid" style="margin-top:14px;">
+          <label><span>Response to exercise</span><input data-bind="printMeta.response" type="text" value="${escapeAttr(state.printMeta.response)}" placeholder="${escapeAttr(suggested.response)}" /></label>
+          <label><span>Risk / caution</span><input data-bind="printMeta.risk" type="text" value="${escapeAttr(state.printMeta.risk)}" placeholder="${escapeAttr(suggested.risk)}" /></label>
+          <label><span>Progression trigger</span><input data-bind="printMeta.trigger" type="text" value="${escapeAttr(state.printMeta.trigger)}" placeholder="${escapeAttr(suggested.trigger)}" /></label>
+          <label><span>Review date / reassessment</span><input data-bind="printMeta.reviewDate" type="text" value="${escapeAttr(state.printMeta.reviewDate)}" placeholder="Follow-up date" /></label>
+        </div>
+      </section>
+    `;
+  }
+  
+  function renderWeeklyPlannerBoard() {
+    if (!state.plan.length) return "";
+    const schedule = getWeeklySchedule();
+    return `
+      <section class="weekly-board-shell">
+        <div class="small muted weekly-board-help">Drag session chips between days to reorganize the week. Each chip represents one scheduled session.</div>
+        <div class="weekly-board">
+          ${WEEKDAYS.map(day => `
+            <div class="weekday-column">
+              <div class="weekday-head">${escapeHtml(day)}</div>
+              <div class="weekday-dropzone" data-day-dropzone="${escapeAttr(day)}">
+                ${schedule[day].length ? schedule[day].map(session => `
+                  <button
+                    type="button"
+                    class="session-chip"
+                    draggable="true"
+                    data-plan-id="${escapeAttr(session.item.id)}"
+                    data-session-index="${escapeAttr(session.sessionIndex)}"
+                    title="Drag this session to another day"
+                  >
+                    <span class="session-chip-name">${escapeHtml(shortLabel(session.item.activityName, 28))}</span>
+                    <span class="session-chip-meta">${round(session.item.duration, 0)} min</span>
+                  </button>
+                `).join("") : `<div class="weekday-empty">Drop sessions here</div>`}
+              </div>
+            </div>
+          `).join("")}
+        </div>
+      </section>
+    `;
+  }
+  
+  function getWeeklySchedule() {
+    const schedule = Object.fromEntries(WEEKDAYS.map(day => [day, []]));
+    state.plan.forEach(item => {
+      const normalized = normalizeStoredPlanItem(item);
+      normalized.dayAssignments.forEach((day, sessionIndex) => {
+        const safeDay = WEEKDAYS.includes(day) ? day : WEEKDAYS[sessionIndex % WEEKDAYS.length];
+        schedule[safeDay].push({ item: normalized, sessionIndex });
+      });
+    });
+    return schedule;
+  }
+  
+  function summarizeDayAssignments(assignments) {
+    if (!Array.isArray(assignments) || !assignments.length) return "No days assigned";
+    const counts = WEEKDAYS
+      .map(day => [day, assignments.filter(entry => entry === day).length])
+      .filter(([, count]) => count > 0);
+    return counts.map(([day, count]) => count > 1 ? `${day} ×${count}` : day).join(", ");
+  }
+  
+  function defaultAssignmentsForFrequency(frequency) {
+    const count = Math.max(1, Math.round(Number(frequency || 0)));
+    return Array.from({ length: count }, (_, idx) => WEEKDAYS[idx % WEEKDAYS.length]);
+  }
+  
+  function normalizeStoredPlanItem(item) {
+    const frequency = Math.max(0, Math.round(Number(item?.frequency || 0)));
+    const base = Array.isArray(item?.dayAssignments)
+      ? item.dayAssignments.filter(day => WEEKDAYS.includes(day))
+      : [];
+    let dayAssignments = [...base];
+    const defaults = defaultAssignmentsForFrequency(Math.max(frequency, 1));
+    while (dayAssignments.length < frequency) {
+      dayAssignments.push(defaults[dayAssignments.length % defaults.length]);
+    }
+    if (dayAssignments.length > frequency) {
+      dayAssignments = dayAssignments.slice(0, frequency);
+    }
+    return {
+      ...item,
+      dayAssignments
+    };
+  }
+  
+  function getPrimarySpecifierSummary(limit = 3) {
+    return Object.entries(state.specifiers)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, limit)
+      .map(([name]) => name)
+      .join(", ");
+  }
+  
+  function buildPrintMetaSuggestions() {
+    const primary = getPrimarySpecifierSummary(3);
+    const activityNames = state.plan.length
+      ? state.plan.map(item => item.activityName)
+      : (getSelectedActivity() ? [getSelectedActivity().activity] : []);
+    const uniqueNames = Array.from(new Set(activityNames));
+    const categories = Array.from(new Set(state.plan.map(item => item.category).filter(Boolean)));
+    const totals = totalPlanDose();
+  
+    const modality = uniqueNames.length === 1
+      ? uniqueNames[0]
+      : categories.length === 1
+        ? `${categories[0]}-focused plan`
+        : uniqueNames.length
+          ? "Mixed-modal exercise plan"
+          : "Structured exercise plan";
+  
+    const goal = state.printMeta.goal || state.printMeta.diagnosis
+      ? `Support ${state.printMeta.diagnosis || "the identified target"} with a structured exercise intervention`
+      : "Support the intended behavioral health outcome with a structured exercise intervention";
+  
+    return {
+      clinician: "",
+      client: "",
+      diagnosis: state.printMeta.diagnosis || "",
+      setting: "Outpatient / behavioral health setting",
+      goal,
+      summary: uniqueNames.length
+        ? `This exercise plan is designed to support ${state.printMeta.diagnosis || "the identified treatment target"} through a structured weekly prescription using ${uniqueNames.join(", ")}. The current plan totals ${round(totals.metMinWeek, 1)} MET-min/week.`
+        : `This exercise plan is designed to support ${state.printMeta.diagnosis || "the identified treatment target"} through a structured weekly exercise prescription.`,
+      whyDistinct: `The prescription prioritizes ${primary} because those variables are expected to matter most for this case. Lower-priority specifiers remain visible but are treated more flexibly based on tolerance, supervision, and available monitoring.`,
+      modality,
+      supervision: state.specifiers["Behavioral Health Integration"] >= 7 ? "Closer clinician oversight or structured check-ins as indicated" : "Independent or lightly supervised as tolerated",
+      delivery: "Solo or clinician-guided depending on symptom burden and setting",
+      timing: "Coordinate with therapy timing when symptom regulation or activation is a treatment target",
+      progression: "Increase one variable at a time as tolerance, adherence, and symptom response allow",
+      response: "Monitor symptom response, adherence, and perceived exertion across the week",
+      risk: "Watch for overexertion, symptom worsening, and barriers to consistency",
+      trigger: "Progress when the current dose is tolerated consistently with stable recovery",
+      reviewDate: ""
+    };
+  }
+  
+  function resolvePrintMeta() {
+    const suggestions = buildPrintMetaSuggestions();
+    const resolved = {};
+    Object.keys(DEFAULT_PRINT_META).forEach(key => {
+      resolved[key] = (state.printMeta[key] || "").trim() || suggestions[key] || "";
+    });
+    return resolved;
+  }
+  
+  function autofillPrintMeta(overwrite = false) {
+    const suggestions = buildPrintMetaSuggestions();
+    Object.entries(suggestions).forEach(([key, value]) => {
+      if (overwrite || !String(state.printMeta[key] || "").trim()) {
+        state.printMeta[key] = value;
+      }
+    });
+  }
+  
+  function renderPrintRadarChart() {
+    const values = SPECIFIERS.map(name => Number(state.specifiers[name] || 1));
+    const width = 360;
+    const height = 320;
+    const centerX = 170;
+    const centerY = 150;
+    const radius = 86;
+    const labelRadius = 122;
+  
+    const points = values.map((value, idx) => {
+      const angle = (-Math.PI / 2) + (idx * 2 * Math.PI / values.length);
+      const r = radius * (value / 10);
+      return [centerX + Math.cos(angle) * r, centerY + Math.sin(angle) * r];
+    });
+  
+    const grid = Array.from({ length: 5 }, (_, i) => {
+      const level = (i + 1) / 5;
+      const gridPoints = values.map((_, idx) => {
+        const angle = (-Math.PI / 2) + (idx * 2 * Math.PI / values.length);
+        const r = radius * level;
+        return `${centerX + Math.cos(angle) * r},${centerY + Math.sin(angle) * r}`;
+      }).join(" ");
+      return `<polygon points="${gridPoints}" fill="none" stroke="#dbe5f1" stroke-width="1" />`;
+    }).join("");
+  
+    const spokes = SPECIFIERS.map((_, idx) => {
+      const angle = (-Math.PI / 2) + (idx * 2 * Math.PI / values.length);
+      const x = centerX + Math.cos(angle) * radius;
+      const y = centerY + Math.sin(angle) * radius;
+      return `<line x1="${centerX}" y1="${centerY}" x2="${x}" y2="${y}" stroke="#dbe5f1" stroke-width="1" />`;
+    }).join("");
+  
+    const labels = SPECIFIERS.map((label, idx) => {
+      const angle = (-Math.PI / 2) + (idx * 2 * Math.PI / values.length);
+      const x = centerX + Math.cos(angle) * labelRadius;
+      const y = centerY + Math.sin(angle) * labelRadius;
+      const isRight = x > centerX + 25;
+      const isLeft = x < centerX - 25;
+      const anchor = isRight ? "start" : isLeft ? "end" : "middle";
+      const lines = wrapRadarLabel(label, 14);
+      return `
+        <text x="${x}" y="${y}" text-anchor="${anchor}" font-size="10" font-weight="700" fill="#475569">
+          ${lines.map((line, index) => `<tspan x="${x}" dy="${index === 0 ? 0 : 12}">${escapeHtml(line)}</tspan>`).join("")}
+        </text>
+      `;
+    }).join("");
+  
+    return `
+      <div class="print-radar-svg">
+        <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Seven specifier emphasis radar chart">
+          ${grid}
+          ${spokes}
+          <polygon points="${points.map(point => point.join(",")).join(" ")}" fill="rgba(168, 85, 247, 0.24)" stroke="#7e22ce" stroke-width="2.2" />
+          ${points.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="3.2" fill="#7e22ce" />`).join("")}
+          ${labels}
+        </svg>
+      </div>
+    `;
+  }
+  
+  function handleDragStart(event) {
+    const chip = event.target.closest("[draggable='true'][data-plan-id][data-session-index]");
+    if (!chip) return;
+    event.dataTransfer.effectAllowed = "move";
+    const payload = {
+      planId: chip.dataset.planId,
+      sessionIndex: Number(chip.dataset.sessionIndex || 0)
+    };
+    event.dataTransfer.setData("text/plain", JSON.stringify(payload));
+    chip.classList.add("dragging");
+  }
+  
+  function handleDragOver(event) {
+    const zone = event.target.closest("[data-day-dropzone]");
+    if (!zone) return;
+    event.preventDefault();
+    event.dataTransfer.dropEffect = "move";
+    zone.classList.add("is-drop-target");
+  }
+  
+  function handleDrop(event) {
+    const zone = event.target.closest("[data-day-dropzone]");
+    if (!zone) return;
+    event.preventDefault();
+    zone.classList.remove("is-drop-target");
+  
+    let payload;
+    try {
+      payload = JSON.parse(event.dataTransfer.getData("text/plain") || "{}");
+    } catch (error) {
+      payload = null;
+    }
+    if (!payload?.planId && payload?.planId !== "") return;
+  
+    const item = state.plan.find(entry => entry.id === payload.planId);
+    if (!item) return;
+    const normalized = normalizeStoredPlanItem(item);
+    const nextDay = zone.dataset.dayDropzone;
+    if (!WEEKDAYS.includes(nextDay)) return;
+  
+    normalized.dayAssignments[payload.sessionIndex] = nextDay;
+    Object.assign(item, normalized);
+  
+    showToast(`Moved session to ${nextDay}.`, "success");
+    renderApp();
+  }
+  
+  function handleDragEnd() {
+    root.querySelectorAll(".weekday-dropzone.is-drop-target").forEach(zone => zone.classList.remove("is-drop-target"));
+    root.querySelectorAll(".session-chip.dragging").forEach(chip => chip.classList.remove("dragging"));
+  }
+
+
+
+
+
+
+
+
+
+
+
+  
   function renderSelectedActivityBanner(activity) {
     return `
       <div class="mini-note status-box good">
@@ -813,6 +1222,7 @@
   }
 
   function renderPlanCard(item) {
+    const daySummary = summarizeDayAssignments(item.dayAssignments || []);
     return `
       <article class="plan-card">
         <div class="topline">
@@ -824,8 +1234,10 @@
               <span class="badge">${round(item.frequency, 0)} / week</span>
               <span class="badge">${round(item.metMinWeek, 1)} ${escapeHtml(item.metSystem || "MET")}-min/week</span>
             </div>
+            <div class="small muted plan-day-summary"><strong>Scheduled on:</strong> ${escapeHtml(daySummary)}</div>
           </div>
           <div class="button-row">
+            <button class="btn btn-soft" data-action="plan-reset-days" data-id="${escapeAttr(item.id)}">Auto-spread days</button>
             <button class="btn btn-soft" data-action="plan-duplicate" data-id="${escapeAttr(item.id)}">Duplicate</button>
             <button class="btn btn-danger" data-action="plan-remove" data-id="${escapeAttr(item.id)}">Remove</button>
           </div>
@@ -834,6 +1246,7 @@
       </article>
     `;
   }
+
 
   function renderDoseSummary(metrics, activity) {
     if (!metrics.met) {
@@ -1361,12 +1774,30 @@
     if (action === "plan-duplicate") {
       const item = state.plan.find(entry => entry.id === button.dataset.id);
       if (!item) return;
-      const copy = { ...clone(item), id: makeId(), timestamp: new Date().toISOString() };
+      const copy = normalizeStoredPlanItem({ ...clone(item), id: makeId(), timestamp: new Date().toISOString() });
       state.plan.push(copy);
       showToast("Exercise block duplicated.", "success");
       renderApp();
       return;
     }
+
+    if (action === "plan-reset-days") {
+      const item = state.plan.find(entry => entry.id === button.dataset.id);
+      if (!item) return;
+      item.dayAssignments = defaultAssignmentsForFrequency(item.frequency);
+      showToast("Weekly schedule reset across the week.", "success");
+      renderApp();
+      return;
+    }
+    
+    if (action === "plan-autofill-sheet") {
+      autofillPrintMeta(false);
+      if (!state.planNote.trim()) state.planNote = buildExamplePlanNote();
+      showToast("Prescription sheet fields auto-filled.", "success");
+      renderApp();
+      return;
+    }
+    
     if (action === "plan-example-note") {
       state.planNote = buildExamplePlanNote();
       renderApp();
@@ -1474,7 +1905,9 @@
       if (bind.startsWith("dose.")) {
         refreshDoseSection();
       }
-      if (bind === "planNote") {
+      if (bind === "planNote" || bind.startsWith("printMeta.")) {
+        const printSheet = root.querySelector("#printPlanSheet");
+        if (printSheet) printSheet.outerHTML = renderPlanPrintSheet();
         persistState();
       }
     }
@@ -1551,7 +1984,7 @@ if (specifier) {
       return;
     }
     const activity = getSelectedActivity();
-    state.plan.push({
+    state.plan.push(normalizeStoredPlanItem({
       id: makeId(),
       timestamp: new Date().toISOString(),
       activityCode: activity?.code || null,
@@ -1565,8 +1998,10 @@ if (specifier) {
       kcalWeek: metrics.kcalWeek,
       metMinWeek: metrics.metMinWeek,
       blockDetails: state.dose.note || "",
-      profileSnapshot: clone(state.specifiers)
-    });
+      profileSnapshot: clone(state.specifiers),
+      dayAssignments: defaultAssignmentsForFrequency(metrics.frequency)
+    }));
+    
     state.dose.note = "";
     showToast("Exercise block added to the weekly plan.", "success");
     pendingScrollId = "weeklyPlannerSection";
@@ -2394,6 +2829,7 @@ function filterActivities(filters) {
   renderApp();
     
 })();
+
 
 
 
