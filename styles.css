@@ -2378,3 +2378,80 @@ input[type="range"] {
     padding: 16px;
   }
 }
+/* ===== Substack block ===== */
+
+.substack-callout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) 170px;
+  gap: 18px;
+  align-items: center;
+  padding: 18px 20px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(248,250,252,0.96));
+  border: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+.substack-copy {
+  display: grid;
+  gap: 10px;
+}
+
+.substack-copy h4 {
+  margin: 0;
+}
+
+.substack-copy p {
+  margin: 0;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.substack-thanks {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.substack-link-btn {
+  width: fit-content;
+}
+
+.substack-qr-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+}
+
+.substack-qr {
+  display: block;
+  width: 160px;
+  height: auto;
+  border-radius: 16px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  padding: 8px;
+}
+
+@media (max-width: 900px) {
+  .substack-callout {
+    grid-template-columns: 1fr;
+  }
+
+  .substack-qr-link {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 560px) {
+  .substack-callout {
+    padding: 16px;
+  }
+
+  .substack-qr {
+    width: 140px;
+  }
+
+  .substack-link-btn {
+    width: 100%;
+  }
+}
