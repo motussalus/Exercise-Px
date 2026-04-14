@@ -967,32 +967,32 @@
           <label><span>Client</span><input data-bind="printMeta.client" type="text" value="${escapeAttr(state.printMeta.client)}" placeholder="Client name or identifier" /></label>
           <label><span>Diagnosis / Target</span><input data-bind="printMeta.diagnosis" type="text" value="${escapeAttr(state.printMeta.diagnosis)}" placeholder="ADHD, PTSD, eating disorder, pain, etc." /></label>
           <label><span>Setting</span><input data-bind="printMeta.setting" type="text" value="${escapeAttr(state.printMeta.setting)}" placeholder="${escapeAttr(suggested.setting)}" /></label>
+          <label><span>Goal / Intended Outcome</span><input data-bind="printMeta.goal" type="text" value="${escapeAttr(state.printMeta.goal)}" placeholder="${escapeAttr(suggested.goal)}" /></label>
         </div>
   
-        <label class="print-field-lg" style="margin-top:14px;">
-          <span>Goal / Intended Outcome</span>
-          <textarea data-bind="printMeta.goal" placeholder="${escapeAttr(suggested.goal)}">${escapeHtml(state.printMeta.goal || "")}</textarea>
-        </label>
-  
-        <label class="print-field-lg" style="margin-top:14px;">
+        <label style="margin-top:14px;">
           <span>Summary / Rationale</span>
           <textarea data-bind="printMeta.summary" placeholder="${escapeAttr(suggested.summary)}">${escapeHtml(state.printMeta.summary || "")}</textarea>
         </label>
   
-        <label class="print-field-lg" style="margin-top:14px;">
-          <span>Why this differs for this patient</span>
-          <textarea data-bind="printMeta.whyDistinct" placeholder="${escapeAttr(suggested.whyDistinct)}">${escapeHtml(state.printMeta.whyDistinct || "")}</textarea>
+        <label style="margin-top:14px;">
+          <span>Client comments / considerations</span>
+          <textarea data-bind="printMeta.whyDistinct" placeholder="This is where comments from the client regarding the exercise can be noted. E.g., Client reports having difficulty walking to the mailbox due to weight. Client states they are willing to try yoga in combination with somatic therapy for depression and noted interest in group yoga therapy once a 50 lb weight-loss goal is reached.">${escapeHtml(state.printMeta.whyDistinct || "")}</textarea>
         </label>
   
-        <div class="form-grid print-form-grid print-form-grid-wide" style="margin-top:14px;">
-          <label><span>Modality</span><textarea data-bind="printMeta.modality" placeholder="${escapeAttr(suggested.modality)}">${escapeHtml(state.printMeta.modality || "")}</textarea></label>
-          <label><span>Supervision level</span><textarea data-bind="printMeta.supervision" placeholder="${escapeAttr(suggested.supervision)}">${escapeHtml(state.printMeta.supervision || "")}</textarea></label>
-          <label><span>Solo / group / clinician-led</span><textarea data-bind="printMeta.delivery" placeholder="${escapeAttr(suggested.delivery)}">${escapeHtml(state.printMeta.delivery || "")}</textarea></label>
-          <label><span>Timing relative to therapy</span><textarea data-bind="printMeta.timing" placeholder="${escapeAttr(suggested.timing)}">${escapeHtml(state.printMeta.timing || "")}</textarea></label>
-          <label><span>Progression logic</span><textarea data-bind="printMeta.progression" placeholder="${escapeAttr(suggested.progression)}">${escapeHtml(state.printMeta.progression || "")}</textarea></label>
+        <div class="form-grid print-form-grid" style="margin-top:14px;">
+          <label><span>Modality</span><input data-bind="printMeta.modality" type="text" value="${escapeAttr(state.printMeta.modality)}" placeholder="${escapeAttr(suggested.modality)}" /></label>
+          <label><span>Supervision level</span><input data-bind="printMeta.supervision" type="text" value="${escapeAttr(state.printMeta.supervision)}" placeholder="${escapeAttr(suggested.supervision)}" /></label>
+          <label><span>Solo / group / clinician-led</span><input data-bind="printMeta.delivery" type="text" value="${escapeAttr(state.printMeta.delivery)}" placeholder="${escapeAttr(suggested.delivery)}" /></label>
+          <label><span>Timing relative to therapy</span><input data-bind="printMeta.timing" type="text" value="${escapeAttr(state.printMeta.timing)}" placeholder="${escapeAttr(suggested.timing)}" /></label>
         </div>
   
-        <div class="form-grid print-form-grid print-form-grid-wide" style="margin-top:14px;">
+        <label style="margin-top:14px;">
+          <span>Progression logic</span>
+          <textarea data-bind="printMeta.progression" placeholder="${escapeAttr(suggested.progression)}">${escapeHtml(state.printMeta.progression || "")}</textarea>
+        </label>
+  
+        <div class="form-grid print-form-grid" style="margin-top:14px;">
           <label><span>Response to exercise</span><textarea data-bind="printMeta.response" placeholder="${escapeAttr(suggested.response)}">${escapeHtml(state.printMeta.response || "")}</textarea></label>
           <label><span>Risk / caution</span><textarea data-bind="printMeta.risk" placeholder="${escapeAttr(suggested.risk)}">${escapeHtml(state.printMeta.risk || "")}</textarea></label>
           <label><span>Progression trigger</span><textarea data-bind="printMeta.trigger" placeholder="${escapeAttr(suggested.trigger)}">${escapeHtml(state.printMeta.trigger || "")}</textarea></label>
