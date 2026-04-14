@@ -1632,30 +1632,70 @@ input[type="range"] {
   padding: 22px;
 }
 
+
+
 @media print {
+  @page {
+    size: auto;
+    margin: 0.5in;
+  }
+
+  html,
   body {
+    background: #ffffff !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .topbar,
+  .toast-stack,
+  .specifier-modal-backdrop {
+    display: none !important;
+  }
+
+  .page,
+  .panel,
+  .dose-page,
+  .dose-main {
+    display: block !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .dose-sidebar,
+  #doseSelectActivitySection,
+  .dose-specifier-intro-card,
+  #doseBuilderCard,
+  #weeklyPlannerSection,
+  .quality-check-card {
+    display: none !important;
+  }
+
+  #doseDocumentationSection {
+    display: block !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+    box-shadow: none !important;
     background: #ffffff !important;
   }
 
-  body * {
-    visibility: hidden;
-  }
-
-  #printPlanSheet,
-  #printPlanSheet * {
-    visibility: visible;
+  #doseDocumentationSection > *:not(#printPlanSheet) {
+    display: none !important;
   }
 
   #printPlanSheet {
     display: block !important;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-    background: #ffffff;
-    color: #111827;
+    position: static !important;
+    left: auto !important;
+    top: auto !important;
+    width: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: #ffffff !important;
+    color: #111827 !important;
+    box-shadow: none !important;
+    border: 0 !important;
   }
 }
 
