@@ -1650,6 +1650,61 @@
             <p>This page lists the core DOI-based publications used for the activity library and key calculation features in APA format, with active links for verification.</p>
           </div>
         </section>
+        <section class="section-card">
+          <div class="card-head">
+            <div>
+              <h2>The 7 Specifiers Framework</h2>
+              <p>
+                The seven specifiers help healthcare professionals, providers, and students move beyond vague exercise recommendations by identifying the major parts of a prescription that can be intentionally noted, prioritized, and controlled. Together, they improve clarity, replicability, and the ability to match exercise more precisely to diagnosis, treatment goals, and individual client needs.
+              </p>
+            </div>
+          </div>
+        
+          <div class="source-list">
+            <div class="source-item">
+              <p><strong>Metabolic Equivalents of Task (METs)</strong><br>
+              Metabolic Equivalents of Task (METs) are a standardized unit of external load that estimate the energy cost of an activity relative to rest. METs are fundamental for exercise prescription because they help healthcare professionals quantify whether activity is light, moderate, or vigorous, compare different exercise options, estimate weekly dose through MET-minutes, and review a client’s current level of physical exertion before building a plan.<br>
+              <span class="small muted">Example: A provider could prescribe either brisk walking or light cycling if both reach the same target MET range.</span></p>
+            </div>
+        
+            <div class="source-item">
+              <p><strong>Heart Rate</strong><br>
+              Heart rate reflects internal physiological load, or how hard the body is actually working in response to an exercise demand. This makes it valuable because two clients can complete the same activity at the same MET level while experiencing very different internal strain, so heart rate helps healthcare professionals better match exercise intensity to tolerance, readiness, and treatment goals.<br>
+              <span class="small muted">Example: A client with panic symptoms may need a lower heart-rate target even if the external workload looks moderate on paper.</span></p>
+            </div>
+        
+            <div class="source-item">
+              <p><strong>Breathing Control and Pacing</strong><br>
+              Breathing control and pacing refer to how respiration is used, monitored, or shaped during exercise, including cadence, route of breathing, and recovery patterns. Healthcare professionals should pay attention to this specifier because breathing can change arousal, perceived exertion, distress tolerance, and emotional regulation, making it especially relevant when exercise is being used in populations with anxiety, panic, trauma, or autonomic dysregulation.<br>
+              <span class="small muted">Example: A provider may pair light aerobic exercise with slow nasal breathing for a client with anxiety.</span></p>
+            </div>
+        
+            <div class="source-item">
+              <p><strong>Specific Exercise Type and Structure</strong><br>
+              Specific Exercise Type and Structure refers to the exact activity being prescribed and the way it is organized, including movement selection, sets, reps, rest intervals, pace, and training format. This specifier matters because exercise is not interchangeable; different modalities create different physiological demands, emotional experiences, adherence patterns, and clinical effects, even when they appear similar in intensity.<br>
+              <span class="small muted">Example: A healthcare professional might choose boxing drills instead of jogging if the goal is emotional release and structured intensity.</span></p>
+            </div>
+        
+            <div class="source-item">
+              <p><strong>Neurological and Physiological Targets</strong><br>
+              Neurological and Physiological Targets refer to the primary body systems, adaptations, or mechanisms the exercise is intended to influence, such as aerobic capacity, autonomic regulation, proprioception, mood-related neurobiology, or muscular adaptation. Healthcare professionals should control this specifier so that exercise selection is tied to a clear rationale, rather than treating all movement as though it works through the same pathway.<br>
+              <span class="small muted">Example: A provider may choose balance and coordination work when the target is sensorimotor regulation rather than pure cardiovascular fitness.</span></p>
+            </div>
+        
+            <div class="source-item">
+              <p><strong>Time and Frequency</strong><br>
+              Time and Frequency refer to how long exercise lasts, how often it is performed, how it is spaced across the week, and when it occurs relative to treatment or daily functioning. This specifier is important because exercise outcomes are shaped not only by what activity is chosen, but also by how often and when it is delivered, which affects recovery, adherence, progression, and therapeutic usefulness.<br>
+              <span class="small muted">Example: A healthcare professional may prescribe shorter sessions three times per week instead of one long weekend session to improve adherence.</span></p>
+            </div>
+        
+            <div class="source-item">
+              <p><strong>Clinician Integration Specifier</strong><br>
+              The Clinician Integration Specifier refers to how much professional structure, oversight, interpretation, or coordination is built into the exercise intervention. This matters because some exercise plans can be delivered with broad independence, while others require closer clinical guidance to manage safety, symptom response, adherence, timing, or integration with broader treatment goals.<br>
+              <span class="small muted">Example: A provider may closely supervise exercise for a client with an eating disorder, while a lower-risk client may complete the same plan more independently.</span></p>
+            </div>
+          </div>
+        </section>
+        
         <div class="data-layout">
           <section class="section-card">
             <div class="card-head">
