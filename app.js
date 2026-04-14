@@ -940,7 +940,11 @@
             <div class="print-note">${escapeHtml(state.planNote).replace(/\n/g, "<br>")}</div>
           </section>
         ` : ""}
-      </section>
+        
+        <div class="print-sheet-footer">
+          Powered by Exercise Px by Motus Salus
+        </div>
+        </section>
     `;
   }
   
