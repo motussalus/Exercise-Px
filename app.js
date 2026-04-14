@@ -280,9 +280,11 @@
               </p>
               
               <p class="hero-sub">
-                These seven specifiers are key categories of exercise prescription to note, prioritize, and control in order to improve replicability, clarity, and clinical outcomes. Use the Dose + Plan page to see how each specifier can be weighted and translated into a practical prescription structure.
+                These seven specifiers are key categories of exercise prescription to note, prioritize, and control in order to improve replicability, clarity, and clinical outcomes.
               </p>
-              
+              <p class="hero-sub">
+                Use the Dose + Plan page to see how each specifier is unique and can be translated into a practical prescription structure.
+              </p>
               
               <div class="hero-actions hero-actions-four">
                 <button class="btn btn-dose" data-action="switch-tab" data-tab="dose">Dose + Plan</button>
@@ -517,8 +519,8 @@
       <section class="${isModal ? "specifier-modal-card" : "section-card specifier-engine-card"}">
         <div class="card-head">
           <div>
-            <h2>Specifier Engine</h2>
-            <p>These controls shape what the prescription is prioritizing. Move the sliders, watch the radar change, and use the summary to clarify what matters most in the current dose.</p>
+            <h2>Specifier Radar Tool</h2>
+            <p>This radar tool highlights what the prescription is prioritizing as a visual tool. Move the sliders, watch the radar change, and use the summary to clarify what matters most in the current dose. See the Data tab for more info on the specifiers.</p>
           </div>
           <div class="button-row">
             ${isModal
