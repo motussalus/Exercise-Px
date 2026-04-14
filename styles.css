@@ -2472,11 +2472,11 @@ input[type="range"] {
     order: 1;
   }
 
-  .specifier-engine-card {
+  .dose-specifier-intro-card {
     order: 2;
   }
 
-  .dose-specifier-intro-card {
+  .specifier-engine-card {
     order: 3;
   }
 
@@ -2492,7 +2492,11 @@ input[type="range"] {
     order: 6;
   }
 
+  #doseDocumentationSection {
+    order: 7;
+  }
+
   .dose-sidebar .specifier-modal-card {
-    order: 2;
+    order: 3;
   }
 }
