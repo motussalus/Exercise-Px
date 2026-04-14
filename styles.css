@@ -2578,3 +2578,90 @@ input[type="range"] {
 #doseDocumentationSection textarea:placeholder-shown + * {
   color: var(--muted);
 }
+/* ===== Larger documentation fields ===== */
+
+#printPlanSheet textarea,
+#printPlanSheet input,
+#doseDocumentationSection textarea,
+#doseDocumentationSection input {
+  line-height: 1.55;
+}
+
+#doseDocumentationSection .print-form-grid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+#doseDocumentationSection .print-form-grid-wide {
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+#doseDocumentationSection textarea {
+  min-height: 96px;
+}
+
+#doseDocumentationSection .print-field-lg textarea {
+  min-height: 120px;
+}
+
+#doseDocumentationSection label {
+  align-content: start;
+}
+
+#doseDocumentationSection textarea::placeholder,
+#doseDocumentationSection input::placeholder {
+  color: #9aa6b2;
+}
+
+/* ===== PDF structure + monitoring layout cleanup ===== */
+
+.print-structure-grid,
+.print-monitor-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.print-structure-row,
+.print-monitor-row {
+  display: grid;
+  grid-template-columns: minmax(180px, 220px) 1fr;
+  gap: 14px;
+  align-items: start;
+  padding: 10px 12px;
+  border: 1px solid #dbe3ee;
+  border-radius: 12px;
+  background: #ffffff;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.print-structure-row span,
+.print-monitor-row span {
+  font-weight: 700;
+  color: #475569;
+  line-height: 1.35;
+}
+
+.print-structure-row strong,
+.print-monitor-row strong {
+  font-weight: 600;
+  color: #111827;
+  line-height: 1.5;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+@media (max-width: 800px) {
+  #doseDocumentationSection .print-form-grid,
+  #doseDocumentationSection .print-form-grid-wide {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media print {
+  .print-structure-row,
+  .print-monitor-row {
+    grid-template-columns: 180px 1fr;
+  }
+}
