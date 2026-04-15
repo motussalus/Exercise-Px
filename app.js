@@ -773,7 +773,7 @@
 
               ${renderPrintMetaEditor()}
   
-              <textarea id="planNoteBox" data-bind="planNote" placeholder="Write your plan note here.">${escapeHtml(state.planNote)}</textarea>
+              <textarea id="planNoteBox" data-bind="planNote" placeholder="Any additional notes to help guide the client in the exercise go here. How to do the movements, cueing, setup, or other practical instructions can be included here. In a later premium version, this will likely become a clickable feature accompanied by pictures or videos.">${escapeHtml(state.planNote)}</textarea>
   
               <details class="help-box" style="margin-top:12px;">
                 <summary>What makes a strong plan note?</summary>
@@ -948,7 +948,7 @@
   
         ${state.planNote ? `
           <section class="print-section">
-            <h2>Additional Note</h2>
+            <h2>Plan</h2>
             <div class="print-note">${escapeHtml(state.planNote).replace(/\n/g, "<br>")}</div>
           </section>
         ` : ""}
@@ -1184,7 +1184,7 @@
       diagnosis: state.printMeta.diagnosis || "",
       setting: "Outpatient / behavioral health setting",
       goal: `The goal of the exercise prescription is to target ${primaryText} through ${activityDisplay} for ${diagnosisDisplay}.`,
-      summary: `Client has a diagnosis of ${diagnosisDisplay} and is assigned exercise as a behavioral health intervention to support regulation, attention, symptom management, and activities of daily living. The current plan includes ${activityDisplay}. Primary specifier emphasis: ${primaryText}. Flexible or lower-priority specifiers: ${summaryFlexibleText}. Planned weekly workload: ${round(totals.metMinWeek, 1)} MET-minutes with an estimated ${round(totals.kcalWeek, 1)} kcal per week.`,
+      summary: `Client has a diagnosis of ${diagnosisDisplay} and is assigned exercise as a behavioral health intervention to support regulation, attention, symptom management, and activities of daily living. The current plan includes ${activityDisplay}. The seven specifiers receiving the greatest emphasis in this plan are ${primaryText}. The rationale for emphasizing these specifiers is that current literature suggests these features of exercise may be most relevant to the intended symptom targets and functional goals. ${summaryFlexibleText} remain visible but are treated as lower priority or more flexible based on current tolerance, adherence, supervision needs, and the resources available to monitor them. The planned weekly workload across selected exercise blocks is ${round(totals.metMinWeek, 1)} MET-minutes with an estimated ${round(totals.kcalWeek, 1)} kcal per week.`,
       modality,
       supervision: state.specifiers["Clinician Integration Specifier"] >= 7
         ? "Moderate supervision by provider recommended"
