@@ -2675,3 +2675,85 @@ input[type="range"] {
 #doseDocumentationSection label textarea {
   line-height: 1.55;
 }
+/* ===== Print dosage blocks ===== */
+
+.print-dose-block-list {
+  display: grid;
+  gap: 12px;
+}
+
+.print-dose-block {
+  border: 1px solid #dbe3ee;
+  border-radius: 12px;
+  padding: 12px 14px;
+  background: #fff;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.print-dose-block-head,
+.print-dose-block-row {
+  display: grid;
+  grid-template-columns: minmax(180px, 1.4fr) repeat(4, minmax(90px, 1fr));
+  gap: 10px;
+  align-items: start;
+}
+
+.print-dose-block-head {
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.print-dose-block-head span {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #64748b;
+  line-height: 1.35;
+}
+
+.print-dose-block-row {
+  padding-top: 10px;
+}
+
+.print-dose-block-row strong {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #111827;
+  line-height: 1.45;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.print-dose-block-note {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #eef2f7;
+}
+
+.print-dose-block-note span {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #64748b;
+  margin-bottom: 4px;
+}
+
+.print-dose-block-note div {
+  color: #334155;
+  line-height: 1.55;
+}
+
+.print-dose-empty {
+  border: 1px dashed #dbe3ee;
+  border-radius: 12px;
+  padding: 12px 14px;
+  color: #64748b;
+}
+
+@media print {
+  .print-dose-block {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
