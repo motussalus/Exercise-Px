@@ -100,6 +100,7 @@
   root.addEventListener("click", handleClick);
   root.addEventListener("submit", handleSubmit);
   root.addEventListener("input", handleInput);
+  root.addEventListener("change", handleInput);
   root.addEventListener("dragstart", handleDragStart);
   root.addEventListener("dragover", handleDragOver);
   root.addEventListener("drop", handleDrop);
@@ -2123,19 +2124,35 @@
     }
   }
 
+  
   function handleInput(event) {
     const bind = event.target.dataset.bind;
     if (bind) {
       setByPath(state, bind, event.target.type === "number" ? event.target.value : event.target.value);
+    
       if (bind.startsWith("dose.")) {
         refreshDoseSection();
       }
+    
+      if (bind === "printMeta.diagnosis") {
+        const suggestions = buildPrintMetaSuggestions();
+    
+        if (!String(state.printMeta.goal || "").trim()) {
+          state.printMeta.goal = suggestions.goal;
+        }
+    
+        if (!String(state.printMeta.summary || "").trim()) {
+          state.printMeta.summary = suggestions.summary;
+        }
+      }
+    
       if (bind === "planNote" || bind.startsWith("printMeta.")) {
         const printSheet = root.querySelector("#printPlanSheet");
         if (printSheet) printSheet.outerHTML = renderPlanPrintSheet();
         persistState();
       }
     }
+    
     if (event.target.dataset.calcInput && event.target.type === "range") {
       const display = event.target.closest("label")?.querySelector("[data-calc-display]");
       const field = commonFields[event.target.dataset.calcInput]?.find(entry => entry.name === event.target.dataset.name);
