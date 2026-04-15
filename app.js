@@ -842,17 +842,32 @@
       `;
     }).join("");
   
-    const dosageRows = state.plan.length
+    const dosageBlocks = state.plan.length
       ? state.plan.map(item => `
-        <tr>
-          <td>${escapeHtml(item.activityName)}</td>
-          <td>${round(item.met, 1)} ${escapeHtml(item.metSystem || "MET")}</td>
-          <td>${round(item.duration, 0)}</td>
-          <td>${round(item.frequency, 0)}</td>
-          <td>${round(item.metMinWeek, 1)}</td>
-        </tr>
+        <div class="print-dose-block">
+          <div class="print-dose-block-head">
+            <span>Activity</span>
+            <span>MET</span>
+            <span>Minutes</span>
+            <span>Sessions/week</span>
+            <span>Estimated weekly MET-min</span>
+          </div>
+          <div class="print-dose-block-row">
+            <strong>${escapeHtml(item.activityName)}</strong>
+            <strong>${round(item.met, 1)} ${escapeHtml(item.metSystem || "MET")}</strong>
+            <strong>${round(item.duration, 0)}</strong>
+            <strong>${round(item.frequency, 0)}</strong>
+            <strong>${round(item.metMinWeek, 1)}</strong>
+          </div>
+          ${item.blockDetails ? `
+            <div class="print-dose-block-note">
+              <span>Exercise details</span>
+              <div>${escapeHtml(item.blockDetails).replace(/\n/g, "<br>")}</div>
+            </div>
+          ` : ""}
+        </div>
       `).join("")
-      : `<tr><td colspan="5">No exercise blocks added yet.</td></tr>`;
+      : `<div class="print-dose-empty">No exercise blocks added yet.</div>`;
   
     return `
       <section id="printPlanSheet" class="print-sheet">
@@ -883,7 +898,7 @@
           <h2>Weekly Plan</h2>
           <div class="print-week-radar-layout">
             <div class="print-week-grid">${weeklyRows}</div>
-        
+  
             <div class="print-radar-card print-radar-card-inline">
               <div class="print-radar-label">Specifier Profile</div>
               ${renderPrintRadarChart()}
@@ -893,18 +908,9 @@
   
         <section class="print-section">
           <h2>Dosage Block Details</h2>
-          <table class="print-dose-table">
-            <thead>
-              <tr>
-                <th>Activity</th>
-                <th>MET</th>
-                <th>Minutes</th>
-                <th>Sessions/week</th>
-                <th>Estimated weekly MET-min</th>
-              </tr>
-            </thead>
-            <tbody>${dosageRows}</tbody>
-          </table>
+          <div class="print-dose-block-list">
+            ${dosageBlocks}
+          </div>
   
           <div class="print-summary-grid print-summary-grid-compact">
             <div class="print-summary-card"><span>Exercise blocks</span><strong>${state.plan.length}</strong></div>
@@ -918,7 +924,6 @@
           <div class="print-structure-grid">
             <div class="print-structure-row"><span>Modality</span><strong>${escapeHtml(meta.modality || "—")}</strong></div>
             <div class="print-structure-row"><span>Supervision level</span><strong>${escapeHtml(meta.supervision || "—")}</strong></div>
-            <div class="print-structure-row"><span>Solo / group / clinician-led</span><strong>${escapeHtml(meta.delivery || "—")}</strong></div>
             <div class="print-structure-row"><span>Timing relative to therapy</span><strong>${escapeHtml(meta.timing || "—")}</strong></div>
             <div class="print-structure-row"><span>Progression logic</span><strong>${escapeHtml(meta.progression || "—")}</strong></div>
           </div>
@@ -940,11 +945,11 @@
             <div class="print-note">${escapeHtml(state.planNote).replace(/\n/g, "<br>")}</div>
           </section>
         ` : ""}
-        
+  
         <div class="print-sheet-footer">
           Powered by <strong>Exercise Px</strong> by <strong>Motus Salus</strong>
         </div>
-        </section>
+      </section>
     `;
   }
   
@@ -982,21 +987,28 @@
   
         <div class="form-grid print-form-grid" style="margin-top:14px;">
           <label><span>Modality</span><input data-bind="printMeta.modality" type="text" value="${escapeAttr(state.printMeta.modality)}" placeholder="${escapeAttr(suggested.modality)}" /></label>
-          <label><span>Supervision level</span><input data-bind="printMeta.supervision" type="text" value="${escapeAttr(state.printMeta.supervision)}" placeholder="${escapeAttr(suggested.supervision)}" /></label>
-          <label><span>Solo / group / clinician-led</span><input data-bind="printMeta.delivery" type="text" value="${escapeAttr(state.printMeta.delivery)}" placeholder="${escapeAttr(suggested.delivery)}" /></label>
+          <label><span>Supervision level</span>
+            <select data-bind="printMeta.supervision">
+              <option value="">Select supervision level</option>
+              <option value="Independent, no supervision" ${state.printMeta.supervision === "Independent, no supervision" ? "selected" : ""}>Independent, no supervision</option>
+              <option value="Light or independent" ${state.printMeta.supervision === "Light or independent" ? "selected" : ""}>Light or independent</option>
+              <option value="Moderate supervision by provider recommended" ${state.printMeta.supervision === "Moderate supervision by provider recommended" ? "selected" : ""}>Moderate supervision by provider recommended</option>
+              <option value="Advanced supervision by provider always needed" ${state.printMeta.supervision === "Advanced supervision by provider always needed" ? "selected" : ""}>Advanced supervision by provider always needed</option>
+            </select>
+          </label>
           <label><span>Timing relative to therapy</span><input data-bind="printMeta.timing" type="text" value="${escapeAttr(state.printMeta.timing)}" placeholder="${escapeAttr(suggested.timing)}" /></label>
         </div>
   
         <label style="margin-top:14px;">
           <span>Progression logic</span>
-          <textarea data-bind="printMeta.progression" placeholder="${escapeAttr(suggested.progression)}">${escapeHtml(state.printMeta.progression || "")}</textarea>
+          <textarea data-bind="printMeta.progression" placeholder="Any additions or changes to the exercise plan expected as tolerance, adherence, comfort, and symptom response dictate. E.g., Patient comes to PT after a hip injury from hiking. Progression may look like increasing banded leg lifts from 3 sets of 6 to 6 sets of 6 after 8 weeks of PT sessions twice weekly.">${escapeHtml(state.printMeta.progression || "")}</textarea>
         </label>
   
         <div class="form-grid print-form-grid" style="margin-top:14px;">
-          <label><span>Response to exercise</span><textarea data-bind="printMeta.response" placeholder="${escapeAttr(suggested.response)}">${escapeHtml(state.printMeta.response || "")}</textarea></label>
-          <label><span>Risk / caution</span><textarea data-bind="printMeta.risk" placeholder="${escapeAttr(suggested.risk)}">${escapeHtml(state.printMeta.risk || "")}</textarea></label>
-          <label><span>Progression trigger</span><textarea data-bind="printMeta.trigger" placeholder="${escapeAttr(suggested.trigger)}">${escapeHtml(state.printMeta.trigger || "")}</textarea></label>
-          <label><span>Review date / reassessment</span><input data-bind="printMeta.reviewDate" type="text" value="${escapeAttr(state.printMeta.reviewDate)}" placeholder="Follow-up date" /></label>
+          <label><span>Response to exercise</span><textarea data-bind="printMeta.response" placeholder="Example: Patient reports shooting pain through the sciatic nerve when doing yoga and stops the exercise. Provider recommends the client stop activity if X, Y, and Z feelings or symptoms arise.">${escapeHtml(state.printMeta.response || "")}</textarea></label>
+          <label><span>Risk / Caution</span><textarea data-bind="printMeta.risk" placeholder="${escapeAttr(suggested.risk)}">${escapeHtml(state.printMeta.risk || "")}</textarea></label>
+          <label><span>Progression Trigger</span><textarea data-bind="printMeta.trigger" placeholder="${escapeAttr(suggested.trigger)}">${escapeHtml(state.printMeta.trigger || "")}</textarea></label>
+          <label><span>Review Date / Reassessment</span><input data-bind="printMeta.reviewDate" type="text" value="${escapeAttr(state.printMeta.reviewDate)}" placeholder="Follow-up date" /></label>
         </div>
       </section>
     `;
@@ -1119,8 +1131,9 @@
         : `This exercise plan is designed to support ${state.printMeta.diagnosis || "the identified treatment target"} through a structured weekly exercise prescription.`,
       whyDistinct: `The prescription prioritizes ${primary} because those variables are expected to matter most for this case. Lower-priority specifiers remain visible but are treated more flexibly based on tolerance, supervision, and available monitoring.`,
       modality,
-      supervision: state.specifiers["Clinician Integration Specifier"] >= 7 ? "Closer clinician oversight or structured check-ins as indicated" : "Independent or lightly supervised as tolerated",
-      delivery: "Solo or clinician-guided depending on symptom burden and setting",
+      supervision: state.specifiers["Clinician Integration Specifier"] >= 7
+        ? "Moderate supervision by provider recommended"
+        : "Light or independent",
       timing: "Coordinate with therapy timing when symptom regulation or activation is a treatment target",
       progression: "Increase one variable at a time as tolerance, adherence, and symptom response allow",
       response: "Monitor symptom response, adherence, and perceived exertion across the week",
