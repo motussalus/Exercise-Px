@@ -2786,3 +2786,17 @@ input[type="range"] {
     min-height: 110px;
   }
 }
+/* ===== Timing Relative to Appointments ===== */
+
+#doseDocumentationSection .timing-note-field textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.print-inline-note {
+  display: inline-block;
+  margin-top: 6px;
+  font-weight: 500;
+  color: #334155;
+  line-height: 1.5;
+}
