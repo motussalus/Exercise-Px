@@ -946,13 +946,6 @@
           </div>
         </section>
   
-        ${state.planNote ? `
-          <section class="print-section">
-            <h2>Plan</h2>
-            <div class="print-note">${escapeHtml(state.planNote).replace(/\n/g, "<br>")}</div>
-          </section>
-        ` : ""}
-  
         <div class="print-sheet-footer">
           Powered by <strong>Exercise Px</strong> by <strong>Motus Salus</strong>
         </div>
