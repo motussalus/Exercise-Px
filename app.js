@@ -825,7 +825,7 @@
   function renderPlanPrintSheet() {
     const totals = totalPlanDose();
     const today = new Date().toLocaleDateString();
-    const meta = resolvePrintMeta();
+    const meta = { ...DEFAULT_PRINT_META, ...state.printMeta };
     const schedule = getWeeklySchedule();
     const primarySpecifier = getPrimarySpecifierSummary(3);
   
@@ -874,7 +874,7 @@
           <h2>Summary / Rationale</h2>
           <div class="print-summary-rationale">
             <p><strong>This exercise plan is designed to support</strong><br>${escapeHtml(meta.summary || "—")}</p>
-            <p><strong>Why this differs for this patient</strong><br>${escapeHtml(meta.whyDistinct || "—")}</p>
+            <p><strong>Client comments / considerations</strong><br>${escapeHtml(meta.whyDistinct || "—")}</p>
             <p><strong>Primary specifier emphasis</strong><br>${escapeHtml(primarySpecifier)}</p>
           </div>
         </section>
@@ -1966,15 +1966,20 @@
       window.print();
       return;
     }
+    
     if (action === "plan-clear") {
-      const ok = window.confirm("Are you sure you want to clear the full plan and plan note?");
+      const ok = window.confirm("Are you sure you want to clear the weekly plan, note, and printable sheet fields?");
       if (!ok) return;
+    
       state.plan = [];
       state.planNote = "";
-      showToast("Plan cleared.", "warn");
+      state.printMeta = clone(DEFAULT_PRINT_META);
+    
+      showToast("Plan and documentation fields cleared.", "warn");
       renderApp();
       return;
     }
+    
     if (action === "toggle-radar") {
       state.showRadar = !state.showRadar;
       renderApp();
