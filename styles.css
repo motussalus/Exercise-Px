@@ -2757,3 +2757,32 @@ input[type="range"] {
     page-break-inside: avoid;
   }
 }
+/* ===== Mobile stretch for Documentation & Export fields ===== */
+
+@media (max-width: 800px) {
+  #doseDocumentationSection .print-editor-shell,
+  #doseDocumentationSection .print-form-grid {
+    width: 100%;
+  }
+
+  #doseDocumentationSection .print-form-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  #doseDocumentationSection label {
+    width: 100%;
+    align-self: stretch;
+  }
+
+  #doseDocumentationSection input,
+  #doseDocumentationSection textarea,
+  #doseDocumentationSection select {
+    display: block;
+    width: 100%;
+    min-width: 0;
+  }
+
+  #doseDocumentationSection textarea {
+    min-height: 110px;
+  }
+}
