@@ -19,8 +19,8 @@
     whyDistinct: "",
     modality: "",
     supervision: "",
-    delivery: "",
     timing: "",
+    timingNote: "",
     progression: "",
     response: "",
     risk: "",
@@ -924,7 +924,13 @@
           <div class="print-structure-grid">
             <div class="print-structure-row"><span>Modality</span><strong>${escapeHtml(meta.modality || "—")}</strong></div>
             <div class="print-structure-row"><span>Supervision level</span><strong>${escapeHtml(meta.supervision || "—")}</strong></div>
-            <div class="print-structure-row"><span>Timing relative to therapy</span><strong>${escapeHtml(meta.timing || "—")}</strong></div>
+            <div class="print-structure-row">
+              <span>Timing Relative to Appointments</span>
+              <strong>
+                ${escapeHtml(meta.timing || "—")}
+                ${meta.timingNote ? `<br><span class="print-inline-note">${escapeHtml(meta.timingNote)}</span>` : ""}
+              </strong>
+            </div>
             <div class="print-structure-row"><span>Progression logic</span><strong>${escapeHtml(meta.progression || "—")}</strong></div>
           </div>
         </section>
@@ -996,9 +1002,32 @@
               <option value="Advanced supervision by provider always needed" ${state.printMeta.supervision === "Advanced supervision by provider always needed" ? "selected" : ""}>Advanced supervision by provider always needed</option>
             </select>
           </label>
-          <label><span>Timing relative to therapy</span><input data-bind="printMeta.timing" type="text" value="${escapeAttr(state.printMeta.timing)}" placeholder="${escapeAttr(suggested.timing)}" /></label>
-        </div>
-  
+          <label><span>Timing Relative to Appointments</span>
+            <select data-bind="printMeta.timing">
+              <option value="">Select timing category</option>
+              <option value="In Session" ${state.printMeta.timing === "In Session" ? "selected" : ""}>In Session</option>
+              <option value="Out of Session - Any Day" ${state.printMeta.timing === "Out of Session - Any Day" ? "selected" : ""}>Out of Session - Any Day</option>
+              <option value="Out of Session - Non Appointment Days" ${state.printMeta.timing === "Out of Session - Non Appointment Days" ? "selected" : ""}>Out of Session - Non Appointment Days</option>
+              <option value="Immediately Before Appointment" ${state.printMeta.timing === "Immediately Before Appointment" ? "selected" : ""}>Immediately Before Appointment</option>
+              <option value="Immediately After Appointment" ${state.printMeta.timing === "Immediately After Appointment" ? "selected" : ""}>Immediately After Appointment</option>
+              <option value="Within 2 Hours Before Appointment" ${state.printMeta.timing === "Within 2 Hours Before Appointment" ? "selected" : ""}>Within 2 Hours Before Appointment</option>
+              <option value="Within 2 Hours After Appointment" ${state.printMeta.timing === "Within 2 Hours After Appointment" ? "selected" : ""}>Within 2 Hours After Appointment</option>
+              <option value="Same Day as Appointment" ${state.printMeta.timing === "Same Day as Appointment" ? "selected" : ""}>Same Day as Appointment</option>
+              <option value="Other / See timing note" ${state.printMeta.timing === "Other / See timing note" ? "selected" : ""}>Other / See timing note</option>
+            </select>
+          </label>        
+          </div>
+
+
+        <label class="timing-note-field" style="margin-top:14px;">
+          <span>Timing Note (optional)</span>
+          <textarea
+            data-bind="printMeta.timingNote"
+            placeholder="Add timing detail if needed. E.g., complete within 2 hours after psychotherapy, avoid on injection days, or perform only on days without scheduled appointments."
+          >${escapeHtml(state.printMeta.timingNote || "")}</textarea>
+        </label>
+
+        
         <label style="margin-top:14px;">
           <span>Progression logic</span>
           <textarea data-bind="printMeta.progression" placeholder="Any additions or changes to the exercise plan expected as tolerance, adherence, comfort, and symptom response dictate. E.g., Patient comes to PT after a hip injury from hiking. Progression may look like increasing banded leg lifts from 3 sets of 6 to 6 sets of 6 after 8 weeks of PT sessions twice weekly.">${escapeHtml(state.printMeta.progression || "")}</textarea>
@@ -1007,7 +1036,7 @@
         <div class="form-grid print-form-grid" style="margin-top:14px;">
           <label><span>Response to exercise</span><textarea data-bind="printMeta.response" placeholder="Example: Patient reports positive improvement on ADL's from runing but notes shooting pain through the sciatic nerve when doing hot yoga and stops the exercise. Lab results indicate....">${escapeHtml(state.printMeta.response || "")}</textarea></label>
           <label><span>Risk / Caution</span><textarea data-bind="printMeta.risk" placeholder="${escapeAttr(suggested.risk)}">${escapeHtml(state.printMeta.risk || "")}</textarea></label>
-          <label><span>Progression Trigger</span><textarea data-bind="printMeta.trigger" placeholder="${escapeAttr(suggested.trigger)}">${escapeHtml(state.printMeta.trigger || "")}</textarea></label>
+          <label><span>When to Progress</span><textarea data-bind="printMeta.trigger" placeholder="${escapeAttr(suggested.trigger)}">${escapeHtml(state.printMeta.trigger || "")}</textarea></label>
           <label><span>Review Date / Reassessment</span><input data-bind="printMeta.reviewDate" type="text" value="${escapeAttr(state.printMeta.reviewDate)}" placeholder="Follow-up date" /></label>
         </div>
       </section>
@@ -1134,7 +1163,8 @@
       supervision: state.specifiers["Clinician Integration Specifier"] >= 7
         ? "Moderate supervision by provider recommended"
         : "Light or independent",
-      timing: "Coordinate with therapy timing when symptom regulation or activation is a treatment target",
+      timing: "Out of Session - Any Day",
+      timingNote: "",
       progression: "Increase one variable at a time as tolerance, adherence, and symptom response allow",
       response: "Monitor symptom response, adherence, perceived exertion across the week, and metrics withing the seven specifiers.",
       risk: "Watch for overexertion, symptom worsening, and barriers to consistency",
