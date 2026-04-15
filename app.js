@@ -2048,6 +2048,15 @@
       return;
     }
     
+    if (action === "print-fill-above") {
+      const suggestions = buildPrintMetaSuggestions();
+      state.printMeta.goal = suggestions.goal;
+      state.printMeta.summary = suggestions.summary;
+      showToast("Goal and summary filled from the current dose plan.", "success");
+      renderApp();
+      return;
+    }
+    
     if (action === "plan-example-note") {
       state.planNote = buildExamplePlanNote();
       renderApp();
