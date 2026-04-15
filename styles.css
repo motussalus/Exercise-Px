@@ -2900,3 +2900,24 @@ input[type="range"] {
     grid-template-columns: 1fr;
   }
 }
+/* ===== Premium preview workout formatting ===== */
+
+.premium-preview-block + .premium-preview-block {
+  margin-top: 14px;
+}
+
+.premium-preview-block h4,
+.premium-preview-block h5 {
+  margin: 0 0 8px;
+}
+
+.premium-preview-list {
+  margin: 0;
+  padding-left: 18px;
+  line-height: 1.65;
+  color: var(--text);
+}
+
+.premium-preview-list li + li {
+  margin-top: 4px;
+}
