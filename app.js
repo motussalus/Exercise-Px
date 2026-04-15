@@ -1063,7 +1063,7 @@
         <div class="premium-preview-layout">
           <div class="premium-preview-image-wrap">
             <img
-              src="assets/pvictor-freitas-WvDYdXDzkhs-unsplash.png"
+              src="assets/victor-freitas-WvDYdXDzkhs-unsplash.jpg"
               alt="Example exercise guidance preview"
               class="premium-preview-image"
             />
