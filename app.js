@@ -978,22 +978,26 @@
           <label><span>Client</span><input data-bind="printMeta.client" type="text" value="${escapeAttr(state.printMeta.client)}" placeholder="Client name or identifier" /></label>
           <label><span>Diagnosis / Target</span><input data-bind="printMeta.diagnosis" type="text" value="${escapeAttr(state.printMeta.diagnosis)}" placeholder="ADHD, PTSD, eating disorder, pain, etc." /></label>
           <label><span>Setting</span><input data-bind="printMeta.setting" type="text" value="${escapeAttr(state.printMeta.setting)}" placeholder="${escapeAttr(suggested.setting)}" /></label>
-          <label><span>Goal / Intended Outcome</span><input data-bind="printMeta.goal" type="text" value="${escapeAttr(state.printMeta.goal)}" placeholder="${escapeAttr(suggested.goal)}" /></label>
         </div>
-  
+        
+        <label style="margin-top:14px;">
+          <span>Goal / Intended Outcome</span>
+          <textarea data-bind="printMeta.goal" placeholder="${escapeAttr(suggested.goal)}">${escapeHtml(state.printMeta.goal || "")}</textarea>
+        </label>
+        
         <label style="margin-top:14px;">
           <span>Summary / Rationale</span>
           <textarea data-bind="printMeta.summary" placeholder="${escapeAttr(suggested.summary)}">${escapeHtml(state.printMeta.summary || "")}</textarea>
         </label>
   
         <label style="margin-top:14px;">
-          <span>Client comments / considerations</span>
+          <span>Client Comments / Considerations</span>
           <textarea data-bind="printMeta.whyDistinct" placeholder="This is where comments from the client regarding the exercise can be noted. E.g., Client reports having difficulty walking to the mailbox due to weight. Client states they are willing to try yoga in combination with somatic therapy for depression and noted interest in group yoga therapy once a 50 lb weight-loss goal is reached.">${escapeHtml(state.printMeta.whyDistinct || "")}</textarea>
         </label>
   
         <div class="form-grid print-form-grid" style="margin-top:14px;">
           <label><span>Modality</span><input data-bind="printMeta.modality" type="text" value="${escapeAttr(state.printMeta.modality)}" placeholder="${escapeAttr(suggested.modality)}" /></label>
-          <label><span>Supervision level</span>
+          <label><span>Supervision Level</span>
             <select data-bind="printMeta.supervision">
               <option value="">Select supervision level</option>
               <option value="Independent, no supervision" ${state.printMeta.supervision === "Independent, no supervision" ? "selected" : ""}>Independent, no supervision</option>
@@ -1029,12 +1033,12 @@
 
         
         <label style="margin-top:14px;">
-          <span>Progression logic</span>
+          <span>Progression Logic</span>
           <textarea data-bind="printMeta.progression" placeholder="Any additions or changes to the exercise plan expected as tolerance, adherence, comfort, and symptom response dictate. E.g., Patient comes to PT after a hip injury from hiking. Progression may look like increasing banded leg lifts from 3 sets of 6 to 6 sets of 6 after 8 weeks of PT sessions twice weekly.">${escapeHtml(state.printMeta.progression || "")}</textarea>
         </label>
   
         <div class="form-grid print-form-grid" style="margin-top:14px;">
-          <label><span>Response to exercise</span><textarea data-bind="printMeta.response" placeholder="Example: Patient reports positive improvement on ADL's from runing but notes shooting pain through the sciatic nerve when doing hot yoga and stops the exercise. Lab results indicate....">${escapeHtml(state.printMeta.response || "")}</textarea></label>
+          <label><span>Response to Exercise</span><textarea data-bind="printMeta.response" placeholder="Example: Patient reports positive improvement on ADL's from runing but notes shooting pain through the sciatic nerve when doing hot yoga and stops the exercise. Lab results indicate....">${escapeHtml(state.printMeta.response || "")}</textarea></label>
           <label><span>Risk / Caution</span><textarea data-bind="printMeta.risk" placeholder="${escapeAttr(suggested.risk)}">${escapeHtml(state.printMeta.risk || "")}</textarea></label>
           <label><span>When to Progress</span><textarea data-bind="printMeta.trigger" placeholder="${escapeAttr(suggested.trigger)}">${escapeHtml(state.printMeta.trigger || "")}</textarea></label>
           <label><span>Review Date / Reassessment</span><input data-bind="printMeta.reviewDate" type="text" value="${escapeAttr(state.printMeta.reviewDate)}" placeholder="Follow-up date" /></label>
@@ -1129,10 +1133,15 @@
   }
   
   function buildPrintMetaSuggestions() {
-    const primary = getPrimarySpecifierSummary(3);
+    const entries = Object.entries(state.specifiers).sort((a, b) => b[1] - a[1]);
+    const primarySpecifiers = entries.filter(([, value]) => value >= 7).map(([name]) => name);
+    const flexibleSpecifiers = entries.filter(([, value]) => value >= 3 && value <= 6).map(([name]) => name);
+    const lowPrioritySpecifiers = entries.filter(([, value]) => value <= 2).map(([name]) => name);
+  
     const activityNames = state.plan.length
       ? state.plan.map(item => item.activityName)
       : (getSelectedActivity() ? [getSelectedActivity().activity] : []);
+  
     const uniqueNames = Array.from(new Set(activityNames));
     const categories = Array.from(new Set(state.plan.map(item => item.category).filter(Boolean)));
     const totals = totalPlanDose();
@@ -1145,19 +1154,34 @@
           ? "Mixed-modal exercise plan"
           : "Structured exercise plan";
   
-    const goal = state.printMeta.goal || state.printMeta.diagnosis
-      ? `Support ${state.printMeta.diagnosis || "the identified target"} with a structured exercise intervention`
-      : "Support the intended behavioral health outcome with a structured exercise intervention";
+    const diagnosisText = state.printMeta.diagnosis || "the identified disorder or treatment target";
+    const activityText = uniqueNames.length
+      ? uniqueNames.join(", ")
+      : modality;
+  
+    const primaryText = primarySpecifiers.length
+      ? primarySpecifiers.join(", ")
+      : getPrimarySpecifierSummary(3);
+  
+    const flexibleText = flexibleSpecifiers.length
+      ? flexibleSpecifiers.join(", ")
+      : "other lower-priority specifiers";
+  
+    const lowPriorityText = lowPrioritySpecifiers.length
+      ? lowPrioritySpecifiers.join(", ")
+      : "";
+  
+    const summaryFlexibleText = lowPriorityText
+      ? `${flexibleText}, and ${lowPriorityText}`
+      : flexibleText;
   
     return {
       clinician: "",
       client: "",
       diagnosis: state.printMeta.diagnosis || "",
       setting: "Outpatient / behavioral health setting",
-      goal,
-      summary: uniqueNames.length
-        ? `This exercise plan is designed to support ${state.printMeta.diagnosis || "the identified treatment target"} through a structured weekly prescription using ${uniqueNames.join(", ")}. The current plan totals ${round(totals.metMinWeek, 1)} MET-min/week. The prescription prioritizes ${primary} because those variables are expected to matter most for this case. Lower-priority specifiers remain visible but are treated more flexibly based on tolerance, supervision, and available monitoring.`
-        : `This exercise plan is designed to support ${state.printMeta.diagnosis || "the identified treatment target"} through a structured weekly exercise prescription. The prescription prioritizes ${primary} because those variables are expected to matter most for this case. Lower-priority specifiers remain visible but are treated more flexibly based on tolerance, supervision, and available monitoring.`,
+      goal: `The goal of the exercise prescription is to target ${primaryText} through ${activityText} for ${diagnosisText}.`,
+      summary: `Client has a diagnosis of ${diagnosisText} and is assigned exercise as a behavioral health intervention to support regulation, attention, symptom management, and activities of daily living. The current plan includes ${activityText}. The seven specifiers receiving the greatest emphasis in this plan are ${primaryText}, while ${summaryFlexibleText} remain visible but are treated as lower priority or more flexible based on current tolerance, adherence, and the resources available to monitor them. The planned weekly workload across selected exercise blocks is ${round(totals.metMinWeek, 1)} MET-minutes with an estimated ${round(totals.kcalWeek, 1)} kcal per week.`,
       whyDistinct: `Client states they cannot sit still in class or at a normal job. Client enjoys working on his dad's commercial fishing boat (Code 11248, around 3.5 to 5 METs), stating "I like having something to toil with and keep my brain focused." Client states he used to go running before taking a shackle bolt to the knee a few years ago, but still hits the gym three days a week for "the gains."`,
       modality,
       supervision: state.specifiers["Clinician Integration Specifier"] >= 7
@@ -1165,10 +1189,10 @@
         : "Light or independent",
       timing: "Out of Session - Any Day",
       timingNote: "",
-      progression: "Increase one variable at a time as tolerance, adherence, and symptom response allow",
+      progression: "Increase one variable at a time as tolerance, adherence, comfort, and symptom response allow.",
       response: "Monitor symptom response, adherence, perceived exertion across the week, and metrics within the seven specifiers.",
-      risk: "Watch for overexertion, symptom worsening, and barriers to consistency",
-      trigger: "Define the threshold for advancing the plan or changing specifier emphasis. What changes, and when should it change? E.g., A client starts at an activity of 4.0 METs. If symptoms do not improve and tolerance remains adequate, increase to 5.0 METs.",      
+      risk: "Watch for overexertion, symptom worsening, and barriers to consistency.",
+      trigger: "Define the threshold for advancing the plan or changing specifier emphasis. What changes, and when should it change? E.g., A client starts at an activity of 4.0 METs. If symptoms do not improve and tolerance remains adequate, increase to 5.0 METs.",
       reviewDate: ""
     };
   }
