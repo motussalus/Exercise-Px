@@ -775,12 +775,6 @@
   
               ${renderExerciseGuidancePreview()}
   
-              <details class="help-box" style="margin-top:12px;">
-                <summary>What makes a strong plan note?</summary>
-                <div class="helper-copy">
-                  <p>A strong note explains why exercise is being used, which specifiers matter most, and how the block is expected to influence the behavioral health goal.</p>
-                </div>
-              </details>
   
               <div class="button-row" style="margin-top:16px;">
                 <button class="btn btn-primary" data-action="print-fill-above">Fill from Dose + Plan</button>
