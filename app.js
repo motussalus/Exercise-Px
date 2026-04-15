@@ -1080,12 +1080,12 @@
             </div>
   
             <div class="premium-preview-block">
-              <h5>Ramp-up sets</h5>
+              <h5>Ramp-up Sets Example:</h5>
               <ul class="premium-preview-list">
-                <li>1 × 10 reps at 95 lbs</li>
-                <li>1 × 6 reps at 135 lbs</li>
-                <li>1 × 3 reps at 185 lbs</li>
-                <li>Then begin 3–4 working sets at 225 lbs</li>
+                <li>1 × 10 reps Back Squats at 95 lbs</li>
+                <li>1 × 6 reps Back Squats at 135 lbs</li>
+                <li>1 × 3 reps Back Squats at 185 lbs</li>
+                <li>Then begin 3–4 working sets Back Squats at 225 lbs</li>
               </ul>
             </div>
   
