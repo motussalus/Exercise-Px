@@ -1156,9 +1156,9 @@
       setting: "Outpatient / behavioral health setting",
       goal,
       summary: uniqueNames.length
-        ? `This exercise plan is designed to support ${state.printMeta.diagnosis || "the identified treatment target"} through a structured weekly prescription using ${uniqueNames.join(", ")}. The current plan totals ${round(totals.metMinWeek, 1)} MET-min/week.`
-        : `This exercise plan is designed to support ${state.printMeta.diagnosis || "the identified treatment target"} through a structured weekly exercise prescription.`,
-      whyDistinct: `The prescription prioritizes ${primary} because those variables are expected to matter most for this case. Lower-priority specifiers remain visible but are treated more flexibly based on tolerance, supervision, and available monitoring.`,
+        ? `This exercise plan is designed to support ${state.printMeta.diagnosis || "the identified treatment target"} through a structured weekly prescription using ${uniqueNames.join(", ")}. The current plan totals ${round(totals.metMinWeek, 1)} MET-min/week. The prescription prioritizes ${primary} because those variables are expected to matter most for this case. Lower-priority specifiers remain visible but are treated more flexibly based on tolerance, supervision, and available monitoring.`
+        : `This exercise plan is designed to support ${state.printMeta.diagnosis || "the identified treatment target"} through a structured weekly exercise prescription. The prescription prioritizes ${primary} because those variables are expected to matter most for this case. Lower-priority specifiers remain visible but are treated more flexibly based on tolerance, supervision, and available monitoring.`,
+      whyDistinct: `Client states they cannot sit still in class or at a normal job. Client enjoys working on his dad's commercial fishing boat (Code 11248, around 3.5 to 5 METs), stating "I like having something to toil with and keep my brain focused." Client states he used to go running before taking a shackle bolt to the knee a few years ago, but still hits the gym three days a week for "the gains."`,
       modality,
       supervision: state.specifiers["Clinician Integration Specifier"] >= 7
         ? "Moderate supervision by provider recommended"
@@ -1166,7 +1166,7 @@
       timing: "Out of Session - Any Day",
       timingNote: "",
       progression: "Increase one variable at a time as tolerance, adherence, and symptom response allow",
-      response: "Monitor symptom response, adherence, perceived exertion across the week, and metrics withing the seven specifiers.",
+      response: "Monitor symptom response, adherence, perceived exertion across the week, and metrics within the seven specifiers.",
       risk: "Watch for overexertion, symptom worsening, and barriers to consistency",
       trigger: "Define the threshold for advancing the plan or changing specifier emphasis. What changes, and when should it change? E.g., A client starts at an activity of 4.0 METs. If symptoms do not improve and tolerance remains adequate, increase to 5.0 METs.",      
       reviewDate: ""
