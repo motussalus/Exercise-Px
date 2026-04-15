@@ -2800,3 +2800,6 @@ input[type="range"] {
   color: #334155;
   line-height: 1.5;
 }
+#doseDocumentationSection textarea[data-bind="printMeta.goal"] {
+  min-height: 96px;
+}
