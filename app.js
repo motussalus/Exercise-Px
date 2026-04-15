@@ -967,10 +967,12 @@
     const suggested = buildPrintMetaSuggestions();
     return `
       <section class="print-editor-shell">
-        <div class="card-head">
+        <<div class="card-head">
           <div>
             <h3>Printable sheet details</h3>
-            <p>These fields feed the printable prescription sheet. Use Auto-fill to pre-populate the guidance fields from the current plan.</p>
+            <p>These fields feed the printable prescription sheet. Use “Fill from Dose + Plan” to pull in the core goal and rationale from the current exercise setup.</p>          </div>
+          <div class="button-row">
+            <button class="btn btn-soft" type="button" data-action="print-fill-above">Fill from Dose + Plan</button>
           </div>
         </div>
   
@@ -2007,6 +2009,21 @@
       if (!item) return;
       item.dayAssignments = defaultAssignmentsForFrequency(item.frequency);
       showToast("Weekly schedule reset across the week.", "success");
+      renderApp();
+      return;
+    }
+
+    if (action === "print-fill-above") {
+      const suggestions = buildPrintMetaSuggestions();
+    
+      state.printMeta.goal = suggestions.goal;
+      state.printMeta.summary = suggestions.summary;
+    
+      if (!String(state.printMeta.modality || "").trim()) {
+        state.printMeta.modality = suggestions.modality;
+      }
+    
+      showToast("Goal and summary filled from the current dose plan.", "success");
       renderApp();
       return;
     }
