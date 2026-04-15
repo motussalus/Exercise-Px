@@ -2803,3 +2803,59 @@ input[type="range"] {
 #doseDocumentationSection textarea[data-bind="printMeta.goal"] {
   min-height: 96px;
 }
+
+/* ===== Print weekly plan tightening ===== */
+
+@media print {
+  .print-week-radar-layout,
+  .print-week-grid,
+  .print-radar-card-inline,
+  .print-week-row {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .print-section {
+    margin-top: 16px;
+  }
+
+  .print-section h2 {
+    margin: 0 0 8px;
+    font-size: 0.98rem;
+  }
+
+  .print-week-radar-layout {
+    grid-template-columns: minmax(0, 1.25fr) minmax(210px, 0.75fr);
+    gap: 12px;
+    align-items: start;
+  }
+
+  .print-week-grid {
+    gap: 6px;
+  }
+
+  .print-week-row {
+    padding: 6px 8px;
+    border: 1px solid #dbe3ee;
+    border-radius: 10px;
+    background: #fff;
+  }
+
+  .print-week-day {
+    font-size: 0.84rem;
+    font-weight: 700;
+  }
+
+  .print-week-content {
+    font-size: 0.82rem;
+    line-height: 1.35;
+  }
+
+  .print-radar-card-inline {
+    padding: 8px 10px;
+  }
+
+  .print-radar-card-inline .print-radar-svg svg {
+    max-height: 220px;
+  }
+}
