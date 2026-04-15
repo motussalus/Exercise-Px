@@ -934,7 +934,7 @@
           <div class="print-monitor-grid">
             <div class="print-monitor-row"><span>Response to exercise</span><strong>${escapeHtml(meta.response || "—")}</strong></div>
             <div class="print-monitor-row"><span>Risk / caution</span><strong>${escapeHtml(meta.risk || "—")}</strong></div>
-            <div class="print-monitor-row"><span>Progression trigger</span><strong>${escapeHtml(meta.trigger || "—")}</strong></div>
+            <div class="print-monitor-row"><span>When to Progress</span><strong>${escapeHtml(meta.trigger || "—")}</strong></div>
             <div class="print-monitor-row"><span>Review date / reassessment</span><strong>${escapeHtml(meta.reviewDate || "—")}</strong></div>
           </div>
         </section>
@@ -1005,7 +1005,7 @@
         </label>
   
         <div class="form-grid print-form-grid" style="margin-top:14px;">
-          <label><span>Response to exercise</span><textarea data-bind="printMeta.response" placeholder="Example: Patient reports shooting pain through the sciatic nerve when doing yoga and stops the exercise. Provider recommends the client stop activity if X, Y, and Z feelings or symptoms arise.">${escapeHtml(state.printMeta.response || "")}</textarea></label>
+          <label><span>Response to exercise</span><textarea data-bind="printMeta.response" placeholder="Example: Patient reports positive improvement on ADL's from runing but notes shooting pain through the sciatic nerve when doing hot yoga and stops the exercise. Lab results indicate....">${escapeHtml(state.printMeta.response || "")}</textarea></label>
           <label><span>Risk / Caution</span><textarea data-bind="printMeta.risk" placeholder="${escapeAttr(suggested.risk)}">${escapeHtml(state.printMeta.risk || "")}</textarea></label>
           <label><span>Progression Trigger</span><textarea data-bind="printMeta.trigger" placeholder="${escapeAttr(suggested.trigger)}">${escapeHtml(state.printMeta.trigger || "")}</textarea></label>
           <label><span>Review Date / Reassessment</span><input data-bind="printMeta.reviewDate" type="text" value="${escapeAttr(state.printMeta.reviewDate)}" placeholder="Follow-up date" /></label>
@@ -1136,9 +1136,9 @@
         : "Light or independent",
       timing: "Coordinate with therapy timing when symptom regulation or activation is a treatment target",
       progression: "Increase one variable at a time as tolerance, adherence, and symptom response allow",
-      response: "Monitor symptom response, adherence, and perceived exertion across the week",
+      response: "Monitor symptom response, adherence, perceived exertion across the week, and metrics withing the seven specifiers.",
       risk: "Watch for overexertion, symptom worsening, and barriers to consistency",
-      trigger: "Progress when the current dose is tolerated consistently with stable recovery",
+      trigger: "Define the threshold for advancing the plan or changing specifier emphasis. What changes, and when should it change? E.g., A client starts at an activity of 4.0 METs. If symptoms do not improve and tolerance remains adequate, increase to 5.0 METs.",      
       reviewDate: ""
     };
   }
