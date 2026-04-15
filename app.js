@@ -1154,10 +1154,10 @@
           ? "Mixed-modal exercise plan"
           : "Structured exercise plan";
   
-    const diagnosisText = state.printMeta.diagnosis || "the identified disorder or treatment target";
-    const activityText = uniqueNames.length
+    const diagnosisDisplay = state.printMeta.diagnosis?.trim() || "[Diagnosis / Target]";
+    const activityDisplay = uniqueNames.length
       ? uniqueNames.join(", ")
-      : modality;
+      : "[Selected exercise block]";
   
     const primaryText = primarySpecifiers.length
       ? primarySpecifiers.join(", ")
@@ -1180,9 +1180,8 @@
       client: "",
       diagnosis: state.printMeta.diagnosis || "",
       setting: "Outpatient / behavioral health setting",
-      goal: `The goal of the exercise prescription is to target ${primaryText} through ${activityText} for ${diagnosisText}.`,
-      summary: `Client has a diagnosis of ${diagnosisText} and is assigned exercise as a behavioral health intervention to support regulation, attention, symptom management, and activities of daily living. The current plan includes ${activityText}. The seven specifiers receiving the greatest emphasis in this plan are ${primaryText}, while ${summaryFlexibleText} remain visible but are treated as lower priority or more flexible based on current tolerance, adherence, and the resources available to monitor them. The planned weekly workload across selected exercise blocks is ${round(totals.metMinWeek, 1)} MET-minutes with an estimated ${round(totals.kcalWeek, 1)} kcal per week.`,
-      whyDistinct: `Client states they cannot sit still in class or at a normal job. Client enjoys working on his dad's commercial fishing boat (Code 11248, around 3.5 to 5 METs), stating "I like having something to toil with and keep my brain focused." Client states he used to go running before taking a shackle bolt to the knee a few years ago, but still hits the gym three days a week for "the gains."`,
+      goal: `The goal of the exercise prescription is to target ${primaryText} through ${activityDisplay} for ${diagnosisDisplay}.`,
+      summary: `Client has a diagnosis of ${diagnosisDisplay} and is assigned exercise as a behavioral health intervention to support regulation, attention, symptom management, and activities of daily living. The current plan includes ${activityDisplay}. Primary specifier emphasis: ${primaryText}. Flexible or lower-priority specifiers: ${summaryFlexibleText}. Planned weekly workload: ${round(totals.metMinWeek, 1)} MET-minutes with an estimated ${round(totals.kcalWeek, 1)} kcal per week.`,
       modality,
       supervision: state.specifiers["Clinician Integration Specifier"] >= 7
         ? "Moderate supervision by provider recommended"
