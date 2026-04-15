@@ -967,7 +967,7 @@
     const suggested = buildPrintMetaSuggestions();
     return `
       <section class="print-editor-shell">
-        <<div class="card-head">
+        <div class="card-head">
           <div>
             <h3>Printable sheet details</h3>
             <p>These fields feed the printable prescription sheet. Use “Fill from Dose + Plan” to pull in the core goal and rationale from the current exercise setup.</p>          </div>
@@ -1134,6 +1134,8 @@
       .map(([name]) => name)
       .join(", ");
   }
+
+
   
   function buildPrintMetaSuggestions() {
     const entries = Object.entries(state.specifiers).sort((a, b) => b[1] - a[1]);
@@ -1185,6 +1187,7 @@
       setting: "Outpatient / behavioral health setting",
       goal: `The goal of the exercise prescription is to target ${primaryText} through ${activityDisplay} for ${diagnosisDisplay}.`,
       summary: `Client has a diagnosis of ${diagnosisDisplay} and is assigned exercise as a behavioral health intervention to support regulation, attention, symptom management, and activities of daily living. The current plan includes ${activityDisplay}. The seven specifiers receiving the greatest emphasis in this plan are ${primaryText}. The rationale for emphasizing these specifiers is that current literature suggests these features of exercise may be most relevant to the intended symptom targets and functional goals. ${summaryFlexibleText} remain visible but are treated as lower priority or more flexible based on current tolerance, adherence, supervision needs, and the resources available to monitor them. The planned weekly workload across selected exercise blocks is ${round(totals.metMinWeek, 1)} MET-minutes with an estimated ${round(totals.kcalWeek, 1)} kcal per week.`,
+      whyDistinct: `Client states they cannot sit still in class or at a normal job. Client enjoys working on his dad's commercial fishing boat (Code 11248, around 3.5 to 5 METs), stating "I like having something to toil with and keep my brain focused." Client states he used to go running before taking a shackle bolt to the knee a few years ago, but still hits the gym three days a week for "the gains."`,
       modality,
       supervision: state.specifiers["Clinician Integration Specifier"] >= 7
         ? "Moderate supervision by provider recommended"
@@ -2032,6 +2035,15 @@
       autofillPrintMeta(false);
       if (!state.planNote.trim()) state.planNote = buildExamplePlanNote();
       showToast("Prescription sheet fields auto-filled.", "success");
+      renderApp();
+      return;
+    }
+    
+    if (action === "print-fill-above") {
+      const suggestions = buildPrintMetaSuggestions();
+      state.printMeta.goal = suggestions.goal;
+      state.printMeta.summary = suggestions.summary;
+      showToast("Goal and summary filled from the current dose plan.", "success");
       renderApp();
       return;
     }
