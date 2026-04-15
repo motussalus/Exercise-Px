@@ -773,7 +773,7 @@
 
               ${renderPrintMetaEditor()}
   
-              <textarea id="planNoteBox" data-bind="planNote" placeholder="Any additional notes to help guide the client in the exercise go here. How to do the movements, cueing, setup, or other practical instructions can be included here. In a later premium version, this will likely become a clickable feature accompanied by pictures or videos.">${escapeHtml(state.planNote)}</textarea>
+              ${renderExerciseGuidancePreview()}
   
               <details class="help-box" style="margin-top:12px;">
                 <summary>What makes a strong plan note?</summary>
@@ -783,8 +783,8 @@
               </details>
   
               <div class="button-row" style="margin-top:16px;">
-                <button class="btn btn-primary" data-action="plan-autofill-sheet">Auto-fill prescription sheet</button>
-                <button class="btn btn-primary" data-action="plan-example-note">Use example note</button>
+                <button class="btn btn-primary" data-action="print-fill-above">Fill from Dose + Plan</button>
+                <button class="btn btn-primary" data-action="plan-load-example-sheet">Load Example Prescription Sheet</button>
                 <button class="btn btn-soft" data-action="plan-export-txt">Download TXT</button>
                 <button class="btn btn-dose" data-action="plan-print">Download PDF</button>
                 <button class="btn btn-danger" data-action="plan-clear">Clear Plan</button>
@@ -1045,6 +1045,34 @@
           <label><span>Risk / Caution</span><textarea data-bind="printMeta.risk" placeholder="${escapeAttr(suggested.risk)}">${escapeHtml(state.printMeta.risk || "")}</textarea></label>
           <label><span>When to Progress</span><textarea data-bind="printMeta.trigger" placeholder="${escapeAttr(suggested.trigger)}">${escapeHtml(state.printMeta.trigger || "")}</textarea></label>
           <label><span>Review Date / Reassessment</span><input data-bind="printMeta.reviewDate" type="text" value="${escapeAttr(state.printMeta.reviewDate)}" placeholder="Follow-up date" /></label>
+        </div>
+      </section>
+    `;
+  }
+
+  function renderExerciseGuidancePreview() {
+    return `
+      <section class="premium-preview-card">
+        <div class="card-head">
+          <div>
+            <h3>Exercise Guidance Preview</h3>
+            <p>This is a preview of how premium exercise guidance may look in a later version, with visual examples and brief movement instructions.</p>
+          </div>
+        </div>
+  
+        <div class="premium-preview-layout">
+          <div class="premium-preview-image-wrap">
+            <img
+              src="assets/pvictor-freitas-WvDYdXDzkhs-unsplash.png"
+              alt="Example exercise guidance preview"
+              class="premium-preview-image"
+            />
+          </div>
+  
+          <div class="premium-preview-copy">
+            <p><strong>Example guidance:</strong> Begin in an athletic stance with the feet shoulder-width apart. Keep the chest up, brace the trunk, and move with controlled tempo through the full comfortable range of motion.</p>
+            <p class="small muted">In a later premium version, this section will likely become a clickable exercise-guidance feature with pictures, short video clips, setup notes, and technique cues.</p>
+          </div>
         </div>
       </section>
     `;
@@ -2057,8 +2085,28 @@
       return;
     }
     
-    if (action === "plan-example-note") {
-      state.planNote = buildExamplePlanNote();
+    if (action === "plan-load-example-sheet") {
+      state.printMeta = {
+        ...state.printMeta,
+        clinician: "Spencer Hills, MA",
+        client: "John D.",
+        diagnosis: "ADHD (F90.9)",
+        setting: "Outpatient / behavioral health setting",
+        goal: "The goal of the exercise prescription is to target Metabolic Equivalents of Task (METs), Specific Exercise Type, Time and Frequency, and Neurological and Physiological Targets through moderate-intensity aerobic and resistance exercise for ADHD (F90.9).",
+        summary: "Client has a diagnosis of ADHD (F90.9) and is assigned exercise as a behavioral health intervention to support regulation, attention, and activities of daily living. The current plan includes the selected exercise block. The seven specifiers receiving the greatest emphasis in this plan are Metabolic Equivalents of Task (METs), Specific Exercise Type, Time and Frequency, and Neurological and Physiological Targets. The rationale for emphasizing these specifiers is that current literature suggests these features of exercise may be most relevant to the intended symptom targets and functional goals. Heart Rate, Breathing Control and Pacing, and Clinician Integration Specifier remain visible but are treated as lower priority or more flexible based on current tolerance, adherence, supervision needs, and the resources available to monitor them. The planned weekly workload across selected exercise blocks is 450 MET-minutes with an estimated 1260 kcal per week.",
+        whyDistinct: `Client states they cannot sit still in class or at a normal job. Client enjoys working on his dad's commercial fishing boat (Code 11248, around 3.5 to 5 METs), stating "I like having something to toil with and keep my brain focused." Client states he used to go running before taking a shackle bolt to the knee a few years ago, but still hits the gym three days a week for "the gains."`,
+        modality: "Moderate-intensity aerobic exercise + resistance exercise",
+        supervision: "Light or independent",
+        timing: "Out of Session - Any Day",
+        timingNote: "Preferably earlier in the day or before cognitively demanding tasks when feasible.",
+        progression: "Progress one variable at a time as tolerance, adherence, and symptom response allow. Increase workload gradually before changing multiple specifiers at once.",
+        response: "Example: Client reports improved attention and restlessness after moderate-intensity exercise. Relevant functional measures, physiological metrics, or lab results may also be documented here when applicable.",
+        risk: "Watch for overexertion, knee symptom flare, poor adherence, and excessive fatigue.",
+        trigger: "Increase workload once the client is tolerating the current dose well, adherence is consistent, and symptoms are not improving at the intended level.",
+        reviewDate: "2-4 weeks"
+      };
+    
+      showToast("Example prescription sheet loaded.", "success");
       renderApp();
       return;
     }
