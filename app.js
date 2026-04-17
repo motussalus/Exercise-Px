@@ -773,8 +773,6 @@
 
               ${renderPrintMetaEditor()}
   
-              ${renderExerciseGuidancePreview()}
-  
   
               <div class="button-row" style="margin-top:16px;">
                 <button class="btn btn-primary" data-action="print-fill-above">Fill from Dose + Plan</button>
@@ -1037,77 +1035,7 @@
     `;
   }
 
-  function renderExerciseGuidancePreview() {
-    return `
-      <section class="premium-preview-card">
-        <div class="card-head">
-          <div>
-            <h3>Exercise Guidance Preview</h3>
-            <p>This is a preview of how premium exercise guidance may look in a later version, with visual examples, session structure, and brief movement instructions.</p>
-          </div>
-        </div>
   
-        <div class="premium-preview-layout">
-          <div class="premium-preview-image-wrap">
-            <img
-              src="assets/victor-freitas-WvDYdXDzkhs-unsplash.jpg"
-              alt="Example exercise guidance preview"
-              class="premium-preview-image"
-            />
-          </div>
-  
-          <div class="premium-preview-copy">
-            <div class="premium-preview-block">
-              <div class="mini-label">Workout Example</div>
-              <h4>Resistance Exercise — Moderate Effort</h4>
-            </div>
-  
-            <div class="premium-preview-block">
-              <h5>Warm-up</h5>
-              <ul class="premium-preview-list">
-                <li>Arm circles — 30 seconds each direction</li>
-                <li>Walking lunges with rotation — 10 per leg</li>
-                <li>Leg swings (front-to-back and side-to-side) — 10 per leg</li>
-                <li>Inchworms with push-up — 5 reps</li>
-                <li>A-skips — 3 × 10 ft</li>
-              </ul>
-            </div>
-  
-            <div class="premium-preview-block">
-              <h5>Ramp-up Sets Example:</h5>
-              <ul class="premium-preview-list">
-                <li>1 × 10 reps Back Squats at 95 lbs</li>
-                <li>1 × 6 reps Back Squats at 135 lbs</li>
-                <li>1 × 3 reps Back Squats at 185 lbs</li>
-                <li>Then begin 3–4 working sets Back Squats at 225 lbs</li>
-              </ul>
-            </div>
-  
-            <div class="premium-preview-block">
-              <h5>Workout</h5>
-              <ul class="premium-preview-list">
-                <li>5 × 5 — Bulgarian split squat</li>
-                <li>5 × 5 — Leg raises</li>
-                <li>5 × 5 — Reverse hypers</li>
-                <li>5 × 5 — Oblique twists</li>
-              </ul>
-              <p class="small muted">Rest: 1 minute between sets</p>
-            </div>
-  
-            <div class="premium-preview-block">
-              <h5>Explanation of sets and reps</h5>
-              <p>
-                The warm-up prepares the joints, trunk, and hips for loaded movement. The ramp-up sets gradually increase intensity before the working sets begin. The 5 × 5 structure is commonly used to build strength with manageable volume, while the accessory exercises add trunk stability and posterior-chain support.
-              </p>
-              <p class="small muted">
-                In a later premium version, this section can become a clickable exercise-guidance feature with pictures, short video clips, setup notes, movement cues, and progression options.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-    `;
-  }
   
   function renderWeeklyPlannerBoard() {
     if (!state.plan.length) return "";
