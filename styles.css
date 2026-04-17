@@ -2860,3 +2860,13 @@ input[type="range"] {
   }
 }
 
+/* Future Development text readability */
+.substack-copy,
+.substack-copy p,
+.substack-thanks {
+  color: #000;
+}
+
+.substack-copy a {
+  color: inherit;
+}
