@@ -379,7 +379,10 @@
             <div class="substack-callout">
               <div class="substack-copy">
                 <p>
-                  As I continue developing this app and program, I expect it to grow into both free and paid tiers. The next project I have brewing is educational content on Substack. You can scan the QR code with your phone or click the link below to follow me.
+                  As I continue developing this app and program, I expect it to grow into both free and paid tiers to help keep the project alive. I will also be listening to you, the user, for ways I can improve it.
+                </p>
+                <p>
+                  The next project I have brewing is educational content on Substack, coming in the next year. You can scan the QR code with your phone or click the link below to follow me there.
                 </p>
                 <p class="substack-thanks">
                   Thank you to all of you who choose to support me in this endeavor!
