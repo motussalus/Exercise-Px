@@ -396,21 +396,6 @@
                   Open Substack
                 </a>
               </div>
-          
-              <a
-                class="substack-qr-link"
-                href="https://exercisepx.substack.com/?r=87ocx9&utm_campaign=pub-share-checklist"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Open the Exercise Px Substack"
-              >
-                <img
-                  src="assets/exercisepx-substack-qr.svg"
-                  alt="QR code linking to the Exercise Px Substack"
-                  class="substack-qr"
-                />
-              </a>
-            </div>
           </section>
     `;
   }
