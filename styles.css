@@ -2870,3 +2870,10 @@ input[type="range"] {
 .substack-copy a {
   color: inherit;
 }
+/* Make the Substack button harder to miss */
+.substack-link-btn {
+  font-size: 1.05rem;
+  font-weight: 800;
+  padding: 16px 28px;
+  min-height: 56px;
+}
