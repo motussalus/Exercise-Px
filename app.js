@@ -372,86 +372,43 @@
           <section class="home-card-section home-card-section-app">
             <div class="section-header">
               <div>
-                <div class="eyebrow">Future Development</div>
-                <h3>Educational Content, Access, and App Development</h3>
+                <h3>Future Development</h3>
               </div>
             </div>
           
-            <div class="future-dev-panel">
-              <div class="substack-callout">
-                <div class="substack-copy">
-                  <div class="mini-label">Education Content</div>
-                  <h4>Follow Exercise Px on Substack</h4>
-                  <p>
-                    As I continue developing this app and program, I expect it to grow into both free and paid tiers. My intention is for the platform’s foundational tools to remain accessible, while expanded features, clinical tools, and services are added through premium offerings over time to support ongoing development and long-term sustainability.
-                  </p>
-                  <p>
-                    I plan to keep more of the clinical tools and services on the website, while Substack will be where I publish education content. You can scan the QR code with your phone or click the link below.
-                  </p>
-                  <p class="substack-thanks">
-                    Thank you to all of you who choose to support me in this endeavor!
-                  </p>
-                  <a
-                    class="btn btn-soft substack-link-btn"
-                    href="https://exercisepx.substack.com/?r=87ocx9&utm_campaign=pub-share-checklist"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Open Substack
-                  </a>
-                </div>
-          
+            <div class="substack-callout">
+              <div class="substack-copy">
+                <p>
+                  As I continue developing this app and program, I expect it to grow into both free and paid tiers. The next project I have brewing is educational content on Substack. You can scan the QR code with your phone or click the link below to follow me.
+                </p>
+                <p class="substack-thanks">
+                  Thank you to all of you who choose to support me in this endeavor!
+                </p>
                 <a
-                  class="substack-qr-link"
+                  class="btn btn-soft substack-link-btn"
                   href="https://exercisepx.substack.com/?r=87ocx9&utm_campaign=pub-share-checklist"
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="Open the Exercise Px Substack"
                 >
-                  <img
-                    src="assets/exercisepx-substack-qr.svg"
-                    alt="QR code linking to the Exercise Px Substack"
-                    class="substack-qr"
-                  />
+                  Open Substack
                 </a>
               </div>
           
-              <div class="future-dev-compare">
-                <article class="glass-card dev-tier-card">
-                  <div class="mini-label">Free Version</div>
-                  <h4>Core access</h4>
-                  <ul class="coming-list">
-                    <li>Activity lookup and MET browsing</li>
-                    <li>Dose building and weekly plan blocks</li>
-                    <li>Seven-specifier radar profile</li>
-                    <li>Core calculations and basic planning text</li>
-                  </ul>
-                </article>
-          
-                <article class="glass-card dev-tier-card pro-card">
-                  <div class="mini-label">Premium Version</div>
-                  <h4>Expanded workflow</h4>
-                  <ul class="coming-list">
-                    <li>Saved client templates and reusable prescriptions</li>
-                    <li>Cleaner documentation exports and print-ready outputs</li>
-                    <li>More structured clinician workflow tools</li>
-                    <li>Future app-first features for regular professional use</li>
-                  </ul>
-                </article>
-              </div>
-          
-              <div class="future-dev-intro">
-                <div class="mini-label">App</div>
-                <h4>Planned App Development</h4>
-                <p>
-                  The app is meant to make Exercise Px easier to use in real settings, with a cleaner interface, smoother navigation, and a more convenient experience for repeat clinical or educational use.
-                </p>
-              </div>
+              <a
+                class="substack-qr-link"
+                href="https://exercisepx.substack.com/?r=87ocx9&utm_campaign=pub-share-checklist"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open the Exercise Px Substack"
+              >
+                <img
+                  src="assets/exercisepx-substack-qr.svg"
+                  alt="QR code linking to the Exercise Px Substack"
+                  class="substack-qr"
+                />
+              </a>
             </div>
           </section>
-  
-        </div>
-      </section>
     `;
   }
 
