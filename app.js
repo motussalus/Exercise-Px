@@ -204,6 +204,7 @@
       ["home", "⌂", "Home"],
       ["library", "◫", "Activity Library"],
       ["dose", "↗", "Dose + Plan"],
+      ["evidence", "★", "Clinical Templates"],
       ["calc", "∑", "Calculations"],
       ["data", "☰", "Data & Sources"]
     ];
@@ -233,7 +234,10 @@
             ${tabs.map(([key, icon, label]) => `
               <button class="tab-btn ${state.activeTab === key ? "active" : ""}" data-action="switch-tab" data-tab="${key}">
                 <span>${icon}</span>
-                <span>${label}</span>
+                <span>
+                  ${label}
+                  ${key === "evidence" ? `<span class="badge" style="margin-left:6px;">Free</span>` : ""}
+                </span>
               </button>
             `).join("")}
           </div>
@@ -247,6 +251,7 @@
       case "home": return renderHome();
       case "library": return renderLibrary();
       case "dose": return renderDose();
+      case "evidence": return renderEvidence();
       case "calc": return renderCalculations();
       case "data": return renderData();
       default: return renderHome();
@@ -1554,6 +1559,71 @@
     `;
   }
 
+
+  function renderEvidence() {
+    return `
+      <section class="panel">
+        <section class="hero">
+          <div>
+            <h2>Evidence-Based Templates</h2>
+            <p>
+              This section contains literature-based exercise templates built using the 7 Specifiers framework.
+              These templates are provided for free to support clinical translation and research reproducibility.
+            </p>
+          </div>
+        </section>
+  
+        <section class="section-card">
+          <div class="card-head">
+            <div>
+              <h2>Available Templates</h2>
+              <p>Select a template to view its 7-Specifier Evidence Layer or load it into the Dose Builder.</p>
+            </div>
+          </div>
+  
+          <div class="card-list">
+            ${renderEvidenceTemplateCard()}
+          </div>
+        </section>
+      </section>
+    `;
+  }
+
+
+  function renderEvidenceTemplateCard() {
+    return `
+      <div class="plan-card">
+        <div class="topline">
+          <div>
+            <h4>PTSD Exposure Priming (Bryant et al., 2023)</h4>
+            <div class="small muted">
+              Brief aerobic exercise used to enhance trauma-focused therapy outcomes.
+            </div>
+          </div>
+  
+          <div class="button-row">
+            <button class="btn btn-dose" data-action="load-bryant-template">
+              Load into Dose + Plan
+            </button>
+          </div>
+        </div>
+  
+        <div class="mini-note" style="margin-top:12px;">
+          <strong>7-Specifier Evidence Summary</strong><br/>
+          METs: ⚠️ Inferred (3.0–6.0 METs)<br/>
+          Heart Rate: ✅ Primary driver<br/>
+          Time/Frequency: ✅ Critical (pre-therapy)<br/>
+          Behavioral Integration: ✅ Central<br/>
+        </div>
+  
+        <div class="mini-note" style="margin-top:10px;">
+          <strong>Free Tier Access</strong><br/>
+          This template and its evidence breakdown are part of the free clinical library.
+        </div>
+      </div>
+    `;
+  }
+  
   function renderCalculations() {
     return `
       <section class="panel">
@@ -2089,6 +2159,30 @@
     }
   }
 
+  if (action === "load-bryant-template") {
+    loadBryantTemplate();
+  }
+  function loadBryantTemplate() {
+    state.dose.duration = 10;
+    state.dose.frequency = 3;
+    state.dose.manualMET = "";
+    state.dose.note = "10-minute moderate aerobic bout immediately prior to trauma-focused therapy.";
+  
+    state.specifiers = {
+      ...state.specifiers,
+      "Metabolic Equivalents of Task (METs)": 5,
+      "Heart Rate": 9,
+      "Breathing Control and Pacing": 2,
+      "Specific Exercise Type": 7,
+      "Neurological and Physiological Targets": 7,
+      "Time and Frequency": 10,
+      "Clinician Integration Specifier": 10
+    };
+  
+    state.activeTab = "dose";
+    showToast("Bryant PTSD template loaded.", "success");
+    renderApp();
+  }
   function handleSubmit(event) {
     const form = event.target.closest("[data-form]");
     if (!form) return;
