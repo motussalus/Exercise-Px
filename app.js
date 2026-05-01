@@ -251,7 +251,7 @@
       case "home": return renderHome();
       case "library": return renderLibrary();
       case "dose": return renderDose();
-      case "evidence": return ();
+      case "evidence": return renderEvidence();
       case "calc": return renderCalculations();
       case "data": return renderData();
       default: return renderHome();
