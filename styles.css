@@ -2877,3 +2877,35 @@ input[type="range"] {
   padding: 16px 28px;
   min-height: 56px;
 }
+
+/* ===== Clinical Templates tab styling ===== */
+
+.tab-btn[data-tab="evidence"] {
+  background: #ecfdf5;
+  border-color: #bbf7d0;
+  color: #047857;
+}
+
+.tab-btn.active[data-tab="evidence"] {
+  background: linear-gradient(135deg, #10b981, #047857);
+}
+
+/* ===== Tab badge (Free) styling ===== */
+
+.tab-btn .badge {
+  padding: 3px 7px;
+  font-size: 0.7rem;
+  line-height: 1;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #047857;
+  border: 1px solid rgba(4, 120, 87, 0.18);
+  font-weight: 700;
+}
+
+.tab-btn.active .badge {
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
