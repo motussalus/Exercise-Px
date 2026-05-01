@@ -1568,8 +1568,7 @@
           <div>
             <h2>Clinical Templates</h2>
             <p>
-              Evidence-based exercise templates built using the 7 Specifiers framework.
-              These templates translate research into structured, clinically usable prescriptions.
+              Free sample clinical templates built from exercise-intervention literature and organized through the 7 Specifiers framework. Each template identifies the research anchor, the strongest reported specifiers, and the major clinical gaps that need clearer documentation before translation into practice.
             </p>
           </div>
         </section>
@@ -1578,7 +1577,7 @@
           <div class="card-head">
             <div>
               <h2>Free Templates</h2>
-              <p>Explore and load clinically structured exercise interventions.</p>
+              <p>Each card converts a research finding into a practical exercise-prescription starting point while preserving transparency about what the original literature did and did not report. This will likely be expanded upon in future work on this website.</p>
             </div>
           </div>
   
@@ -1598,7 +1597,7 @@
   }
 
 
-  function templateCard({ title, subtitle, use, bestFor, specifiers, confidence, gap, action }) {
+  function templateCard({ title, subtitle, citation, use, bestFor, specifiers, confidence, gap, action }) {
     return `
       <div class="plan-card">
   
@@ -1606,6 +1605,7 @@
           <div>
             <h4>${title}</h4>
             <div class="small muted">${subtitle}</div>
+            ${citation ? `<div class="template-citation">${citation}</div>` : ""}
           </div>
   
           <div class="button-row">
@@ -1644,7 +1644,8 @@
   function templateCardPTSD() {
     return templateCard({
       title: "PTSD Exposure Priming",
-      subtitle: "Based on Bryant et al. (2023)",
+      subtitle: "Brief aerobic add-on before trauma-focused therapy",
+      citation: "Research anchor: Bryant et al. (2023); supported by Crombie et al. (2023).",
       use: "Brief aerobic exercise before trauma-focused therapy.",
       bestFor: "PTSD, exposure readiness, emotional engagement.",
       specifiers: `
@@ -1664,7 +1665,8 @@
   function templateCardDepression() {
     return templateCard({
       title: "Depression Aerobic Dose",
-      subtitle: "TREAD-style exercise dosing",
+      subtitle: "Structured aerobic exercise for depressive symptoms",
+      citation: "Research anchor: Trivedi et al. (2011); supported by Schuch et al. (2016).",
       use: "Structured aerobic exercise for depression.",
       bestFor: "Major depression, behavioral activation.",
       specifiers: `
@@ -1685,7 +1687,8 @@
   function templateCardAnxiety() {
     return templateCard({
       title: "Anxiety Resistance Training",
-      subtitle: "Strength-based anxiety reduction",
+      subtitle: "Resistance training for anxiety and worry symptoms",
+      citation: "Research anchor: Gordon et al. (2020); supported by Gordon et al. (2017).",
       use: "Resistance training to reduce anxiety symptoms.",
       bestFor: "GAD, tension, worry.",
       specifiers: `
@@ -1706,7 +1709,8 @@
   function templateCardADHD() {
     return templateCard({
       title: "ADHD Movement Activation",
-      subtitle: "Frequent moderate-vigorous bouts",
+      subtitle: "Moderate-to-vigorous movement for attention and regulation",
+      citation: "Research anchor: Liang et al. (2022); supported by Liu et al. (2025).",
       use: "Exercise to support attention and regulation.",
       bestFor: "ADHD, cognitive activation.",
       specifiers: `
@@ -1727,7 +1731,8 @@
   function templateCardEatingDisorder() {
     return templateCard({
       title: "Eating Disorder Controlled Movement",
-      subtitle: "Supervised therapeutic exercise",
+      subtitle: "Supervised therapeutic exercise with safety monitoring",
+      citation: "Research anchor: Cook et al. (2016).",
       use: "Carefully structured movement in ED recovery.",
       bestFor: "Eating disorder treatment.",
       specifiers: `
