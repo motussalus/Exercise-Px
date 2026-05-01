@@ -2128,6 +2128,11 @@
       renderApp();
       return;
     }
+    if (action === "load-bryant-template") {
+      loadBryantTemplate();
+      return;
+    }
+    
     if (action === "calc-run") {
       runCalculation(button.dataset.calc, button.closest("[data-calc-card]"));
       return;
@@ -2158,12 +2163,6 @@
       return;
     }
   }
-
-  if (action === "load-bryant-template") {
-    loadBryantTemplate();
-    return;
-  }
-  
   function loadBryantTemplate() {
     state.dose.duration = 10;
     state.dose.frequency = 3;
