@@ -2067,7 +2067,7 @@
     }
     if (action === "library-preset") {
       state.libraryFilters = {
-        ...state.libraryFilters,
+      ...state.libraryFilters,
         query: button.dataset.query || "",
         minMet: "",
         maxMet: "",
