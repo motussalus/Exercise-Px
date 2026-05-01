@@ -251,7 +251,7 @@
       case "home": return renderHome();
       case "library": return renderLibrary();
       case "dose": return renderDose();
-      case "evidence": return renderEvidence();
+      case "evidence": return ();
       case "calc": return renderCalculations();
       case "data": return renderData();
       default: return renderHome();
@@ -1563,12 +1563,13 @@
   function renderEvidence() {
     return `
       <section class="panel">
+  
         <section class="hero">
           <div>
-            <h2>Evidence-Based Templates</h2>
+            <h2>Clinical Templates</h2>
             <p>
-              This section contains literature-based exercise templates built using the 7 Specifiers framework.
-              These templates are provided for free to support clinical translation and research reproducibility.
+              Evidence-based exercise templates built using the 7 Specifiers framework.
+              These templates translate research into structured, clinically usable prescriptions.
             </p>
           </div>
         </section>
@@ -1576,52 +1577,172 @@
         <section class="section-card">
           <div class="card-head">
             <div>
-              <h2>Available Templates</h2>
-              <p>Select a template to view its 7-Specifier Evidence Layer or load it into the Dose Builder.</p>
+              <h2>Free Templates</h2>
+              <p>Explore and load clinically structured exercise interventions.</p>
             </div>
           </div>
   
           <div class="card-list">
-            ${renderEvidenceTemplateCard()}
+  
+            ${templateCardPTSD()}
+            ${templateCardDepression()}
+            ${templateCardAnxiety()}
+            ${templateCardADHD()}
+            ${templateCardEatingDisorder()}
+  
           </div>
         </section>
+  
       </section>
     `;
   }
 
 
-  function renderEvidenceTemplateCard() {
+  function templateCard({ title, subtitle, use, bestFor, specifiers, confidence, gap, action }) {
     return `
       <div class="plan-card">
+  
         <div class="topline">
           <div>
-            <h4>PTSD Exposure Priming (Bryant et al., 2023)</h4>
-            <div class="small muted">
-              Brief aerobic exercise used to enhance trauma-focused therapy outcomes.
-            </div>
+            <h4>${title}</h4>
+            <div class="small muted">${subtitle}</div>
           </div>
   
           <div class="button-row">
-            <button class="btn btn-dose" data-action="load-bryant-template">
-              Load into Dose + Plan
+            <button class="btn btn-dose" data-action="${action}">
+              Load Template
             </button>
           </div>
         </div>
   
-        <div class="mini-note" style="margin-top:12px;">
-          <strong>7-Specifier Evidence Summary</strong><br/>
-          METs: ⚠️ Inferred (3.0–6.0 METs)<br/>
-          Heart Rate: ✅ Primary driver<br/>
-          Time/Frequency: ✅ Critical (pre-therapy)<br/>
-          Behavioral Integration: ✅ Central<br/>
+        <div class="mini-note" style="margin-top:10px;">
+          <strong>Use case:</strong> ${use}
+        </div>
+  
+        <div class="mini-note">
+          <strong>Best for:</strong> ${bestFor}
         </div>
   
         <div class="mini-note" style="margin-top:10px;">
-          <strong>Free Tier Access</strong><br/>
-          This template and its evidence breakdown are part of the free clinical library.
+          <strong>7-Specifier Snapshot</strong><br/>
+          ${specifiers}
         </div>
+  
+        <div class="mini-note" style="margin-top:10px;">
+          <strong>Evidence Confidence:</strong><br/>
+          ${confidence}
+        </div>
+  
+        <div class="mini-note" style="margin-top:10px;">
+          <strong>Clinical Gap:</strong><br/>
+          ${gap}
+        </div>
+  
       </div>
     `;
+  }
+  function templateCardPTSD() {
+    return templateCard({
+      title: "PTSD Exposure Priming",
+      subtitle: "Based on Bryant et al. (2023)",
+      use: "Brief aerobic exercise before trauma-focused therapy.",
+      bestFor: "PTSD, exposure readiness, emotional engagement.",
+      specifiers: `
+        METs ⚠ Inferred (3.0–6.0) <br/>
+        HR ✅ High <br/>
+        Breathing ❌ Missing <br/>
+        Neuro ⚠ Conceptual <br/>
+        Type ✅ Moderate <br/>
+        Time ✅ Critical <br/>
+        Integration ✅ Critical
+      `,
+      confidence: "Moderate-high concept, moderate dose precision.",
+      gap: "METs, breathing, and timing not fully specified.",
+      action: "load-ptsd-template"
+    });
+  }
+  function templateCardDepression() {
+    return templateCard({
+      title: "Depression Aerobic Dose",
+      subtitle: "TREAD-style exercise dosing",
+      use: "Structured aerobic exercise for depression.",
+      bestFor: "Major depression, behavioral activation.",
+      specifiers: `
+        METs ⚠ Convertible <br/>
+        HR ⚠ Partial <br/>
+        Breathing ❌ Missing <br/>
+        Neuro ⚠ Mood/energy <br/>
+        Type ⚠ Flexible <br/>
+        Time ✅ High <br/>
+        Integration ⚠ Moderate
+      `,
+      confidence: "High general benefit, moderate precision.",
+      gap: "kcal/week used instead of METs.",
+      action: "load-depression-template"
+    });
+  }
+
+  function templateCardAnxiety() {
+    return templateCard({
+      title: "Anxiety Resistance Training",
+      subtitle: "Strength-based anxiety reduction",
+      use: "Resistance training to reduce anxiety symptoms.",
+      bestFor: "GAD, tension, worry.",
+      specifiers: `
+        METs ⚠ Low <br/>
+        HR ⚠ Partial <br/>
+        Breathing ⚠ Important <br/>
+        Neuro ⚠ Moderate <br/>
+        Type ✅ Critical <br/>
+        Time ✅ High <br/>
+        Integration ⚠ Moderate
+      `,
+      confidence: "Moderate-high modality support.",
+      gap: "Load, sets, reps often not reported.",
+      action: "load-anxiety-template"
+    });
+  }
+
+  function templateCardADHD() {
+    return templateCard({
+      title: "ADHD Movement Activation",
+      subtitle: "Frequent moderate-vigorous bouts",
+      use: "Exercise to support attention and regulation.",
+      bestFor: "ADHD, cognitive activation.",
+      specifiers: `
+        METs ✅ High <br/>
+        HR ⚠ Moderate <br/>
+        Breathing ⚠ Low <br/>
+        Neuro ✅ High <br/>
+        Type ⚠ Flexible <br/>
+        Time ✅ Critical <br/>
+        Integration ⚠ Moderate
+      `,
+      confidence: "Moderate evidence base.",
+      gap: "Dose-response poorly standardized.",
+      action: "load-adhd-template"
+    });
+  }
+
+  function templateCardEatingDisorder() {
+    return templateCard({
+      title: "Eating Disorder Controlled Movement",
+      subtitle: "Supervised therapeutic exercise",
+      use: "Carefully structured movement in ED recovery.",
+      bestFor: "Eating disorder treatment.",
+      specifiers: `
+        METs ⚠ Moderate <br/>
+        HR ✅ High <br/>
+        Breathing ⚠ Moderate <br/>
+        Neuro ⚠ Moderate <br/>
+        Type ✅ High <br/>
+        Time ✅ High <br/>
+        Integration ✅ Critical
+      `,
+      confidence: "Moderate evidence, high caution.",
+      gap: "Monitoring and progression unclear.",
+      action: "load-ed-template"
+    });
   }
   
   function renderCalculations() {
@@ -2132,6 +2253,13 @@
       loadBryantTemplate();
       return;
     }
+
+    if (action === "load-ptsd-template") { loadPTSDTemplate(); return; }
+    if (action === "load-depression-template") { loadDepressionTemplate(); return; }
+    if (action === "load-anxiety-template") { loadAnxietyTemplate(); return; }
+    if (action === "load-adhd-template") { loadADHDTemplate(); return; }
+    if (action === "load-ed-template") { loadEDTemplate(); return; }
+
     
     if (action === "calc-run") {
       runCalculation(button.dataset.calc, button.closest("[data-calc-card]"));
