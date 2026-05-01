@@ -2161,7 +2161,9 @@
 
   if (action === "load-bryant-template") {
     loadBryantTemplate();
+    return;
   }
+  
   function loadBryantTemplate() {
     state.dose.duration = 10;
     state.dose.frequency = 3;
