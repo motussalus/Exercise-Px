@@ -259,69 +259,24 @@
   }
 
   function renderHome() {
-    const totalActivities = Array.isArray(state.db) ? state.db.length : 0;
-    const totalBlocks = Array.isArray(state.plan) ? state.plan.length : 0;
-    const totals = totalPlanDose();
-
     return `
       <section class="panel panel-home">
         <div class="home-shell">
-    
-          <section class="px-hero px-hero-refined">
-            <div class="px-hero-copy">
-              <div class="hero-kicker-row">
-                <span class="eyebrow">Exercise prescription platform</span>
-                <span class="hero-inline-pill">Built around seven specifiers</span>
-              </div>
-              
-              <h2>Exercise Px</h2>
-              
-              <p class="hero-lead hero-lead-italic">
-                <em>A cleaner way for healthcare providers, clinicians, students, researchers, and specialists to build, organize, and document exercise prescriptions with measurable, repeatable, and clinically impactful structure.</em>
-              </p>
-              
-              <p class="hero-sub">
-                This program is built from the seven specifiers framework:<br>
-                <strong>Metabolic Equivalents of Task (METs), Heart Rate, Breathing Control and Pacing, Specific Exercise Type, Neurological and Physiological Targets, Time and Frequency, and Clinician Integration Specifier.</strong><br>
-                Use the Data & Sources page to see a brief overview of each specifier and an example of how it may matter in clinical use.
-              </p>
-              
-              <p class="hero-sub">
-                These seven specifiers are key categories of exercise prescription to note, prioritize, and control in order to improve replicability, clarity, and clinical outcomes.
-              </p>
-              
-              <div class="hero-actions hero-actions-four">
-                <button class="btn btn-dose" data-action="switch-tab" data-tab="dose">Dose + Plan</button>
-                <button class="btn btn-primary" data-action="switch-tab" data-tab="library">Activity Library</button>
-                <button class="btn btn-calc" data-action="switch-tab" data-tab="calc">Calculations</button>
-                <button class="btn btn-soft" data-action="switch-tab" data-tab="data">Data & Sources</button>
-              </div>
-
-
-
-    
   
-              <div class="px-stats compact">
-                <div class="px-stat-card">
-                  <span>Bundled activities</span>
-                  <strong>${numberWithCommas(totalActivities)}</strong>
-                </div>
-                <div class="px-stat-card">
-                  <span>Weekly plan blocks</span>
-                  <strong>${numberWithCommas(totalBlocks)}</strong>
-                </div>
-                <div class="px-stat-card">
-                  <span>Current weekly MET-min</span>
-                  <strong>${round(totals.metMinWeek || 0, 1)}</strong>
-                </div>
-              </div>
+          <section class="px-hero px-hero-refined px-hero-minimal">
+            <div class="px-hero-copy home-hero-copy-simple">
+              <h2 class="home-title">Exercise Px</h2>
+  
+              <p class="hero-lead hero-lead-italic home-tagline">
+                <em>A model of exercise prescription to highlight nuance and unique aspects of exercise science.</em>
+              </p>
             </div>
   
             <div class="px-hero-side">
               <div class="glass-card glass-card-hero radar-example-card">
                 <div class="hero-side-head hero-side-head-stack">
                   <div>
-                    <div class="mini-label">Radar example</div>
+                    <div class="mini-label">Seven-specifier example</div>
                     <h3>ADHD vs. Eating Disorders</h3>
                   </div>
                 </div>
@@ -335,41 +290,84 @@
                 </div>
   
                 <p class="radar-caption">
-                  The 7 Specifiers capture the core domains needed to specify, interpret, and compare exercise interventions across disorders and diagnoses with greater fidelity, reproducibility, and therapeutic precision.<br>
-                  As seen in this radar diagram example, current literature suggests that a key difference between ADHD and eating disorders is the role and need for clinician or specialist oversight and involvement. The goal is not to maximize every specifier equally, but to identify which specifiers deserve greater or lesser priority in shaping clinically meaningful outcomes. <em>See the Data &amp; Sources page for a brief overview of each specifier.</em>
+                  This example shows why exercise prescription is not only about selecting an activity. Different conditions may require different priorities across intensity, structure, physiological target, timing, pacing, and clinician involvement.
                 </p>
               </div>
             </div>
           </section>
   
-          <section class="home-card-section">
+          <section class="home-card-section nuance-section">
             <div class="section-header">
               <div>
-                <div class="eyebrow">Workflow</div>
-                <h3>Use the app in the same order you would build a clinical plan</h3>
+                <div class="eyebrow">Why the nuance matters</div>
+                <h3>Exercise is not one intervention. It is a set of variables.</h3>
               </div>
             </div>
   
-            <div class="px-card-grid three">
-              <article class="feature-card feature-card-apple">
-                <div class="feature-icon">◫</div>
-                <h4>Activity Library</h4>
-                <p>Search activities by term, MET range, system, category, and intensity to identify realistic movement options.</p>
-                <button class="btn btn-primary" data-action="switch-tab" data-tab="library">Open Library</button>
+            <div class="nuance-intro">
+              <p>
+                A plan that says “exercise three times per week” may be too vague for clinical use. The same weekly minutes can produce different effects depending on intensity, heart-rate response, breathing demand, structure, neurological target, frequency, and how closely the activity is connected to treatment goals.
+              </p>
+              <p>
+                The point of Exercise Px is not to maximize every specifier. The point is to identify which specifiers deserve priority for a given person, condition, setting, and outcome.
+              </p>
+            </div>
+  
+            <div class="nuance-example-card">
+              <h4>Example: same exercise label, different clinical meaning</h4>
+              <p>
+                Imagine two plans that both say “30 minutes of exercise.” For a client with ADHD, the most important parts may be moderate-to-vigorous intensity, heart-rate elevation, novelty, structure, and timing before school or work. For a client in eating-disorder recovery, the same phrase may require a very different prescription: lower intensity, clear limits, supervision, reduced compensatory use, attention to medical stability, and integration with the treatment team. The activity may look similar from the outside, but the prescription is not the same.
+              </p>
+            </div>
+  
+            <div class="nuance-grid">
+              <article class="nuance-card">
+                <h4>Metabolic Equivalents of Task (METs)</h4>
+                <p>
+                  METs help describe the energy cost of an activity. A slow walk, a resistance circuit, and vigorous cycling may all count as “exercise,” but they do not create the same dose. METs make the prescription more measurable and easier to compare.
+                </p>
               </article>
   
-              <article class="feature-card feature-card-apple">
-                <div class="feature-icon">↗</div>
-                <h4>Dose + Plan</h4>
-                <p>Turn selected activities into weekly dosage blocks, structure them, and organize them into a usable exercise plan.</p>
-                <button class="btn btn-dose" data-action="switch-tab" data-tab="dose">Open Planner</button>
+              <article class="nuance-card">
+                <h4>Heart Rate</h4>
+                <p>
+                  Heart-rate response helps show whether the session is calming, activating, aerobic, or potentially too intense. This matters when the goal is attention, mood regulation, exposure to body sensations, conditioning, or safety monitoring.
+                </p>
               </article>
   
-              <article class="feature-card feature-card-apple">
-                <div class="feature-icon">∑</div>
-                <h4>Calculations</h4>
-                <p>Use exercise-prescription calculations to support more defensible documentation and planning.</p>
-                <button class="btn btn-calc" data-action="switch-tab" data-tab="calc">Open Calculations</button>
+              <article class="nuance-card">
+                <h4>Breathing Control and Pacing</h4>
+                <p>
+                  Two sessions can have the same MET value but different breathing demands. A paced walk, yoga flow, martial arts drill, or interval workout may differ in how much it trains breath control, distress tolerance, or physiological down-regulation.
+                </p>
+              </article>
+  
+              <article class="nuance-card">
+                <h4>Specific Exercise Type and Structure</h4>
+                <p>
+                  The type of activity changes the prescription. Running, lifting, swimming, dance, HEMA, mountain biking, and group fitness differ in skill demand, impact, sensory load, social exposure, progression, and injury risk.
+                </p>
+              </article>
+  
+              <article class="nuance-card">
+                <h4>Neurological and Physiological Targets</h4>
+                <p>
+                  Exercise can target different systems: aerobic capacity, strength, coordination, proprioception, vestibular input, sleep pressure, fatigue tolerance, arousal regulation, or confidence. Naming the target clarifies why that activity was chosen.
+                </p>
+              </article>
+  
+              <article class="nuance-card">
+                <h4>Time and Frequency</h4>
+                <p>
+                  One long session is not the same as several short sessions. Frequency and timing can change adherence, recovery, symptom response, and clinical usefulness, especially when exercise is placed before therapy, school, work, sleep, or exposure tasks.
+                </p>
+              </article>
+  
+              <article class="nuance-card nuance-card-wide">
+                <h4>Clinician / Behavioral Health Integration</h4>
+                <p>
+                  Some exercise plans can be self-directed. Others need clinician, coach, medical, or treatment-team oversight. This is especially important when exercise intersects with safety, compulsive use, trauma triggers, eating-disorder recovery, disability, or return-to-activity planning.
+                </p>
               </article>
             </div>
           </section>
@@ -380,7 +378,7 @@
                 <h3>Future Development</h3>
               </div>
             </div>
-          
+  
             <div class="substack-callout">
               <div class="substack-copy">
                 <p>
@@ -401,7 +399,10 @@
                   Open Substack
                 </a>
               </div>
+            </div>
           </section>
+        </div>
+      </section>
     `;
   }
 
