@@ -313,64 +313,65 @@
               </p>
             </div>
   
-            <div class="nuance-example-card">
-              <h4>Example: same exercise label, different clinical meaning</h4>
+            <div class="nuance-intro">
               <p>
-                Imagine two plans that both say “30 minutes of exercise.” For a client with ADHD, the most important parts may be moderate-to-vigorous intensity, heart-rate elevation, novelty, structure, and timing before school or work. For a client in eating-disorder recovery, the same phrase may require a very different prescription: lower intensity, clear limits, supervision, reduced compensatory use, attention to medical stability, and integration with the treatment team. The activity may look similar from the outside, but the prescription is not the same.
+                A plan that says “run three times per week for 30 minutes” is often too vague for clinical use, tracking, and documentation. The same exercise can produce very different physiological and psychological effects depending on intensity, heart-rate response, breathing demand, structure, neurological target, frequency, and how closely the activity is connected to treatment goals.
+              </p>
+              <p>
+                The point of Exercise Px is not to maximize every specifier. The point is to identify which specifiers deserve priority for a given person, condition, setting, and outcome. The specifiers highlighted in this framework are:
               </p>
             </div>
-  
+            
             <div class="nuance-grid">
               <article class="nuance-card">
                 <h4>Metabolic Equivalents of Task (METs)</h4>
                 <p>
-                  METs help describe the energy cost of an activity. A slow walk, a resistance circuit, and vigorous cycling may all count as “exercise,” but they do not create the same dose. METs make the prescription more measurable and easier to compare.
+                  METs help estimate the energy cost of an activity. For example, running or jogging at roughly 4.0 METs versus 6.0 METs may create different physiological and psychological responses, even if both are simply described as “running.” Without accounting for intensity, the actual load placed on the person can be missed.
                 </p>
               </article>
-  
+            
               <article class="nuance-card">
                 <h4>Heart Rate</h4>
                 <p>
-                  Heart-rate response helps show whether the session is calming, activating, aerobic, or potentially too intense. This matters when the goal is attention, mood regulation, exposure to body sensations, conditioning, or safety monitoring.
+                  Heart-rate response helps show how strongly the cardiovascular system is being activated. For example, a client may complete the same 30-minute run at a steady aerobic heart rate, an anxious over-aroused heart rate, or an interval pattern with repeated spikes. Each version may have a different clinical meaning.
                 </p>
               </article>
-  
+            
               <article class="nuance-card">
                 <h4>Breathing Control and Pacing</h4>
                 <p>
-                  Two sessions can have the same MET value but different breathing demands. A paced walk, yoga flow, martial arts drill, or interval workout may differ in how much it trains breath control, distress tolerance, or physiological down-regulation.
+                  Breathing demand changes the experience of exercise. For example, a slow paced run with controlled breathing may support regulation, while a hard run that causes breathlessness may be useful for interoceptive exposure, conditioning, or distress tolerance, depending on the person and treatment goal.
                 </p>
               </article>
-  
+            
               <article class="nuance-card">
                 <h4>Specific Exercise Type and Structure</h4>
                 <p>
-                  The type of activity changes the prescription. Running, lifting, swimming, dance, HEMA, mountain biking, and group fitness differ in skill demand, impact, sensory load, social exposure, progression, and injury risk.
+                  The type and structure of exercise matter. For example, 30 minutes of treadmill running, trail running, martial arts drills, resistance circuits, or group fitness may differ in predictability, social exposure, coordination, impact, sensory demand, and risk. The label “exercise” does not capture those differences.
                 </p>
               </article>
-  
+            
               <article class="nuance-card">
                 <h4>Neurological and Physiological Targets</h4>
                 <p>
-                  Exercise can target different systems: aerobic capacity, strength, coordination, proprioception, vestibular input, sleep pressure, fatigue tolerance, arousal regulation, or confidence. Naming the target clarifies why that activity was chosen.
+                  Exercise can be selected for different targets. For example, one plan may prioritize aerobic conditioning, while another may prioritize balance, proprioception, vestibular input, fatigue tolerance, arousal regulation, or confidence with movement. Naming the target clarifies why the exercise was chosen.
                 </p>
               </article>
-  
+            
               <article class="nuance-card">
                 <h4>Time and Frequency</h4>
                 <p>
-                  One long session is not the same as several short sessions. Frequency and timing can change adherence, recovery, symptom response, and clinical usefulness, especially when exercise is placed before therapy, school, work, sleep, or exposure tasks.
+                  Timing and frequency change the dose. For example, one 90-minute session per week is not the same as three 30-minute sessions, even if the total time is equal. Exercise before school, work, therapy, sleep, or exposure tasks may also produce different effects.
                 </p>
               </article>
-  
+            
               <article class="nuance-card nuance-card-wide">
                 <h4>Clinician / Behavioral Health Integration</h4>
                 <p>
-                  Some exercise plans can be self-directed. Others need clinician, coach, medical, or treatment-team oversight. This is especially important when exercise intersects with safety, compulsive use, trauma triggers, eating-disorder recovery, disability, or return-to-activity planning.
+                  Some exercise plans can be self-directed, while others require clinical oversight. For example, exercise used for ADHD activation may need simple structure and adherence support, while exercise used during eating-disorder recovery may require limits, monitoring, medical clearance, and coordination with the treatment team.
                 </p>
               </article>
             </div>
-          </section>
   
           <section class="home-card-section home-card-section-app">
             <div class="section-header">
