@@ -316,10 +316,13 @@
             <div class="nuance-example-card">
               <h4>Example: social anxiety and social sport</h4>
               <p>
-                Take social anxiety as an example. Because exposure-based treatment is commonly used for social anxiety, a social sport can be helpful when it is chosen carefully and matched to the person. Using the specifiers, the clinician may choose a fun but mildly challenging activity with a low barrier to entry, such as capture the flag, soccer, or a simple group game instead of a more expensive or intimidating sport like hockey.
+                Take social anxiety as an example. Because exposure-based treatment is commonly used for social anxiety, a social sport can be helpful when it is chosen carefully and matched to the person <strong>(clinician / behavioral health integration specifier)</strong>. Using the specifiers, the clinician may choose a fun but mildly challenging activity with a low barrier to entry, such as capture the flag, soccer drills, or a simple group game instead of a more expensive or intimidating sport like hockey <strong>(specific exercise type and structure specifier)</strong>.
               </p>
               <p>
-                For intensity, the goal may be light-to-moderate activity, often under about 6.0 METs, so the social exposure remains the focus rather than physical exhaustion. For time and frequency, the clinician might start with short 1–5 minute intervals and check in often to see how the young person is tolerating the activity.
+                For intensity, the goal may be light-to-moderate activity, often under about 6.0 METs, so the social exposure remains the focus rather than physical exhaustion <strong>(MET specifier)</strong>. The clinician may also watch whether the young person’s heart rate is rising from healthy activity, anxiety, or both <strong>(heart-rate specifier)</strong>. Breathing and pacing can be monitored so breathlessness does not become the main stressor unless that is part of the clinical goal <strong>(breathing control and pacing specifier)</strong>.
+              </p>
+              <p>
+                The target may be tolerating social attention, joining a group, taking turns, handling mistakes, or staying regulated while moving with peers <strong>(neurological and physiological target specifier)</strong>. For time and frequency, the clinician might start with short 1–5 minute intervals and check in often to see how the young person is tolerating the activity <strong>(time and frequency specifier)</strong>.
               </p>
             </div>
   
