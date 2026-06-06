@@ -306,22 +306,23 @@
   
             <div class="nuance-intro">
               <p>
-                A plan that says “exercise three times per week” may be too vague for clinical use. The same weekly minutes can produce different effects depending on intensity, heart-rate response, breathing demand, structure, neurological target, frequency, and how closely the activity is connected to treatment goals.
+                A plan that says “exercise three times per week” may be too vague for clinical use. The same weekly minutes can produce different effects depending on the activity, intensity, structure, and goal. For example, 4x4 intervals and zone 2 running are both “running,” but they place very different demands on the body.
               </p>
               <p>
-                The point of Exercise Px is not to maximize every specifier. The point is to identify which specifiers deserve priority for a given person, condition, setting, and outcome.
+                This is why the seven specifiers were created: to help clinicians think through the nuance of an exercise prescription instead of treating exercise as one single intervention.
               </p>
             </div>
   
-            <div class="nuance-intro">
+            <div class="nuance-example-card">
+              <h4>Example: social anxiety and social sport</h4>
               <p>
-                A plan that says “run three times per week for 30 minutes” is often too vague for clinical use, tracking, and documentation. The same exercise can produce very different physiological and psychological effects depending on intensity, heart-rate response, breathing demand, structure, neurological target, frequency, and how closely the activity is connected to treatment goals.
+                Take social anxiety as an example. Because exposure-based treatment is commonly used for social anxiety, a social sport can be helpful when it is chosen carefully and matched to the person. Using the specifiers, the clinician may choose a fun but mildly challenging activity with a low barrier to entry, such as capture the flag, soccer, or a simple group game instead of a more expensive or intimidating sport like hockey.
               </p>
               <p>
-                The point of Exercise Px is not to maximize every specifier. The point is to identify which specifiers deserve priority for a given person, condition, setting, and outcome. The specifiers highlighted in this framework are:
+                For intensity, the goal may be light-to-moderate activity, often under about 6.0 METs, so the social exposure remains the focus rather than physical exhaustion. For time and frequency, the clinician might start with short 1–5 minute intervals and check in often to see how the young person is tolerating the activity.
               </p>
             </div>
-            
+  
             <div class="nuance-grid">
               <article class="nuance-card">
                 <h4>Metabolic Equivalents of Task (METs)</h4>
@@ -329,42 +330,42 @@
                   METs help estimate the energy cost of an activity. For example, running or jogging at roughly 4.0 METs versus 6.0 METs may create different physiological and psychological responses, even if both are simply described as “running.” Without accounting for intensity, the actual load placed on the person can be missed.
                 </p>
               </article>
-            
+  
               <article class="nuance-card">
                 <h4>Heart Rate</h4>
                 <p>
                   Heart-rate response helps show how strongly the cardiovascular system is being activated. For example, a client may complete the same 30-minute run at a steady aerobic heart rate, an anxious over-aroused heart rate, or an interval pattern with repeated spikes. Each version may have a different clinical meaning.
                 </p>
               </article>
-            
+  
               <article class="nuance-card">
                 <h4>Breathing Control and Pacing</h4>
                 <p>
                   Breathing demand changes the experience of exercise. For example, a slow paced run with controlled breathing may support regulation, while a hard run that causes breathlessness may be useful for interoceptive exposure, conditioning, or distress tolerance, depending on the person and treatment goal.
                 </p>
               </article>
-            
+  
               <article class="nuance-card">
                 <h4>Specific Exercise Type and Structure</h4>
                 <p>
                   The type and structure of exercise matter. For example, 30 minutes of treadmill running, trail running, martial arts drills, resistance circuits, or group fitness may differ in predictability, social exposure, coordination, impact, sensory demand, and risk. The label “exercise” does not capture those differences.
                 </p>
               </article>
-            
+  
               <article class="nuance-card">
                 <h4>Neurological and Physiological Targets</h4>
                 <p>
                   Exercise can be selected for different targets. For example, one plan may prioritize aerobic conditioning, while another may prioritize balance, proprioception, vestibular input, fatigue tolerance, arousal regulation, or confidence with movement. Naming the target clarifies why the exercise was chosen.
                 </p>
               </article>
-            
+  
               <article class="nuance-card">
                 <h4>Time and Frequency</h4>
                 <p>
                   Timing and frequency change the dose. For example, one 90-minute session per week is not the same as three 30-minute sessions, even if the total time is equal. Exercise before school, work, therapy, sleep, or exposure tasks may also produce different effects.
                 </p>
               </article>
-            
+  
               <article class="nuance-card nuance-card-wide">
                 <h4>Clinician / Behavioral Health Integration</h4>
                 <p>
@@ -372,6 +373,7 @@
                 </p>
               </article>
             </div>
+          </section>
   
           <section class="home-card-section home-card-section-app">
             <div class="section-header">
@@ -402,6 +404,7 @@
               </div>
             </div>
           </section>
+  
         </div>
       </section>
     `;
