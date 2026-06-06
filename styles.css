@@ -2958,3 +2958,117 @@ input[type="range"] {
     align-items: flex-start;
   }
 }
+/* ===== Cleaner Exercise Px homepage ===== */
+
+.px-hero-minimal {
+  align-items: center;
+}
+
+.home-hero-copy-simple {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 320px;
+}
+
+.home-title {
+  margin: 0;
+  font-size: clamp(3.4rem, 7vw, 7rem);
+  line-height: 0.95;
+  letter-spacing: -0.08em;
+}
+
+.home-tagline {
+  margin-top: 22px;
+  max-width: 680px;
+  font-size: clamp(1.25rem, 1.2vw + 1rem, 2rem);
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.nuance-section {
+  display: grid;
+  gap: 20px;
+}
+
+.nuance-intro {
+  display: grid;
+  gap: 12px;
+  max-width: 88ch;
+}
+
+.nuance-intro p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.75;
+  font-size: 1.02rem;
+}
+
+.nuance-example-card {
+  padding: 20px;
+  border-radius: 22px;
+  border: 1px solid rgba(79, 70, 229, 0.16);
+  background:
+    radial-gradient(circle at top left, rgba(224, 231, 255, 0.9), transparent 38%),
+    linear-gradient(180deg, #ffffff, #f8fafc);
+}
+
+.nuance-example-card h4 {
+  margin: 0 0 8px;
+  font-size: 1.12rem;
+}
+
+.nuance-example-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.nuance-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.nuance-card {
+  padding: 18px;
+  border-radius: 20px;
+  border: 1px solid var(--soft-border);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: var(--section-shadow);
+}
+
+.nuance-card h4 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.nuance-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+  font-size: 0.96rem;
+}
+
+.nuance-card-wide {
+  grid-column: span 2;
+}
+
+@media (max-width: 900px) {
+  .home-hero-copy-simple {
+    min-height: auto;
+  }
+
+  .home-title {
+    font-size: clamp(3rem, 16vw, 5rem);
+  }
+
+  .home-tagline {
+    font-size: 1.25rem;
+  }
+
+  .nuance-card-wide {
+    grid-column: auto;
+  }
+}
