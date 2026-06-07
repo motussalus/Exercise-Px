@@ -319,58 +319,103 @@
                 Take social anxiety as an example. Because exposure-based treatment is commonly used for social anxiety, a social sport can be helpful when it is chosen carefully and matched to the person <strong>(clinician / behavioral health integration specifier)</strong>. Using the specifiers, the clinician may choose a fun but mildly challenging activity with a low barrier to entry, such as capture the flag, soccer drills, or a simple group game instead of a more expensive or intimidating sport like hockey <strong>(specific exercise type and structure specifier)</strong>. For intensity, the goal may be light-to-moderate activity, often under about 6.0 METs, so the social exposure remains the focus rather than physical exhaustion <strong>(MET specifier)</strong>.  Time and frequency is also important, so the clinician might start with short 1–5 minute intervals and check in often to see how the young person is tolerating the activity <strong>(time and frequency specifier, behavioral health specifier)</strong>.
               </p>
             </div>
+
+
   
-            <div class="nuance-grid">
-              <article class="nuance-card">
-                <h4>Metabolic Equivalents of Task (METs)</h4>
+            <div class="specifier-panel-grid">
+              <article class="specifier-panel-card" data-specifier="met">
+                <div class="specifier-panel-top">
+                  <span class="specifier-panel-number">01</span>
+                  <h4>Metabolic Equivalents of Task</h4>
+                </div>
                 <p>
-                  METs help estimate the energy cost of an activity. For example, running or jogging at roughly 4.0 METs versus 6.0 METs may create different physiological and psychological responses, even if both are simply described as “running.” Without accounting for intensity, the actual load placed on the person can be missed.
+                  METs help estimate the energy cost, intensity, and external load on the body of an activity. Activities rated in multiples of METs as a baseline; for example, running at six mph is roughly 10 METs, meaning it requires 10 times the energy needed at rest. Many different activities can be referenced for a general estimation using the MET compendium. This matters because the same activity label can hide very different physiological demands.
                 </p>
+                <div class="specifier-example">
+                  <strong>Example:</strong> Running at roughly 4.0 METs versus 6.0 METs may create different physical and psychological responses, even if both are simply called “running.”
+                </div>
               </article>
-  
-              <article class="nuance-card">
-                <h4>Heart Rate</h4>
+            
+              <article class="specifier-panel-card" data-specifier="hr">
+                <div class="specifier-panel-top">
+                  <span class="specifier-panel-number">02</span>
+                  <h4>Heart Rate</h4>
+                </div>
                 <p>
-                  Heart-rate response helps show how strongly the cardiovascular system is being activated. For example, a client may complete the same 30-minute run at a steady aerobic heart rate, an anxious over-aroused heart rate, or an interval pattern with repeated spikes. Each version may have a different clinical meaning.
+                  Heart-rate response is similar and closely related to METs but is unique int that it measures internal load and how our cardiovasular system is responding to an exercise.
                 </p>
+                <div class="specifier-example">
+                  <strong>Example:</strong> A 30-minute run may involve 4x4 intervals or zone 2 running. Also while running the response could include anxiety-driven heart-rate spikes, differences in R-R measures, and so on. Each version may have a different clinical meaning.
+                </div>
               </article>
-  
-              <article class="nuance-card">
-                <h4>Breathing Control and Pacing</h4>
+            
+              <article class="specifier-panel-card" data-specifier="breathing">
+                <div class="specifier-panel-top">
+                  <span class="specifier-panel-number">03</span>
+                  <h4>Breathing Control and Pacing</h4>
+                </div>
                 <p>
-                  Breathing demand changes the experience of exercise. For example, a slow paced run with controlled breathing may support regulation, while a hard run that causes breathlessness may be useful for interoceptive exposure, conditioning, or distress tolerance, depending on the person and treatment goal.
+                  Breathing demand changes how exercise feels and what it trains. Breath control can support regulation, while breathlessness may be used carefully for exposure or conditioning.
                 </p>
+                <div class="specifier-example">
+                  <strong>Example:</strong> A slow paced run with controlled breathing may support calming, while a harder run that causes breathlessness may be useful for distress tolerance or interoceptive exposure.
+                </div>
               </article>
-  
-              <article class="nuance-card">
-                <h4>Specific Exercise Type and Structure</h4>
+            
+              <article class="specifier-panel-card" data-specifier="type">
+                <div class="specifier-panel-top">
+                  <span class="specifier-panel-number">04</span>
+                  <h4>Specific Exercise Type and Structure</h4>
+                </div>
                 <p>
-                  The type and structure of exercise matter. For example, 30 minutes of treadmill running, trail running, martial arts drills, resistance circuits, or group fitness may differ in predictability, social exposure, coordination, impact, sensory demand, and risk. The label “exercise” does not capture those differences.
+                  The activity itself matters. Different forms of exercise vary in skill demand, predictability, sensory load, social exposure, injury risk, and barriers to entry.
                 </p>
+                <div class="specifier-example">
+                  <strong>Example:</strong> Soccer drills, treadmill running, martial arts, swimming, resistance circuits, and trail running can all create very different clinical experiences.
+                </div>
               </article>
-  
-              <article class="nuance-card">
-                <h4>Neurological and Physiological Targets</h4>
+            
+              <article class="specifier-panel-card" data-specifier="target">
+                <div class="specifier-panel-top">
+                  <span class="specifier-panel-number">05</span>
+                  <h4>Neurological and Physiological Target</h4>
+                </div>
                 <p>
-                  Exercise can be selected for different targets. For example, one plan may prioritize aerobic conditioning, while another may prioritize balance, proprioception, vestibular input, fatigue tolerance, arousal regulation, or confidence with movement. Naming the target clarifies why the exercise was chosen.
+                  Exercise can be chosen to target specific systems or outcomes, such as arousal regulation, aerobic capacity, coordination, proprioception, balance, strength, or sleep pressure.
                 </p>
+                <div class="specifier-example">
+                  <strong>Example:</strong> One plan may target aerobic conditioning, while another may target confidence with movement, vestibular input, fatigue tolerance, or regulation during social interaction.
+                </div>
               </article>
-  
-              <article class="nuance-card">
-                <h4>Time and Frequency</h4>
+            
+              <article class="specifier-panel-card" data-specifier="time">
+                <div class="specifier-panel-top">
+                  <span class="specifier-panel-number">06</span>
+                  <h4>Time and Frequency</h4>
+                </div>
                 <p>
-                  Timing and frequency change the dose. For example, one 90-minute session per week is not the same as three 30-minute sessions, even if the total time is equal. Exercise before school, work, therapy, sleep, or exposure tasks may also produce different effects.
+                  Duration, timing, and repetition shape the dose. The same total weekly minutes can feel and function differently depending on how they are divided.
                 </p>
+                <div class="specifier-example">
+                  <strong>Example:</strong> One 90-minute session per week is not the same as three 30-minute sessions. Short 1–5 minute intervals may also be useful when tolerance or check-ins matter.
+                </div>
               </article>
-  
-              <article class="nuance-card nuance-card-wide">
-                <h4>Clinician / Behavioral Health Integration</h4>
+            
+              <article class="specifier-panel-card specifier-panel-card-wide" data-specifier="clinical">
+                <div class="specifier-panel-top">
+                  <span class="specifier-panel-number">07</span>
+                  <h4>Clinician / Behavioral Health Integration</h4>
+                </div>
                 <p>
-                  Some exercise plans can be self-directed, while others require clinical oversight. For example, exercise used for ADHD activation may need simple structure and adherence support, while exercise used during eating-disorder recovery may require limits, monitoring, medical clearance, and coordination with the treatment team.
+                  Some exercise plans can be self-directed, while others need clinical oversight, medical clearance, coaching, or treatment-team coordination.
                 </p>
+                <div class="specifier-example">
+                  <strong>Example:</strong> Exercise used for ADHD activation may need simple structure and adherence support, while exercise during eating-disorder recovery may require limits, monitoring, medical clearance, and coordination with the treatment team.
+                </div>
               </article>
             </div>
-          </section>
+
+            
   
           <section class="home-card-section home-card-section-app">
             <div class="section-header">
