@@ -329,10 +329,10 @@
                   <h4>Metabolic Equivalents of Task</h4>
                 </div>
                 <p>
-                  METs help estimate the energy cost, intensity, and external load on the body of an activity. Activities rated in multiples of METs as a baseline; for example, running at six mph is roughly 10 METs, meaning it requires 10 times the energy needed at rest. Many different activities can be referenced for a general estimation using the MET compendium. This matters because the same activity label can hide very different physiological demands.
+                  Metabolic Equivalents of Task (MET) helps estimate the energy cost and intensity of an activity. METs approximates at baseline (sitting or laying down quietly) one MET equal the oxygen consumption is ~3.5 ml O₂/kg/min. As such activities are rated in multiples of that baseline. For example, running at 6 mph is roughly 10 METs, meaning it requires about 10 times the energy needed at rest. The MET compendium allows clinicians to compare many different activities using a shared intensity estimate. This inturn helps clinicans: A) clinicians can identify the intensity of specific activities and sports and match them to disorder-specific needs and individual factors such as age, sex, weight, fitness level, and medical conditions. B) convert intensity into other metrics such as MET-minutes (METs of an activity × minutes) or estimated caloric expenditure for different targets. C) retroactive analysis of a patient’s current activity patterns to estimate baseline dose before treatment begins.
                 </p>
                 <div class="specifier-example">
-                  <strong>Example:</strong> Running at roughly 4.0 METs versus 6.0 METs may create different physical and psychological responses, even if both are simply called “running.”
+                  <strong>Example:</strong> A 4.0 MET activity versus a 6.0 MET activity will create different physical and psychological responses, even if both are casually described as “running.” Using METs correctly would state the estimated METs of an activity and its reason why a lower or higher intensity would be inadequate for the exercise prescription.
                 </div>
               </article>
             
@@ -342,10 +342,10 @@
                   <h4>Heart Rate</h4>
                 </div>
                 <p>
-                  Heart-rate response is similar and closely related to METs but is unique int that it measures internal load and how our cardiovasular system is responding to an exercise.
+                  Heart rate is closely related to intensity, but it adds something different from METs. METs estimate an activity's demand, while heart rate shows the internal load: how the person’s cardiovascular and autonomic systems are actually responding during the exercise.
                 </p>
                 <div class="specifier-example">
-                  <strong>Example:</strong> A 30-minute run may involve 4x4 intervals or zone 2 running. Also while running the response could include anxiety-driven heart-rate spikes, differences in R-R measures, and so on. Each version may have a different clinical meaning.
+                  <strong>Example:</strong> A 30-minute run could be structured as 4x4 intervals, zone 2 running, or a steady jog. Each version may look like running on paper, but the internal response and clinical meaning are very different with equally unique effects a person may experience.
                 </div>
               </article>
             
@@ -355,10 +355,10 @@
                   <h4>Breathing Control and Pacing</h4>
                 </div>
                 <p>
-                  Breathing demand changes how exercise feels and what it trains. Breath control can support regulation, while breathlessness may be used carefully for exposure or conditioning.
+                  Breathing control and pacing refers both to breathing during exercise and to breathing-based interventions as exercises. It can shape arousal, perceived exertion, autonomic regulation, and tolerance for body sensations.
                 </p>
                 <div class="specifier-example">
-                  <strong>Example:</strong> A slow paced run with controlled breathing may support calming, while a harder run that causes breathlessness may be useful for distress tolerance or interoceptive exposure.
+                  <strong>Example:</strong> A slow paced walk with nasal breathing or longer exhales may support calming, while a harder bout that creates breathlessness may be useful for conditioning, distress tolerance, or interoceptive exposure.
                 </div>
               </article>
             
@@ -368,10 +368,10 @@
                   <h4>Specific Exercise Type and Structure</h4>
                 </div>
                 <p>
-                  The activity itself matters. Different forms of exercise vary in skill demand, predictability, sensory load, social exposure, injury risk, and barriers to entry.
+                  The activity itself matters. Broad labels like “cardio,” “resistance training,” or “running” can hide major differences in specific movements/patterns, skill demand, work-rest structure, social setting, predictability, sensory load, sets, reps, load/intensity markers, and differences in the workout program.
                 </p>
                 <div class="specifier-example">
-                  <strong>Example:</strong> Soccer drills, treadmill running, martial arts, swimming, resistance circuits, and trail running can all create very different clinical experiences.
+                  <strong>Example:</strong> Running indoors vs outdoors vs playing soccer vs cross country skiing can create different clinical experiences and results, even when they share similar intensity, workout structure, and physiological targets.
                 </div>
               </article>
             
@@ -381,10 +381,10 @@
                   <h4>Neurological and Physiological Target</h4>
                 </div>
                 <p>
-                  Exercise can be chosen to target specific systems or outcomes, such as arousal regulation, aerobic capacity, coordination, proprioception, balance, strength, or sleep pressure.
+                  Exercise should be tied to the primary and secondary biological systems or adaptations that it is intended to engage or outcome it is meant to influence.
                 </p>
                 <div class="specifier-example">
-                  <strong>Example:</strong> One plan may target aerobic conditioning, while another may target confidence with movement, vestibular input, fatigue tolerance, or regulation during social interaction.
+                  <strong>Example:</strong> Aerobic activity, such as zone 2 training, has been shown to increase mitochondrial function, a mechanism strongly associated with improvements in mood and cognitive function, which could be particularly relevant in a number of disorders like depression and anxiety.
                 </div>
               </article>
             
@@ -394,10 +394,10 @@
                   <h4>Time and Frequency</h4>
                 </div>
                 <p>
-                  Duration, timing, and repetition shape the dose. The same total weekly minutes can feel and function differently depending on how they are divided.
+                  Duration, timing, frequency, and rest structure shape the dose. The same total weekly minutes can function differently depending on whether they are delivered in short bouts, longer sessions, intervals, rest structure, daily practice, or immediately before therapy.
                 </p>
                 <div class="specifier-example">
-                  <strong>Example:</strong> One 90-minute session per week is not the same as three 30-minute sessions. Short 1–5 minute intervals may also be useful when tolerance or check-ins matter.
+                  <strong>Example:</strong> One 90-minute session per week is not the same as three 30-minute sessions. A short 10-minute bout before therapy, or 1–5 minute intervals with a minute rest during an activity, may serve a different clinical purpose than a standard workout.
                 </div>
               </article>
             
@@ -407,10 +407,10 @@
                   <h4>Clinician / Behavioral Health Integration</h4>
                 </div>
                 <p>
-                  Some exercise plans can be self-directed, while others need clinical oversight, medical clearance, coaching, or treatment-team coordination.
+                  The influence of the clinician in the administration of exercise is not to be overlooked when presciribing exercise. While some disorders like ADHD require little to no supervision, others require the hands of a skilled practitioner to guide a patient through the exercise.
                 </p>
                 <div class="specifier-example">
-                  <strong>Example:</strong> Exercise used for ADHD activation may need simple structure and adherence support, while exercise during eating-disorder recovery may require limits, monitoring, medical clearance, and coordination with the treatment team.
+                  <strong>Example:</strong> For eating-disorder recovery a behavioral health expert is needed to set limits, monitor outcomes, and retrain the persons relationship with exercise. While someone who has torn their ACL will need the skills of a physical therapist to guide them through the first year of recovery and then a sport psychologist to work through the mental recovery back into their prefered sport. 
                 </div>
               </article>
             </div>
