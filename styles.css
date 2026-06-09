@@ -3206,63 +3206,36 @@ input[type="range"] {
 /* Clinical Template Radar specifiers */
 
 /* =========================================================
-   CLINICAL TEMPLATES TAB — CLEAN, READABLE TEMPLATE LIBRARY
-   ---------------------------------------------------------
-   What this section does:
-   1) Styles only the Clinical Templates tab by scoping rules under
-      .clinical-templates-page.
-   2) Turns each template into a clean library card with a clear hierarchy:
-      title → subtitle/citation → use case/best for/confidence/gap → chips.
-   3) Keeps the radar as a small supporting thumbnail instead of a massive
-      chart that competes with the text.
-   4) Includes compatibility selectors for both versions we have used:
-      - older/newer card: .clinical-template-card-pro
-      - cleaner card:     .clinical-template-card-clean
-      - older radar:      .clinical-template-radar-card and .template-radar-svg
-      - cleaner radar:    .template-radar-thumbnail-card and .template-radar-svg-clean
+   CLINICAL TEMPLATES — SIMPLE READING LAYOUT
 
-   If this page looks messy later, check two things first:
-   - app.js should render <section class="panel clinical-templates-page">
-   - templateCard() should use either .clinical-template-card-pro or
-     .clinical-template-card-clean, not the old plain .plan-card layout.
+   Purpose:
+   This section styles the Clinical Templates tab so each template reads
+   like a clean clinical note instead of a crowded research table.
+
+   Layout:
+   1. Template title, subtitle, citation, and Load Template button
+   2. A two-card snapshot row:
+      - left card: specifier score pills
+      - right card: radar profile
+   3. Two readable explanation blocks:
+      - Why this may matter
+      - Structure in practice
+
+   Important:
+   The radar values are not “effectiveness scores.” They show how much
+   control, precision, or monitoring each specifier may need in the template.
+
+   Compatibility:
+   This block is intended to replace the older clinical-template override
+   sections. Keep only one Clinical Templates override block near the bottom
+   of styles.css so older radar/grid rules do not fight these rules.
    ========================================================= */
 
-/* Navigation treatment for the Clinical Templates tab */
-.tab-btn[data-tab="evidence"] {
-  background: #ecfdf5;
-  border-color: #bbf7d0;
-  color: #047857;
-}
-
-.tab-btn.active[data-tab="evidence"] {
-  background: linear-gradient(135deg, #10b981, #047857);
-  color: #ffffff;
-}
-
-.tab-btn .badge {
-  padding: 3px 7px;
-  font-size: 0.7rem;
-  line-height: 1;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.9);
-  color: #047857;
-  border: 1px solid rgba(4, 120, 87, 0.18);
-  font-weight: 700;
-}
-
-.tab-btn.active .badge {
-  background: rgba(255, 255, 255, 0.22);
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.28);
-}
-
-/* Page shell */
 .clinical-templates-page {
   display: grid;
   gap: 22px;
 }
 
-/* Top intro area for the templates tab */
 .clinical-templates-hero {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(260px, 0.42fr);
@@ -3272,7 +3245,7 @@ input[type="range"] {
   border-radius: 28px;
   border: 1px solid rgba(219, 229, 241, 0.95);
   background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(248,251,255,0.95));
-  box-shadow: var(--section-shadow, var(--shadow));
+  box-shadow: var(--shadow);
 }
 
 .clinical-templates-hero h2 {
@@ -3299,325 +3272,46 @@ input[type="range"] {
   gap: 8px;
 }
 
-/* Template list */
-.clinical-template-section,
-.clinical-template-grid {
-  display: grid;
-  gap: 18px;
-}
-
-/* Card support for either the older .clinical-template-card-pro JS
-   or the newer .clinical-template-card-clean JS. */
-.clinical-template-card-pro,
-.clinical-template-card-clean {
-  position: relative;
-  overflow: hidden;
-  padding: 22px;
-  border-radius: 26px;
-  border: 1px solid rgba(219, 229, 241, 0.95);
-  background: rgba(255, 255, 255, 0.97);
-  box-shadow: 0 14px 30px rgba(13, 32, 66, 0.07);
-}
-
-.clinical-template-card-pro::before,
-.clinical-template-card-clean::before {
-  content: "";
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 6px;
-  background: linear-gradient(180deg, #10b981, #047857);
-}
-
-/* Layout for the older/pro card structure */
-.clinical-template-card-pro {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 230px;
-  gap: 20px;
-  align-items: start;
-}
-
-/* Layout for the newer/clean card structure */
-.clinical-template-card-clean {
-  display: grid;
-  gap: 18px;
-}
-
-.clinical-template-main,
-.clinical-template-copy-clean {
-  min-width: 0;
-  display: grid;
-  gap: 14px;
-}
-
-.clinical-template-title-row,
-.clinical-template-header-clean {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 18px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid rgba(219, 229, 241, 0.9);
-}
-
-.clinical-template-title-clean,
-.clinical-template-title-row > div {
-  min-width: 0;
-}
-
-.clinical-template-card-pro h4,
-.clinical-template-card-clean h4,
-.clinical-template-title-clean h4 {
-  margin: 0;
-  font-size: clamp(1.25rem, 1vw + 1rem, 1.65rem);
-  line-height: 1.15;
-  letter-spacing: -0.04em;
-}
-
-.clinical-template-subtitle,
-.clinical-template-title-clean p {
-  margin: 6px 0 0;
-  color: var(--muted);
-  line-height: 1.5;
-}
-
-/* Small label/citation pieces */
-.template-free-pill {
-  display: inline-flex;
-  width: fit-content;
-  margin-bottom: 8px;
-  padding: 5px 9px;
-  border-radius: 999px;
-  background: #ecfdf5;
-  color: #047857;
-  border: 1px solid #bbf7d0;
-  font-size: 0.72rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-.template-citation,
-.template-citation-clean {
-  display: inline-flex;
-  margin-top: 10px;
-  padding: 7px 10px;
-  border-radius: 999px;
-  background: #f8fafc;
-  border: 1px solid rgba(219, 229, 241, 0.95);
-  color: #475569;
-  font-size: 0.84rem;
-  line-height: 1.35;
-  font-weight: 700;
-}
-
-.clinical-template-load-btn {
-  flex: 0 0 auto;
-  white-space: nowrap;
-}
-
-/* Main template information blocks */
-.clinical-template-info-grid,
-.template-detail-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
-
-.template-info-block,
-.template-detail-row {
-  padding: 14px;
-  border-radius: 18px;
-  border: 1px solid rgba(219, 229, 241, 0.95);
-  background: #f8fbff;
-}
-
-.template-info-block-gap {
-  grid-column: 1 / -1;
-}
-
-.template-info-block span,
-.template-detail-row span,
-.template-mini-heading,
-.template-snapshot-clean > span,
-.template-radar-title {
-  display: block;
-  margin-bottom: 6px;
-  color: #047857;
-  font-size: 0.74rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-.template-info-block p,
-.template-detail-row p {
-  margin: 0;
-  color: var(--text);
-  line-height: 1.55;
-  font-size: 0.95rem;
-}
-
-/* Specifier chips */
-.template-specifier-list,
-.template-snapshot-clean {
-  padding: 14px;
-  border-radius: 18px;
-  border: 1px solid rgba(219, 229, 241, 0.95);
-  background: #ffffff;
-}
-
-.template-chip-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.template-chip {
-  display: inline-flex;
-  align-items: center;
-  border-radius: 999px;
-  padding: 7px 10px;
-  font-size: 0.8rem;
-  font-weight: 800;
-  border: 1px solid rgba(148, 163, 184, 0.22);
-  background: #ffffff;
-  color: var(--text);
-}
-
-.template-chip.critical {
-  background: #ecfdf5;
-  color: #047857;
-  border-color: #a7f3d0;
-}
-
-.template-chip.high {
-  background: #eff6ff;
-  color: #1d4ed8;
-  border-color: #bfdbfe;
-}
-
-.template-chip.moderate {
-  background: #fffbeb;
-  color: #b45309;
-  border-color: #fde68a;
-}
-
-.template-chip.low {
-  background: #fff1f2;
-  color: #be123c;
-  border-color: #fecdd3;
-}
-
-/* Radar thumbnail.
-   The important design choice is that the radar is intentionally small.
-   It should support the text, not dominate the template card. */
-.clinical-template-radar-card,
-.template-radar-thumbnail-card {
-  width: 230px;
-  max-width: 100%;
-  padding: 14px;
-  border-radius: 22px;
-  border: 1px solid rgba(219, 229, 241, 0.95);
-  background: linear-gradient(180deg, #ffffff, #f8fbff);
-  display: grid;
-  justify-items: center;
-  align-content: start;
-  gap: 8px;
-}
-
-.template-radar-thumbnail-card p,
-.clinical-template-radar-card p {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.82rem;
-  line-height: 1.45;
-  text-align: center;
-}
-
-.template-radar-svg,
-.template-radar-svg-clean {
-  width: 180px;
-  max-width: 100%;
-}
-
-.template-radar-svg svg,
-.template-radar-svg-clean svg {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-height: 190px;
-}
-
-/* If your JS is still using the older radar helper with long SVG labels,
-   this hides those labels so the chart does not become a huge, crowded object.
-   The text meaning is already covered by the chip row and card details. */
-.clinical-templates-page .template-radar-svg text,
-.clinical-templates-page .template-radar-svg-clean text {
-  display: none;
-}
-
-/* Responsive behavior */
-@media (max-width: 1050px) {
-  .clinical-templates-hero,
-  .clinical-template-card-pro,
-  .clinical-template-body-clean {
-    grid-template-columns: 1fr;
-  }
-
-  .clinical-template-radar-card,
-  .template-radar-thumbnail-card {
-    width: 100%;
-    max-width: 280px;
-    justify-self: start;
-  }
-}
-
-@media (max-width: 700px) {
-  .clinical-template-card-pro,
-  .clinical-template-card-clean {
-    padding: 18px;
-  }
-
-  .clinical-template-title-row,
-  .clinical-template-header-clean {
-    display: grid;
-  }
-
-  .clinical-template-load-btn {
-    width: 100%;
-  }
-
-  .clinical-template-info-grid,
-  .template-detail-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .template-citation,
-  .template-citation-clean {
-    border-radius: 14px;
-  }
-}
 /* =========================================================
-   CLINICAL TEMPLATES — SIMPLE READING LAYOUT
+   Clinical Templates score clarifier
 
    Purpose:
-   The older template card layout had too many competing boxes:
-   use case, best for, confidence, gap, chip list, button, and a large radar.
-   That made the page feel cluttered and hard to scan.
+   Explains how to interpret the numbers on the Clinical Templates tab.
 
-   This section makes each template read more like a clean clinical note:
-   1. Title and research anchor at the top
-   2. Specifier Snapshot as compact score pills
-   3. Small radar as a visual cue, not the main content
-   4. Two readable text blocks: “Why this may matter” and “Structure in practice”
-
-   Design logic:
-   - The radar is intentionally small because the score pills already explain the values.
-   - The snapshot is placed before the explanation so users can see the framework first.
-   - The long clinical text is broken into two sections to reduce cognitive load.
-   - This override should be pasted near the bottom of styles.css so it wins over older
-     .clinical-template-card-pro and .clinical-template-radar-card rules.
+   Why this matters:
+   The radar values are not “effectiveness scores.” They describe how much
+   control, precision, or monitoring each specifier needs within that template.
+   This prevents users from misreading a high MET score as “more intensity”
+   when it may actually mean “tighter control over intensity.”
    ========================================================= */
+
+.template-score-clarifier {
+  margin-top: 18px;
+  padding: 16px 18px;
+  border-radius: 20px;
+  border: 1px solid rgba(219, 229, 241, 0.95);
+  background: rgba(255, 255, 255, 0.78);
+  display: grid;
+  gap: 8px;
+  max-width: 88ch;
+}
+
+.template-score-clarifier strong {
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.template-score-clarifier p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+  font-size: 0.96rem;
+}
+
+.clinical-template-section {
+  display: grid;
+  gap: 18px;
+}
 
 .clinical-template-grid {
   display: grid;
@@ -3665,16 +3359,88 @@ input[type="range"] {
   font-weight: 700;
 }
 
- {
+.template-free-pill {
+  display: inline-flex;
+  width: fit-content;
+  margin-bottom: 8px;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #bbf7d0;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.clinical-template-load-btn {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+/* =========================================================
+   Snapshot + Radar row
+
+   The wrapper itself is transparent. The visible boxes are the
+   snapshot panel and radar panel. This prevents the radar from looking
+   like it is floating inside the same white space as the score bubbles.
+   ========================================================= */
+
+.clinical-template-simple-snapshot {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 190px;
-  gap: 20px;
-  align-items: center;
-  padding: 16px;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 16px;
+  align-items: stretch;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.template-snapshot-panel,
+.clinical-template-simple-radar {
   border-radius: 22px;
   border: 1px solid rgba(219, 229, 241, 0.95);
-  background: #f8fbff;
+  box-shadow: 0 10px 22px rgba(13, 32, 66, 0.05);
 }
+
+.template-snapshot-panel {
+  min-width: 0;
+  padding: 16px;
+  background: linear-gradient(180deg, #ffffff, #f8fbff);
+}
+
+.clinical-template-simple-radar {
+  padding: 16px;
+  display: grid;
+  align-content: start;
+  justify-items: center;
+  gap: 10px;
+  background:
+    radial-gradient(circle at top, rgba(224, 231, 255, 0.45), transparent 45%),
+    #ffffff;
+}
+
+.clinical-template-simple-radar .template-mini-heading {
+  justify-self: start;
+  width: 100%;
+}
+
+.template-mini-heading {
+  display: block;
+  margin-bottom: 8px;
+  color: #047857;
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* =========================================================
+   Specifier score pills
+
+   These are the “bubble” labels showing the score and control level.
+   ========================================================= */
 
 .template-score-grid {
   display: flex;
@@ -3729,26 +3495,29 @@ input[type="range"] {
   color: #be123c;
 }
 
-.clinical-template-simple-radar {
-  display: grid;
-  justify-items: center;
-  align-items: center;
-  padding: 10px;
-  border-radius: 18px;
-  background: white;
-  border: 1px solid rgba(219, 229, 241, 0.95);
-}
+/* =========================================================
+   Clinical template radar
+
+   The radar is intentionally small. It now includes abbreviated labels
+   and numbers, so the width is slightly larger than the original thumbnail.
+   ========================================================= */
 
 .template-radar-svg-simple {
-  width: 160px;
+  width: 230px;
   max-width: 100%;
+  margin: 0 auto;
 }
 
 .template-radar-svg-simple svg {
   display: block;
   width: 100%;
   height: auto;
+  overflow: visible;
 }
+
+/* =========================================================
+   Why / Structure text blocks
+   ========================================================= */
 
 .clinical-template-simple-body {
   display: grid;
@@ -3779,47 +3548,21 @@ input[type="range"] {
   margin-top: 12px;
 }
 
-@media (max-width: 900px) {
-  .clinical-template-simple-head {
-    display: grid;
-  }
+/* =========================================================
+   Responsive layout
 
-  .clinical-template-load-btn {
-    width: 100%;
-  }
-
-  /* Clinical template radar labels
-   These rules make the small radar large enough to show abbreviated
-   specifier labels and numeric scores without making the whole card bulky.
-
-   Why this exists:
-   - The clinical template radar now shows labels like MET, HR, BR, TYPE, N/P, TIME, and CLIN.
-   - Because those labels and numbers need a little more room, the radar column is slightly wider.
-   - On mobile, the radar drops below the score pills so the card stays readable.
-*/
-
-.clinical-template-simple-snapshot {
-  grid-template-columns: minmax(0, 1fr) 250px;
-}
-
-.clinical-template-simple-radar {
-  min-width: 230px;
-  padding: 8px;
-}
-
-.template-radar-svg-simple {
-  width: 230px;
-  max-width: 100%;
-}
-
-.template-radar-svg-simple svg {
-  display: block;
-  width: 100%;
-  height: auto;
-  overflow: visible;
-}
+   On tablets and phones:
+   - header stacks
+   - snapshot and radar stack
+   - why/structure blocks stack
+   - score pills become easier to read
+   ========================================================= */
 
 @media (max-width: 900px) {
+  .clinical-templates-hero {
+    grid-template-columns: 1fr;
+  }
+
   .clinical-template-simple-head {
     display: grid;
   }
@@ -3833,9 +3576,7 @@ input[type="range"] {
   }
 
   .clinical-template-simple-radar {
-    width: 250px;
-    min-width: 0;
-    justify-self: start;
+    justify-self: stretch;
   }
 
   .clinical-template-simple-body {
@@ -3848,7 +3589,8 @@ input[type="range"] {
     padding: 18px;
   }
 
-  .clinical-template-simple-snapshot {
+  .template-snapshot-panel,
+  .clinical-template-simple-radar {
     padding: 14px;
   }
 
@@ -3861,240 +3603,9 @@ input[type="range"] {
     justify-content: space-between;
   }
 
-  .clinical-template-simple-radar {
-    width: 100%;
-  }
-
   .template-radar-svg-simple {
     width: 230px;
-    margin: 0 auto;
-  }
-}
-/* =========================================================
-   Clinical template radar corner alignment
-
-   Purpose:
-   Keeps the small radar locked to the upper-right corner of the
-   Specifier Snapshot box on desktop, while still allowing it to
-   stack cleanly on tablets and phones.
-
-   Why this is needed:
-   The radar now includes abbreviated labels and scores, so it needs
-   a little more width. Without explicit alignment, the grid may center
-   it or let it drift away from the right side.
-   ========================================================= */
-
-.clinical-template-simple-snapshot {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 250px;
-  align-items: start;
-  gap: 20px;
-}
-
-.clinical-template-simple-snapshot > div:first-child {
-  min-width: 0;
-}
-
-.clinical-template-simple-radar {
-  width: 250px;
-  min-width: 230px;
-  justify-self: end;
-  align-self: start;
-  padding: 8px;
-}
-
-.template-radar-svg-simple {
-  width: 230px;
-  max-width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.template-radar-svg-simple svg {
-  display: block;
-  width: 100%;
-  height: auto;
-  overflow: visible;
-}
-
-@media (max-width: 900px) {
-  .clinical-template-simple-snapshot {
-    grid-template-columns: 1fr;
-  }
-
-  .clinical-template-simple-radar {
-    width: 250px;
-    min-width: 0;
-    justify-self: start;
-  }
-
-  .template-radar-svg-simple {
-    margin-left: 0;
-    margin-right: 0;
+    max-width: 100%;
   }
 }
 
-@media (max-width: 560px) {
-  .clinical-template-simple-radar {
-    width: 100%;
-    justify-self: stretch;
-  }
-
-  .template-radar-svg-simple {
-    width: 230px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-/* =========================================================
-   Clinical Templates — Snapshot + Radar two-card layout
-
-   Purpose:
-   The Specifier Snapshot and Radar Profile should read as two related
-   but separate pieces of information.
-
-   Layout:
-   - The left card contains the score pills/bubbles.
-   - The right card contains the radar.
-   - Both sit inside the same row so the radar stays visually connected
-     to the snapshot without floating awkwardly inside the same white box.
-
-   Why this improves readability:
-   The old layout placed the bubbles and radar on the same white background,
-   so the radar felt like it was drifting. This gives each element its own
-   card boundary while keeping the whole section clean and professional.
-   ========================================================= */
-
-.clinical-template-simple-snapshot {
-  display: grid !important;
-  grid-template-columns: minmax(0, 1fr) 280px !important;
-  gap: 16px !important;
-  align-items: stretch !important;
-
-  padding: 0 !important;
-  border: 0 !important;
-  background: transparent !important;
-  position: static !important;
-  min-height: 0 !important;
-}
-
-.template-snapshot-panel,
-.clinical-template-simple-radar {
-  border-radius: 22px;
-  border: 1px solid rgba(219, 229, 241, 0.95);
-  background: #ffffff;
-  box-shadow: 0 10px 22px rgba(13, 32, 66, 0.05);
-}
-
-.template-snapshot-panel {
-  padding: 16px;
-  min-width: 0;
-}
-
-.clinical-template-simple-radar {
-  position: static !important;
-  width: auto !important;
-  min-width: 0 !important;
-  margin: 0 !important;
-  padding: 16px !important;
-
-  display: grid;
-  align-content: start;
-  justify-items: center;
-  gap: 10px;
-}
-
-.clinical-template-simple-radar .template-mini-heading {
-  justify-self: start;
-  width: 100%;
-}
-
-.template-radar-svg-simple {
-  width: 230px !important;
-  max-width: 100% !important;
-  margin: 0 auto !important;
-}
-
-.template-radar-svg-simple svg {
-  display: block;
-  width: 100%;
-  height: auto;
-  overflow: visible;
-}
-
-/* Slightly distinguish the snapshot panel from the radar panel */
-
-.template-snapshot-panel {
-  background:
-    linear-gradient(180deg, #ffffff, #f8fbff);
-}
-
-.clinical-template-simple-radar {
-  background:
-    radial-gradient(circle at top, rgba(224, 231, 255, 0.45), transparent 45%),
-    #ffffff;
-}
-
-/* Mobile: stack the two cards */
-
-@media (max-width: 900px) {
-  .clinical-template-simple-snapshot {
-    grid-template-columns: 1fr !important;
-  }
-
-  .clinical-template-simple-radar {
-    justify-self: stretch !important;
-  }
-
-  .template-radar-svg-simple {
-    width: 230px !important;
-  }
-}
-
-@media (max-width: 560px) {
-  .template-snapshot-panel,
-  .clinical-template-simple-radar {
-    padding: 14px !important;
-  }
-
-  .template-score-pill {
-    width: 100%;
-    justify-content: space-between;
-  }
-}
-  
-/* =========================================================
-   Clinical Templates score clarifier
-
-   Purpose:
-   Explains how to interpret the numbers on the Clinical Templates tab.
-
-   Why this matters:
-   The radar values are not “effectiveness scores.” They describe how much
-   control, precision, or monitoring each specifier needs within that template.
-   This prevents users from misreading a high MET score as “more intensity”
-   when it may actually mean “tighter control over intensity.”
-   ========================================================= */
-
-.template-score-clarifier {
-  margin-top: 18px;
-  padding: 16px 18px;
-  border-radius: 20px;
-  border: 1px solid rgba(219, 229, 241, 0.95);
-  background: rgba(255, 255, 255, 0.78);
-  display: grid;
-  gap: 8px;
-  max-width: 88ch;
-}
-
-.template-score-clarifier strong {
-  color: var(--text);
-  font-size: 1rem;
-}
-
-.template-score-clarifier p {
-  margin: 0;
-  color: var(--muted);
-  line-height: 1.65;
-  font-size: 0.96rem;
-}
