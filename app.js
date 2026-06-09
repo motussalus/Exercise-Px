@@ -1640,6 +1640,7 @@
         <div class="clinical-template-grid">
           ${templateCardPTSD()}
           ${templateCardDepression()}
+          ${templateCardGeriatricDepressionFrailty()}
           ${templateCardAnxiety()}
           ${templateCardADHD()}
           ${templateCardEatingDisorder()}
@@ -2008,7 +2009,7 @@ function renderTemplateScoreSnapshot(scores) {
           For a geriatric depression case, the exercise prescription changes because the client may not only be dealing with mood symptoms. They may also have frailty, deconditioning, fall risk, pain, medication effects, cardiovascular concerns, or fear of movement.
         </p>
         <p>
-          This is where the specifier scores can look different from a pediatric or younger adult depression plan. As above, a high MET score does not mean high-intensity exercise, it means METs need to be tightly controlled. In this case, the clinician may intentionally keep the exercise in a lower-load range (<2.0 METs) while still using movement to support mood, confidence, daily function, and independence.
+          This is where the specifier scores can look different from a pediatric or younger adult depression plan. As above, a high MET score does not mean high-intensity exercise, it means METs need to be tightly controlled. In this case, the clinician may intentionally keep the exercise in a lower-load range (&lt;2.0 METs) while still using movement to support mood, confidence, daily function, and independence.
         </p>
       `,
   
@@ -2537,6 +2538,7 @@ function renderTemplateScoreSnapshot(scores) {
 
     if (action === "load-ptsd-template") { loadPTSDTemplate(); return; }
     if (action === "load-depression-template") { loadDepressionTemplate(); return; }
+    if (action === "load-geriatric-template") { loadGeriatricTemplate(); return; }
     if (action === "load-anxiety-template") { loadAnxietyTemplate(); return; }
     if (action === "load-adhd-template") { loadADHDTemplate(); return; }
     if (action === "load-ed-template") { loadEDTemplate(); return; }
@@ -2593,6 +2595,248 @@ function renderTemplateScoreSnapshot(scores) {
     showToast("Bryant PTSD template loaded.", "success");
     renderApp();
   }
+  
+  function loadPTSDTemplate() {
+    state.dose.duration = 10;
+    state.dose.frequency = 3;
+    state.dose.manualMET = "";
+    state.dose.note = "PTSD template: 10-minute aerobic bout immediately before trauma-focused therapy. Select a safe aerobic option the client can sustain and monitor heart rate, perceived exertion, panic symptoms, dissociation, and readiness for therapy.";
+  
+    state.specifiers = {
+      ...state.specifiers,
+      "Metabolic Equivalents of Task (METs)": 7,
+      "Heart Rate": 8,
+      "Breathing Control and Pacing": 2,
+      "Specific Exercise Type": 6,
+      "Neurological and Physiological Targets": 7,
+      "Time and Frequency": 9,
+      "Clinician Integration Specifier": 10
+    };
+  
+    state.printMeta = {
+      ...state.printMeta,
+      diagnosis: "PTSD / trauma-focused therapy preparation",
+      setting: "Outpatient behavioral health or trauma-focused therapy setting",
+      goal: "Use brief aerobic exercise before trauma-focused therapy to support physiological activation, readiness, and emotional engagement while keeping the client inside a tolerable window.",
+      summary: "This template emphasizes heart rate, timing, and clinical integration. The goal is not simply high-intensity exercise; the goal is controlled physiological activation before trauma-focused work.",
+      whyDistinct: "Client may benefit from a brief, structured aerobic bout before therapy when the activity is medically safe, tolerable, and clinically monitored.",
+      modality: "Brief aerobic activity such as cycling, jogging, step-ups, brisk walking, or jumping jacks",
+      supervision: "Moderate supervision by provider recommended",
+      timing: "Immediately Before Appointment",
+      timingNote: "Complete the aerobic bout immediately before trauma-focused therapy when clinically appropriate.",
+      progression: "Adjust only one variable at a time, such as duration, intensity, or activity type, based on tolerance and clinical response.",
+      response: "Track heart rate, perceived exertion, panic symptoms, dissociation, avoidance, readiness for therapy, and post-session response.",
+      risk: "Watch for overactivation, panic escalation, dissociation, medical contraindications, or avoidance driven by the exercise task.",
+      trigger: "Progress only when the client tolerates the current structure and appears more ready, not less ready, for therapy afterward.",
+      reviewDate: "2-4 weeks"
+    };
+  
+    state.activeTab = "dose";
+    showToast("PTSD template loaded.", "success");
+    renderApp();
+  }
+
+
+  function loadDepressionTemplate() {
+    state.dose.duration = 30;
+    state.dose.frequency = 4;
+    state.dose.manualMET = "4.0";
+    state.dose.note = "Depression template: repeatable moderate activity around 30 minutes per session, 3–5 times per week. Start with consistency before making the prescription more complex.";
+  
+    state.specifiers = {
+      ...state.specifiers,
+      "Metabolic Equivalents of Task (METs)": 6,
+      "Heart Rate": 5,
+      "Breathing Control and Pacing": 1,
+      "Specific Exercise Type": 5,
+      "Neurological and Physiological Targets": 5,
+      "Time and Frequency": 9,
+      "Clinician Integration Specifier": 5
+    };
+  
+    state.printMeta = {
+      ...state.printMeta,
+      diagnosis: "Depression / behavioral activation target",
+      setting: "Outpatient behavioral health, primary care, or community setting",
+      goal: "Use repeatable exercise to support mood, energy, routine, and behavioral activation.",
+      summary: "This template emphasizes time and frequency. The first goal is usually not a complicated exercise plan, but getting the person moving consistently around 30 minutes per session, three to five times per week.",
+      whyDistinct: "Other specifiers may become more important depending on the source and presentation of the depression. For example, social exercise may be more useful when isolation or relationship loss is part of the clinical picture.",
+      modality: "Brisk walking, cycling, jogging, swimming, dance, hiking, recreational sport, or cardio machine",
+      supervision: "Light or independent",
+      timing: "Out of Session - Any Day",
+      timingNote: "Use consistent timing when possible to support routine formation.",
+      progression: "Build frequency and adherence first. Increase intensity, duration, or complexity only after the client can complete the current plan consistently.",
+      response: "Track weekly sessions, minutes, mood before and after activity, energy, sleep, adherence, and missed sessions.",
+      risk: "Watch for overexertion, low motivation, missed sessions, pain, fatigue, or exercise being framed as punishment.",
+      trigger: "Progress when adherence is consistent and the current workload is tolerated without worsening symptoms.",
+      reviewDate: "2-4 weeks"
+    };
+  
+    state.activeTab = "dose";
+    showToast("Depression template loaded.", "success");
+    renderApp();
+  }
+
+  
+  
+  function loadGeriatricTemplate() {
+    state.dose.duration = 15;
+    state.dose.frequency = 4;
+    state.dose.manualMET = "3.0";
+    state.dose.note = "Late-life depression + frailty template: low-to-moderate-load movement such as short walking bouts, seated cycling, chair sit-to-stands, light resistance bands, step-ups, or supported balance drills. Keep intensity modest, monitor symptoms, and progress slowly.";
+  
+    state.specifiers = {
+      ...state.specifiers,
+      "Metabolic Equivalents of Task (METs)": 9,
+      "Heart Rate": 7,
+      "Breathing Control and Pacing": 4,
+      "Specific Exercise Type": 9,
+      "Neurological and Physiological Targets": 9,
+      "Time and Frequency": 8,
+      "Clinician Integration Specifier": 8
+    };
+  
+    state.printMeta = {
+      ...state.printMeta,
+      diagnosis: "Late-life depression with frailty / fall-risk considerations",
+      setting: "Outpatient, primary care, geriatric behavioral health, residential, or supervised community setting",
+      goal: "Use lower-load, repeatable movement to support mood, confidence, gait, balance, strength, and daily functioning while limiting excessive physiological load.",
+      summary: "This template emphasizes tight control of METs, exercise type, neurological and physiological targets, time and frequency, and clinical integration. A high MET specifier score does not mean high-intensity exercise; it means the MET range should be carefully controlled.",
+      whyDistinct: "Older adults may have depression alongside frailty, deconditioning, fall risk, pain, medication effects, cardiovascular concerns, or fear of movement. The exercise plan should support mood and function without creating unnecessary load or safety risk.",
+      modality: "Low-to-moderate-load walking, seated cycling, chair sit-to-stands, light resistance bands, step-ups, and supported balance drills",
+      supervision: "Moderate supervision by provider recommended",
+      timing: "Out of Session - Any Day",
+      timingNote: "Use consistent timing when possible. Avoid progressing intensity quickly, especially when dizziness, pain, medication effects, or fall risk are present.",
+      progression: "Progress slowly by increasing one variable at a time: duration, frequency, complexity, resistance, or balance challenge.",
+      response: "Monitor mood, energy, adherence, perceived exertion, pain, dizziness, fear of falling, walking tolerance, and daily functioning.",
+      risk: "Watch for dizziness, pain, shortness of breath beyond expected exertion, unsafe gait, medication effects, orthostatic symptoms, and fall risk.",
+      trigger: "Progress only when the client tolerates the current plan consistently without increased pain, dizziness, fear, or functional decline.",
+      reviewDate: "2-4 weeks"
+    };
+  
+    state.activeTab = "dose";
+    showToast("Geriatric template loaded.", "success");
+    renderApp();
+  }
+
+  function loadAnxietyTemplate() {
+    state.dose.duration = 45;
+    state.dose.frequency = 3;
+    state.dose.manualMET = "5.0";
+    state.dose.note = "Anxiety template: structured resistance training with a 10-minute controlled warm-up, 4–6 basic movements, 2–3 sets of 8–12 reps, 60–90 seconds rest, and coached breathing during rest periods.";
+  
+    state.specifiers = {
+      ...state.specifiers,
+      "Metabolic Equivalents of Task (METs)": 5,
+      "Heart Rate": 8,
+      "Breathing Control and Pacing": 5,
+      "Specific Exercise Type": 8,
+      "Neurological and Physiological Targets": 6,
+      "Time and Frequency": 8,
+      "Clinician Integration Specifier": 5
+    };
+  
+    state.printMeta = {
+      ...state.printMeta,
+      diagnosis: "Anxiety / worry / tension management",
+      setting: "Outpatient behavioral health, gym-based, coaching, or supervised community setting",
+      goal: "Use structured resistance training to practice effort, tension, breathing, recovery, and confidence with body sensations.",
+      summary: "This template emphasizes exercise type, heart rate, time and frequency, and breathing. Resistance training can provide a predictable setting where the client experiences physical stress and then recovers from it.",
+      whyDistinct: "A structured resistance-training session has clear movements, sets, reps, rest periods, and an ending point, which may make physical effort feel safer and easier to tolerate for anxious clients.",
+      modality: "Resistance training with bodyweight movements, machines, dumbbells, carries, and core work",
+      supervision: "Light or independent",
+      timing: "Out of Session - Any Day",
+      timingNote: "Can be completed outside therapy, but review symptom response and avoidance patterns in session.",
+      progression: "Progress slowly by changing one variable at a time: load, reps, sets, rest time, or exercise complexity.",
+      response: "Track load, sets, reps, rest times, heart-rate response, perceived exertion, breath-holding, panic symptoms, avoidance, and confidence after the session.",
+      risk: "Watch for breath-holding, rushing, over-gripping, panic escalation, avoidance, or pushing intensity too quickly.",
+      trigger: "Progress when the client tolerates the current structure, uses rest periods effectively, and reports increased confidence with physical effort.",
+      reviewDate: "2-4 weeks"
+    };
+  
+    state.activeTab = "dose";
+    showToast("Anxiety template loaded.", "success");
+    renderApp();
+  }
+  function loadADHDTemplate() {
+    state.dose.duration = 30;
+    state.dose.frequency = 5;
+    state.dose.manualMET = "4.5";
+    state.dose.note = "ADHD template: moderate aerobic activity above roughly 4.0 METs, building toward at least 30 minutes of consistent movement. Place before school, work, homework, therapy, or another task requiring sustained focus.";
+  
+    state.specifiers = {
+      ...state.specifiers,
+      "Metabolic Equivalents of Task (METs)": 10,
+      "Heart Rate": 7,
+      "Breathing Control and Pacing": 1,
+      "Specific Exercise Type": 7,
+      "Neurological and Physiological Targets": 8,
+      "Time and Frequency": 9,
+      "Clinician Integration Specifier": 2
+    };
+  
+    state.printMeta = {
+      ...state.printMeta,
+      diagnosis: "ADHD / attention and activation target",
+      setting: "Home, school, outpatient, community, or independent exercise setting",
+      goal: "Use moderate aerobic exercise to support activation, attention, transition, and task readiness.",
+      summary: "This template emphasizes METs and time and frequency. The prescription depends on reaching a meaningful level of activation and doing it consistently.",
+      whyDistinct: "Exercise is being used less like a general fitness goal and more like a state-change tool before tasks that require focus, sitting, transition, or sustained engagement.",
+      modality: "Running, cycling, rowing, swimming, brisk uphill walking, sport drills, cross-country skiing, or active games",
+      supervision: "Independent, no supervision",
+      timing: "Out of Session - Any Day",
+      timingNote: "Preferably before school, work, homework, therapy, or another cognitively demanding task.",
+      progression: "Build toward at least 30 minutes of consistent moderate movement. Adjust activity type if the current option becomes boring or difficult to sustain.",
+      response: "Track timing, duration, estimated METs, heart-rate response, task performance afterward, restlessness, mood, adherence, and readiness for the next activity.",
+      risk: "Watch for overexertion, poor adherence, boredom, injury, or the exercise becoming too complicated to repeat.",
+      trigger: "Progress when the person completes the routine consistently and still needs more activation or longer symptom coverage.",
+      reviewDate: "2-4 weeks"
+    };
+  
+    state.activeTab = "dose";
+    showToast("ADHD template loaded.", "success");
+    renderApp();
+  }
+  function loadEDTemplate() {
+  state.dose.duration = 30;
+  state.dose.frequency = 4;
+  state.dose.manualMET = "3.5";
+  state.dose.note = "Eating-disorder template: supervised, time-limited movement with clear start-and-stop rules. Exercise is controlled to support recovery, safety, body trust, and a healthier relationship with movement, not calorie burn or performance.";
+
+  state.specifiers = {
+    ...state.specifiers,
+    "Metabolic Equivalents of Task (METs)": 9,
+    "Heart Rate": 4,
+    "Breathing Control and Pacing": 3,
+    "Specific Exercise Type": 5,
+    "Neurological and Physiological Targets": 2,
+    "Time and Frequency": 8,
+    "Clinician Integration Specifier": 10
+  };
+
+  state.printMeta = {
+    ...state.printMeta,
+    diagnosis: "Eating-disorder recovery / controlled therapeutic movement",
+    setting: "Residential, intensive outpatient, outpatient, or supervised treatment-team setting",
+    goal: "Use controlled movement to support recovery, safety, body trust, and a healthier relationship with exercise while preventing compensatory or excessive use.",
+    summary: "This template emphasizes METs and clinical integration. The goal is not to hit a physiological target, but to tightly control the exercise environment so the person can relearn the behaviors, limits, and meanings associated with movement.",
+    whyDistinct: "Exercise may be helpful for some clients in eating-disorder recovery only when it is bounded, monitored, and coordinated with the treatment plan, nutrition plan, and medical status.",
+    modality: "Supervised resistance training, gentle movement, stretching, walking, or structured return-to-activity exercises",
+    supervision: "Advanced supervision by provider always needed",
+    timing: "In Session",
+    timingNote: "Use only when clinically appropriate and coordinated with the treatment team.",
+    progression: "Progress slowly and explicitly. Change one variable at a time and only when medical status, nutrition compliance, and behavioral response support progression.",
+    response: "Track medical stability, adherence to limits, compulsive exercise urges, guilt after movement, nutrition compliance, ability to stop, and non-compensatory language about exercise.",
+    risk: "Watch for compensatory exercise, distress escalation, medical instability, rule-breaking, concealment, or exercise being used for calorie burn or punishment.",
+    trigger: "Progress only when the client follows limits, tolerates the current plan, remains medically stable, and discusses exercise in recovery-oriented terms.",
+    reviewDate: "1-2 weeks"
+  };
+
+  state.activeTab = "dose";
+  showToast("Eating-disorder template loaded.", "success");
+  renderApp();
+}
+  
   function handleSubmit(event) {
     const form = event.target.closest("[data-form]");
     if (!form) return;
