@@ -414,7 +414,6 @@
                 </div>
               </article>
             </div>
-            </div>
           </section>
 
           <section class="home-card-section home-card-section-app">
