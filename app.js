@@ -1663,53 +1663,58 @@ function templateCard({
   radarScores
 }) {
   return `
-    <article class="clinical-template-card-pro">
-      <div class="clinical-template-main">
-        <div class="clinical-template-title-row">
-          <div>
-            <div class="template-free-pill">Free Template</div>
-            <h4>${title}</h4>
-            <p class="clinical-template-subtitle">${subtitle}</p>
-            ${citation ? `<div class="template-citation">${citation}</div>` : ""}
-          </div>
-
-          <button class="btn btn-dose clinical-template-load-btn" data-action="${action}">
-            Load Template
-          </button>
+    <article class="clinical-template-card-clean">
+      <div class="clinical-template-header-clean">
+        <div class="clinical-template-title-clean">
+          <div class="template-free-pill">Free Template</div>
+          <h4>${title}</h4>
+          <p>${subtitle}</p>
+          ${citation ? `<div class="template-citation-clean">${citation}</div>` : ""}
         </div>
 
-        <div class="clinical-template-info-grid">
-          <div class="template-info-block">
+        <button class="btn btn-dose clinical-template-load-btn" data-action="${action}">
+          Load Template
+        </button>
+      </div>
+
+      <div class="clinical-template-body-clean">
+        <div class="clinical-template-copy-clean">
+          <div class="template-detail-row">
             <span>Use case</span>
             <p>${use}</p>
           </div>
 
-          <div class="template-info-block">
+          <div class="template-detail-row">
             <span>Best for</span>
             <p>${bestFor}</p>
           </div>
 
-          <div class="template-info-block">
-            <span>Evidence confidence</span>
-            <p>${confidence}</p>
+          <div class="template-detail-grid">
+            <div class="template-detail-row">
+              <span>Evidence confidence</span>
+              <p>${confidence}</p>
+            </div>
+
+            <div class="template-detail-row">
+              <span>Clinical gap</span>
+              <p>${gap}</p>
+            </div>
           </div>
 
-          <div class="template-info-block template-info-block-gap">
-            <span>Clinical gap</span>
-            <p>${gap}</p>
+          <div class="template-snapshot-clean">
+            <span>7-Specifier Snapshot</span>
+            ${specifiers}
           </div>
         </div>
 
-        <div class="template-specifier-list">
-          <div class="template-mini-heading">7-Specifier Snapshot</div>
-          ${specifiers}
-        </div>
+        <aside class="template-radar-thumbnail-card">
+          <div class="template-radar-title">Radar profile</div>
+          ${renderTemplateRadarChart(radarScores, title)}
+          <p>
+            Higher areas show stronger emphasis in this template.
+          </p>
+        </aside>
       </div>
-
-      <aside class="clinical-template-radar-card">
-        <div class="template-mini-heading">Radar profile</div>
-        ${renderTemplateRadarChart(radarScores, title)}
-      </aside>
     </article>
   `;
 }
@@ -1719,12 +1724,11 @@ function templateCard({
       ? scores.map(value => Math.max(0, Math.min(10, Number(value) || 0)))
       : SPECIFIERS.map(() => 5);
   
-    const width = 340;
-    const height = 320;
-    const centerX = 170;
-    const centerY = 145;
-    const radius = 78;
-    const labelRadius = 112;
+    const width = 220;
+    const height = 220;
+    const centerX = 110;
+    const centerY = 110;
+    const radius = 72;
   
     const points = values.map((value, idx) => {
       const angle = (-Math.PI / 2) + (idx * 2 * Math.PI / values.length);
@@ -1750,30 +1754,13 @@ function templateCard({
       return `<line x1="${centerX}" y1="${centerY}" x2="${x}" y2="${y}" stroke="#dbe5f1" stroke-width="1" />`;
     }).join("");
   
-    const labels = SPECIFIERS.map((label, idx) => {
-      const angle = (-Math.PI / 2) + (idx * 2 * Math.PI / values.length);
-      const x = centerX + Math.cos(angle) * labelRadius;
-      const y = centerY + Math.sin(angle) * labelRadius;
-      const isRight = x > centerX + 25;
-      const isLeft = x < centerX - 25;
-      const anchor = isRight ? "start" : isLeft ? "end" : "middle";
-      const lines = wrapRadarLabel(label.replace(" Specifier", ""), 13);
-  
-      return `
-        <text x="${x}" y="${y}" text-anchor="${anchor}" font-size="9" font-weight="700" fill="#475569">
-          ${lines.map((line, index) => `<tspan x="${x}" dy="${index === 0 ? 0 : 11}">${escapeHtml(line)}</tspan>`).join("")}
-        </text>
-      `;
-    }).join("");
-  
     return `
-      <div class="template-radar-svg">
+      <div class="template-radar-svg-clean">
         <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeAttr(title)} seven-specifier radar profile">
           ${grid}
           ${spokes}
-          <polygon points="${points.map(point => point.join(",")).join(" ")}" fill="rgba(16, 185, 129, 0.24)" stroke="#047857" stroke-width="2.2" />
+          <polygon points="${points.map(point => point.join(",")).join(" ")}" fill="rgba(16, 185, 129, 0.24)" stroke="#047857" stroke-width="2.4" />
           ${points.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="3.2" fill="#047857" />`).join("")}
-          ${labels}
         </svg>
       </div>
     `;
