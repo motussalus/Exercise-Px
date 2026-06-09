@@ -1814,7 +1814,7 @@ function renderTemplateScoreSnapshot(scores) {
   
       structure: `
         <p>
-          To structure this in a clinic, start with safe aerobic options the client is medically cleared for and willing to do, such as cycling, jogging, step-ups, brisk walking, or jumping jacks. The exercise should be able to be sustained for the full 10 minutess, easy to set up, and easy to monitor.
+          To structure this in a clinic, start with safe aerobic options the client is medically cleared for and willing to do, such as cycling, jogging, step-ups, brisk walking, or jumping jacks. The exercise should be able to be sustained for the full 10 minutes, easy to set up, and easy to monitor.
         </p>
         <p>
           Track heart rate, perceived exertion, panic symptoms, dissociation, avoidance, and whether the client appears more ready or less ready for the therapy task afterward.
