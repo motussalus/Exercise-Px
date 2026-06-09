@@ -414,9 +414,9 @@
                 </div>
               </article>
             </div>
+            </div>
+          </section>
 
-            
-  
           <section class="home-card-section home-card-section-app">
             <div class="section-header">
               <div>
@@ -1608,191 +1608,290 @@
 
 
   function renderEvidence() {
-    return `
-      <section class="panel">
-  
-        <section class="hero">
+  return `
+    <section class="panel clinical-templates-page">
+
+      <section class="clinical-templates-hero">
+        <div>
+          <div class="eyebrow">Free clinical examples</div>
+          <h2>Clinical Templates</h2>
+          <p>
+            These sample templates translate exercise-intervention findings into practical starting points for clinical exercise prescription. Each one shows the research anchor, use case, major clinical gap, and a seven-specifier radar profile.
+          </p>
+        </div>
+
+        <div class="clinical-templates-hero-card">
+          <strong>How to read these</strong>
+          <p>
+            The radar is not a diagnosis score. It is a visual snapshot of which exercise-prescription variables appear most important for that template.
+          </p>
+        </div>
+      </section>
+
+      <section class="clinical-template-section">
+        <div class="section-header">
           <div>
-            <h2>Clinical Templates</h2>
+            <h3>Free Templates</h3>
             <p>
-              Free sample clinical templates built from exercise-intervention literature and organized through the 7 Specifiers framework. Each template identifies the research anchor, the strongest reported specifiers, and the major clinical gaps that need clearer documentation before translation into practice.
+              These are not finished protocols. They are structured examples that show how the seven specifiers can make exercise recommendations clearer, more trackable, and easier to discuss clinically.
             </p>
           </div>
-        </section>
-  
-        <section class="section-card">
-          <div class="card-head">
-            <div>
-              <h2>Free Templates</h2>
-              <p>Each card converts a research finding into a practical exercise-prescription starting point while preserving transparency about what the original literature did and did not report. This will likely be expanded upon in future work on this website.</p>
-            </div>
-          </div>
-  
-          <div class="card-list">
-  
-            ${templateCardPTSD()}
-            ${templateCardDepression()}
-            ${templateCardAnxiety()}
-            ${templateCardADHD()}
-            ${templateCardEatingDisorder()}
-  
-          </div>
-        </section>
-  
+        </div>
+
+        <div class="clinical-template-grid">
+          ${templateCardPTSD()}
+          ${templateCardDepression()}
+          ${templateCardAnxiety()}
+          ${templateCardADHD()}
+          ${templateCardEatingDisorder()}
+        </div>
       </section>
-    `;
-  }
 
+    </section>
+  `;
+}
 
-  function templateCard({ title, subtitle, citation, use, bestFor, specifiers, confidence, gap, action }) {
-    return `
-      <div class="plan-card">
-  
-        <div class="topline">
+function templateCard({
+  title,
+  subtitle,
+  citation,
+  use,
+  bestFor,
+  specifiers,
+  confidence,
+  gap,
+  action,
+  radarScores
+}) {
+  return `
+    <article class="clinical-template-card-pro">
+      <div class="clinical-template-main">
+        <div class="clinical-template-title-row">
           <div>
+            <div class="template-free-pill">Free Template</div>
             <h4>${title}</h4>
-            <div class="small muted">${subtitle}</div>
+            <p class="clinical-template-subtitle">${subtitle}</p>
             ${citation ? `<div class="template-citation">${citation}</div>` : ""}
           </div>
-  
-          <div class="button-row">
-            <button class="btn btn-dose" data-action="${action}">
-              Load Template
-            </button>
+
+          <button class="btn btn-dose clinical-template-load-btn" data-action="${action}">
+            Load Template
+          </button>
+        </div>
+
+        <div class="clinical-template-info-grid">
+          <div class="template-info-block">
+            <span>Use case</span>
+            <p>${use}</p>
+          </div>
+
+          <div class="template-info-block">
+            <span>Best for</span>
+            <p>${bestFor}</p>
+          </div>
+
+          <div class="template-info-block">
+            <span>Evidence confidence</span>
+            <p>${confidence}</p>
+          </div>
+
+          <div class="template-info-block template-info-block-gap">
+            <span>Clinical gap</span>
+            <p>${gap}</p>
           </div>
         </div>
-  
-        <div class="mini-note" style="margin-top:10px;">
-          <strong>Use case:</strong> ${use}
-        </div>
-  
-        <div class="mini-note">
-          <strong>Best for:</strong> ${bestFor}
-        </div>
-  
-        <div class="mini-note" style="margin-top:10px;">
-          <strong>7-Specifier Snapshot</strong><br/>
+
+        <div class="template-specifier-list">
+          <div class="template-mini-heading">7-Specifier Snapshot</div>
           ${specifiers}
         </div>
+      </div>
+
+      <aside class="clinical-template-radar-card">
+        <div class="template-mini-heading">Radar profile</div>
+        ${renderTemplateRadarChart(radarScores, title)}
+      </aside>
+    </article>
+  `;
+}
+
+  function renderTemplateRadarChart(scores, title = "Template radar profile") {
+    const values = Array.isArray(scores) && scores.length === SPECIFIERS.length
+      ? scores.map(value => Math.max(0, Math.min(10, Number(value) || 0)))
+      : SPECIFIERS.map(() => 5);
   
-        <div class="mini-note" style="margin-top:10px;">
-          <strong>Evidence Confidence:</strong><br/>
-          ${confidence}
-        </div>
+    const width = 340;
+    const height = 320;
+    const centerX = 170;
+    const centerY = 145;
+    const radius = 78;
+    const labelRadius = 112;
   
-        <div class="mini-note" style="margin-top:10px;">
-          <strong>Clinical Gap:</strong><br/>
-          ${gap}
-        </div>
+    const points = values.map((value, idx) => {
+      const angle = (-Math.PI / 2) + (idx * 2 * Math.PI / values.length);
+      const r = radius * (value / 10);
+      return [centerX + Math.cos(angle) * r, centerY + Math.sin(angle) * r];
+    });
   
+    const grid = Array.from({ length: 5 }, (_, i) => {
+      const level = (i + 1) / 5;
+      const gridPoints = values.map((_, idx) => {
+        const angle = (-Math.PI / 2) + (idx * 2 * Math.PI / values.length);
+        const r = radius * level;
+        return `${centerX + Math.cos(angle) * r},${centerY + Math.sin(angle) * r}`;
+      }).join(" ");
+  
+      return `<polygon points="${gridPoints}" fill="none" stroke="#dbe5f1" stroke-width="1" />`;
+    }).join("");
+  
+    const spokes = SPECIFIERS.map((_, idx) => {
+      const angle = (-Math.PI / 2) + (idx * 2 * Math.PI / values.length);
+      const x = centerX + Math.cos(angle) * radius;
+      const y = centerY + Math.sin(angle) * radius;
+      return `<line x1="${centerX}" y1="${centerY}" x2="${x}" y2="${y}" stroke="#dbe5f1" stroke-width="1" />`;
+    }).join("");
+  
+    const labels = SPECIFIERS.map((label, idx) => {
+      const angle = (-Math.PI / 2) + (idx * 2 * Math.PI / values.length);
+      const x = centerX + Math.cos(angle) * labelRadius;
+      const y = centerY + Math.sin(angle) * labelRadius;
+      const isRight = x > centerX + 25;
+      const isLeft = x < centerX - 25;
+      const anchor = isRight ? "start" : isLeft ? "end" : "middle";
+      const lines = wrapRadarLabel(label.replace(" Specifier", ""), 13);
+  
+      return `
+        <text x="${x}" y="${y}" text-anchor="${anchor}" font-size="9" font-weight="700" fill="#475569">
+          ${lines.map((line, index) => `<tspan x="${x}" dy="${index === 0 ? 0 : 11}">${escapeHtml(line)}</tspan>`).join("")}
+        </text>
+      `;
+    }).join("");
+  
+    return `
+      <div class="template-radar-svg">
+        <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeAttr(title)} seven-specifier radar profile">
+          ${grid}
+          ${spokes}
+          <polygon points="${points.map(point => point.join(",")).join(" ")}" fill="rgba(16, 185, 129, 0.24)" stroke="#047857" stroke-width="2.2" />
+          ${points.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="3.2" fill="#047857" />`).join("")}
+          ${labels}
+        </svg>
       </div>
     `;
   }
+  
+  
   function templateCardPTSD() {
     return templateCard({
       title: "PTSD Exposure Priming",
       subtitle: "Brief aerobic add-on before trauma-focused therapy",
       citation: "Research anchor: Bryant et al. (2023); supported by Crombie et al. (2023).",
-      use: "Brief aerobic exercise before trauma-focused therapy.",
-      bestFor: "PTSD, exposure readiness, emotional engagement.",
+      use: "Brief aerobic exercise before trauma-focused therapy to support readiness, arousal, and emotional engagement.",
+      bestFor: "PTSD, exposure readiness, trauma-focused therapy preparation.",
       specifiers: `
-        METs ⚠ Inferred (3.0–6.0) <br/>
-        HR ✅ High <br/>
-        Breathing ❌ Missing <br/>
-        Neuro ⚠ Conceptual <br/>
-        Type ✅ Moderate <br/>
-        Time ✅ Critical <br/>
-        Integration ✅ Critical
+        <div class="template-chip-row">
+          <span class="template-chip high">HR: high</span>
+          <span class="template-chip critical">Time: critical</span>
+          <span class="template-chip critical">Integration: critical</span>
+          <span class="template-chip moderate">METs: inferred</span>
+          <span class="template-chip low">Breathing: underreported</span>
+        </div>
       `,
-      confidence: "Moderate-high concept, moderate dose precision.",
-      gap: "METs, breathing, and timing not fully specified.",
+      confidence: "Moderate-high concept; moderate dose precision.",
+      gap: "METs, breathing, and exact timing are not fully specified.",
+      radarScores: [5, 8, 2, 6, 6, 10, 10],
       action: "load-ptsd-template"
     });
   }
+  
   function templateCardDepression() {
     return templateCard({
       title: "Depression Aerobic Dose",
       subtitle: "Structured aerobic exercise for depressive symptoms",
       citation: "Research anchor: Trivedi et al. (2011); supported by Schuch et al. (2016).",
-      use: "Structured aerobic exercise for depression.",
-      bestFor: "Major depression, behavioral activation.",
+      use: "Structured aerobic exercise as a behavioral activation and mood-support intervention.",
+      bestFor: "Major depression, low energy, behavioral activation, routine-building.",
       specifiers: `
-        METs ⚠ Convertible <br/>
-        HR ⚠ Partial <br/>
-        Breathing ❌ Missing <br/>
-        Neuro ⚠ Mood/energy <br/>
-        Type ⚠ Flexible <br/>
-        Time ✅ High <br/>
-        Integration ⚠ Moderate
+        <div class="template-chip-row">
+          <span class="template-chip high">Time: high</span>
+          <span class="template-chip moderate">METs: convertible</span>
+          <span class="template-chip moderate">HR: partial</span>
+          <span class="template-chip moderate">Target: mood / energy</span>
+          <span class="template-chip low">Breathing: missing</span>
+        </div>
       `,
-      confidence: "High general benefit, moderate precision.",
-      gap: "kcal/week used instead of METs.",
+      confidence: "High general benefit; moderate prescription precision.",
+      gap: "Some studies use kcal/week instead of METs, which makes translation harder.",
+      radarScores: [7, 5, 1, 5, 7, 8, 5],
       action: "load-depression-template"
     });
   }
-
+  
   function templateCardAnxiety() {
     return templateCard({
       title: "Anxiety Resistance Training",
       subtitle: "Resistance training for anxiety and worry symptoms",
       citation: "Research anchor: Gordon et al. (2020); supported by Gordon et al. (2017).",
-      use: "Resistance training to reduce anxiety symptoms.",
-      bestFor: "GAD, tension, worry.",
+      use: "Resistance training to support anxiety reduction, tension management, and confidence with effort.",
+      bestFor: "Generalized anxiety, worry, physical tension, controlled exposure to effort.",
       specifiers: `
-        METs ⚠ Low <br/>
-        HR ⚠ Partial <br/>
-        Breathing ⚠ Important <br/>
-        Neuro ⚠ Moderate <br/>
-        Type ✅ Critical <br/>
-        Time ✅ High <br/>
-        Integration ⚠ Moderate
+        <div class="template-chip-row">
+          <span class="template-chip critical">Type: critical</span>
+          <span class="template-chip high">Time: high</span>
+          <span class="template-chip moderate">Breathing: important</span>
+          <span class="template-chip moderate">Target: moderate</span>
+          <span class="template-chip low">METs: less central</span>
+        </div>
       `,
       confidence: "Moderate-high modality support.",
-      gap: "Load, sets, reps often not reported.",
+      gap: "Load, sets, reps, rest intervals, and progression are often not reported clearly enough.",
+      radarScores: [3, 5, 7, 10, 6, 8, 5],
       action: "load-anxiety-template"
     });
   }
-
+  
   function templateCardADHD() {
     return templateCard({
       title: "ADHD Movement Activation",
       subtitle: "Moderate-to-vigorous movement for attention and regulation",
       citation: "Research anchor: Liang et al. (2022); supported by Liu et al. (2025).",
-      use: "Exercise to support attention and regulation.",
-      bestFor: "ADHD, cognitive activation.",
+      use: "Exercise to support attention, activation, regulation, and readiness for task engagement.",
+      bestFor: "ADHD, cognitive activation, school or work readiness, movement-based regulation.",
       specifiers: `
-        METs ✅ High <br/>
-        HR ⚠ Moderate <br/>
-        Breathing ⚠ Low <br/>
-        Neuro ✅ High <br/>
-        Type ⚠ Flexible <br/>
-        Time ✅ Critical <br/>
-        Integration ⚠ Moderate
+        <div class="template-chip-row">
+          <span class="template-chip high">METs: high</span>
+          <span class="template-chip high">Target: high</span>
+          <span class="template-chip critical">Time: critical</span>
+          <span class="template-chip moderate">HR: moderate</span>
+          <span class="template-chip moderate">Type: flexible</span>
+        </div>
       `,
       confidence: "Moderate evidence base.",
-      gap: "Dose-response poorly standardized.",
+      gap: "Dose-response, timing, and activity type are still poorly standardized.",
+      radarScores: [8, 6, 3, 5, 9, 10, 5],
       action: "load-adhd-template"
     });
   }
-
+  
   function templateCardEatingDisorder() {
     return templateCard({
       title: "Eating Disorder Controlled Movement",
       subtitle: "Supervised therapeutic exercise with safety monitoring",
       citation: "Research anchor: Cook et al. (2016).",
-      use: "Carefully structured movement in ED recovery.",
-      bestFor: "Eating disorder treatment.",
+      use: "Carefully structured movement in eating-disorder recovery with safety limits and clinical monitoring.",
+      bestFor: "Eating-disorder treatment, movement reintroduction, exercise-boundary work.",
       specifiers: `
-        METs ⚠ Moderate <br/>
-        HR ✅ High <br/>
-        Breathing ⚠ Moderate <br/>
-        Neuro ⚠ Moderate <br/>
-        Type ✅ High <br/>
-        Time ✅ High <br/>
-        Integration ✅ Critical
+        <div class="template-chip-row">
+          <span class="template-chip critical">Integration: critical</span>
+          <span class="template-chip high">HR: high</span>
+          <span class="template-chip high">Type: high</span>
+          <span class="template-chip high">Time: high</span>
+          <span class="template-chip moderate">Breathing: moderate</span>
+        </div>
       `,
-      confidence: "Moderate evidence, high caution.",
-      gap: "Monitoring and progression unclear.",
+      confidence: "Moderate evidence; high clinical caution.",
+      gap: "Monitoring, safety thresholds, and progression rules need clearer reporting.",
+      radarScores: [6, 8, 6, 8, 6, 8, 10],
       action: "load-ed-template"
     });
   }
