@@ -1708,16 +1708,18 @@ function templateCard({
       </div>
 
       <div class="clinical-template-simple-snapshot">
-        <div>
+        <section class="template-snapshot-panel">
           <div class="template-mini-heading">Specifier Snapshot</div>
           ${snapshotHtml}
-        </div>
-
+        </section>
+      
         <aside class="clinical-template-simple-radar">
+          <div class="template-mini-heading">Radar Profile</div>
           ${renderTemplateRadarChart(radarScores, title)}
         </aside>
       </div>
 
+      
       <div class="clinical-template-simple-body">
         <section class="clinical-template-text-block">
           <h5>Why this may matter</h5>
