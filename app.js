@@ -1610,23 +1610,24 @@
     return `
       <section class="panel clinical-templates-page">
   
-        <section class="clinical-templates-hero">
-          <div>
+        <section class="clinical-templates-hero clinical-templates-hero-single">
+          <div class="clinical-templates-intro-box">
             <div class="eyebrow">Free clinical examples</div>
             <h2>Clinical Templates</h2>
+        
             <p>
               These sample templates translate exercise-intervention findings into practical starting points for clinical exercise prescription. Each one shows the research anchor, specifier snapshot, radar profile, and practical structure.
             </p>
-          </div>
-  
-          <div class="clinical-templates-hero-card">
-            <strong>How to read the numbers</strong>
-            <p>
-              The numbers in each template describe the degree of control needed over each specifier. A high score does not always mean “more intense” or “more important in a general sense.” It means that specifier needs tighter precision in the prescription. For example, if METs is scored as a 10, the exercise intensity needs to be carefully controlled because leaving it vague could create unclear dosing, safety concerns, or unintended clinical effects.
-            </p>
-            <p>
-              Lower scores mean the specifier appears less central for that template based on the available literature and clinical rationale. For example, if neurological and physiological targets are scored as a 2, that does not mean they never matter. It means they are usually not the main variable needing control for that template, though individual cases may still require more attention.
-            </p>
+        
+            <div class="template-score-clarifier template-score-clarifier-inline">
+              <strong>How to read the numbers</strong>
+              <p>
+                The numbers in each template describe the degree of control needed over each specifier. A high score does not always mean “more intense” or “more important in a general sense.” It means that specifier needs tighter precision in the prescription. For example, if METs is scored as a 10, the exercise intensity needs to be carefully controlled because leaving it vague could create unclear dosing, safety concerns, or unintended clinical effects.
+              </p>
+              <p>
+                Lower scores mean the specifier appears less central for that template based on the available literature and clinical rationale. For example, if neurological and physiological targets are scored as a 2, that does not mean they never matter. It means they are usually not the main variable needing control for that template, though individual cases may still require more attention.
+              </p>
+            </div>
           </div>
         </section>
   
