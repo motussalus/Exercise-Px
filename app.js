@@ -1741,11 +1741,22 @@ function renderTemplateScoreSnapshot(scores) {
       ? scores.map(value => Math.max(0, Math.min(10, Number(value) || 0)))
       : SPECIFIERS.map(() => 5);
   
-    const width = 180;
-    const height = 180;
-    const centerX = 90;
-    const centerY = 90;
-    const radius = 62;
+    const radarLabels = [
+      "MET",
+      "HR",
+      "BR",
+      "TYPE",
+      "N/P",
+      "TIME",
+      "CLIN"
+    ];
+  
+    const width = 260;
+    const height = 240;
+    const centerX = 130;
+    const centerY = 120;
+    const radius = 58;
+    const labelRadius = 88;
   
     const points = values.map((value, idx) => {
       const angle = (-Math.PI / 2) + (idx * 2 * Math.PI / values.length);
@@ -1771,6 +1782,30 @@ function renderTemplateScoreSnapshot(scores) {
       return `<line x1="${centerX}" y1="${centerY}" x2="${x}" y2="${y}" stroke="#dbe5f1" stroke-width="1" />`;
     }).join("");
   
+    const labels = radarLabels.map((label, idx) => {
+      const angle = (-Math.PI / 2) + (idx * 2 * Math.PI / values.length);
+      const x = centerX + Math.cos(angle) * labelRadius;
+      const y = centerY + Math.sin(angle) * labelRadius;
+  
+      const isRight = x > centerX + 18;
+      const isLeft = x < centerX - 18;
+      const anchor = isRight ? "start" : isLeft ? "end" : "middle";
+  
+      return `
+        <text
+          x="${x}"
+          y="${y}"
+          text-anchor="${anchor}"
+          font-size="10"
+          font-weight="800"
+          fill="#334155"
+        >
+          <tspan x="${x}" dy="0">${escapeHtml(label)}</tspan>
+          <tspan x="${x}" dy="11">${values[idx]}</tspan>
+        </text>
+      `;
+    }).join("");
+  
     return `
       <div class="template-radar-svg-simple">
         <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeAttr(title)} seven-specifier radar profile">
@@ -1778,6 +1813,7 @@ function renderTemplateScoreSnapshot(scores) {
           ${spokes}
           <polygon points="${points.map(point => point.join(",")).join(" ")}" fill="rgba(79, 70, 229, 0.20)" stroke="#4f46e5" stroke-width="2.2" />
           ${points.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="3" fill="#4f46e5" />`).join("")}
+          ${labels}
         </svg>
       </div>
     `;
