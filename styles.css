@@ -3597,3 +3597,226 @@ input[type="range"] {
     border-radius: 14px;
   }
 }
+/* =========================================================
+   CLINICAL TEMPLATES — SIMPLE READING LAYOUT
+
+   Purpose:
+   The older template card layout had too many competing boxes:
+   use case, best for, confidence, gap, chip list, button, and a large radar.
+   That made the page feel cluttered and hard to scan.
+
+   This section makes each template read more like a clean clinical note:
+   1. Title and research anchor at the top
+   2. Specifier Snapshot as compact score pills
+   3. Small radar as a visual cue, not the main content
+   4. Two readable text blocks: “Why this may matter” and “Structure in practice”
+
+   Design logic:
+   - The radar is intentionally small because the score pills already explain the values.
+   - The snapshot is placed before the explanation so users can see the framework first.
+   - The long clinical text is broken into two sections to reduce cognitive load.
+   - This override should be pasted near the bottom of styles.css so it wins over older
+     .clinical-template-card-pro and .clinical-template-radar-card rules.
+   ========================================================= */
+
+.clinical-template-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.clinical-template-simple-card {
+  display: grid;
+  gap: 18px;
+  padding: 24px;
+  border-radius: 26px;
+  border: 1px solid rgba(219, 229, 241, 0.95);
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 14px 30px rgba(13, 32, 66, 0.07);
+}
+
+.clinical-template-simple-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(219, 229, 241, 0.9);
+}
+
+.clinical-template-simple-head h4 {
+  margin: 0;
+  font-size: clamp(1.6rem, 2vw, 2.25rem);
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.clinical-template-simple-subtitle {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.55;
+  font-size: 1rem;
+}
+
+.clinical-template-simple-citation {
+  margin: 10px 0 0;
+  color: #475569;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  font-weight: 700;
+}
+
+.clinical-template-simple-snapshot {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 190px;
+  gap: 20px;
+  align-items: center;
+  padding: 16px;
+  border-radius: 22px;
+  border: 1px solid rgba(219, 229, 241, 0.95);
+  background: #f8fbff;
+}
+
+.template-score-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.template-score-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 11px;
+  border-radius: 999px;
+  background: white;
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  color: var(--text);
+  font-size: 0.86rem;
+  line-height: 1;
+}
+
+.template-score-pill strong {
+  font-weight: 800;
+}
+
+.template-score-pill em {
+  font-style: normal;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.template-score-pill[data-band="critical"] {
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+  color: #047857;
+}
+
+.template-score-pill[data-band="high"] {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+  color: #1d4ed8;
+}
+
+.template-score-pill[data-band="moderate"] {
+  background: #fffbeb;
+  border-color: #fde68a;
+  color: #b45309;
+}
+
+.template-score-pill[data-band="low"] {
+  background: #fff1f2;
+  border-color: #fecdd3;
+  color: #be123c;
+}
+
+.clinical-template-simple-radar {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  padding: 10px;
+  border-radius: 18px;
+  background: white;
+  border: 1px solid rgba(219, 229, 241, 0.95);
+}
+
+.template-radar-svg-simple {
+  width: 160px;
+  max-width: 100%;
+}
+
+.template-radar-svg-simple svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.clinical-template-simple-body {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.clinical-template-text-block {
+  padding: 18px;
+  border-radius: 20px;
+  border: 1px solid rgba(219, 229, 241, 0.95);
+  background: #ffffff;
+}
+
+.clinical-template-text-block h5 {
+  margin: 0 0 10px;
+  font-size: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.clinical-template-text-block p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.clinical-template-text-block p + p {
+  margin-top: 12px;
+}
+
+@media (max-width: 900px) {
+  .clinical-template-simple-head {
+    display: grid;
+  }
+
+  .clinical-template-load-btn {
+    width: 100%;
+  }
+
+  .clinical-template-simple-snapshot {
+    grid-template-columns: 1fr;
+  }
+
+  .clinical-template-simple-radar {
+    justify-self: start;
+    width: 190px;
+  }
+
+  .clinical-template-simple-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .clinical-template-simple-card {
+    padding: 18px;
+  }
+
+  .clinical-template-simple-snapshot {
+    padding: 14px;
+  }
+
+  .clinical-template-simple-head h4 {
+    font-size: 1.7rem;
+  }
+
+  .template-score-pill {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
