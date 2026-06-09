@@ -3946,3 +3946,77 @@ input[type="range"] {
     margin-right: auto;
   }
 }
+/* =========================================================
+   Clinical template radar: force top-right placement
+
+   Purpose:
+   Keeps the small radar locked in the upper-right corner of the
+   Specifier Snapshot box.
+
+   Why this version is stronger:
+   Earlier versions used CSS grid alignment. That can be overridden
+   by mobile rules or by the score pills taking up more space.
+   This version uses position:absolute on larger screens, so the
+   radar stays in the upper-right corner no matter how the score
+   pills wrap.
+
+   Mobile behavior:
+   On small screens, the radar becomes normal content again and
+   stacks under the score pills so it does not overlap text.
+   ========================================================= */
+
+@media (min-width: 701px) {
+  .clinical-template-simple-snapshot {
+    position: relative !important;
+    display: block !important;
+    min-height: 250px;
+    padding-right: 285px !important;
+  }
+
+  .clinical-template-simple-radar {
+    position: absolute !important;
+    top: 16px !important;
+    right: 16px !important;
+    width: 250px !important;
+    min-width: 250px !important;
+    margin: 0 !important;
+    justify-self: auto !important;
+    align-self: auto !important;
+  }
+
+  .template-radar-svg-simple {
+    width: 230px !important;
+    max-width: 230px !important;
+    margin: 0 auto !important;
+  }
+
+  .template-radar-svg-simple svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+}
+
+@media (max-width: 700px) {
+  .clinical-template-simple-snapshot {
+    position: static !important;
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    padding-right: 14px !important;
+  }
+
+  .clinical-template-simple-radar {
+    position: static !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    justify-self: stretch !important;
+    margin-top: 12px !important;
+  }
+
+  .template-radar-svg-simple {
+    width: 230px !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+  }
+}
