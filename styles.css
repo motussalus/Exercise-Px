@@ -3870,3 +3870,79 @@ input[type="range"] {
     margin: 0 auto;
   }
 }
+/* =========================================================
+   Clinical template radar corner alignment
+
+   Purpose:
+   Keeps the small radar locked to the upper-right corner of the
+   Specifier Snapshot box on desktop, while still allowing it to
+   stack cleanly on tablets and phones.
+
+   Why this is needed:
+   The radar now includes abbreviated labels and scores, so it needs
+   a little more width. Without explicit alignment, the grid may center
+   it or let it drift away from the right side.
+   ========================================================= */
+
+.clinical-template-simple-snapshot {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 250px;
+  align-items: start;
+  gap: 20px;
+}
+
+.clinical-template-simple-snapshot > div:first-child {
+  min-width: 0;
+}
+
+.clinical-template-simple-radar {
+  width: 250px;
+  min-width: 230px;
+  justify-self: end;
+  align-self: start;
+  padding: 8px;
+}
+
+.template-radar-svg-simple {
+  width: 230px;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.template-radar-svg-simple svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+@media (max-width: 900px) {
+  .clinical-template-simple-snapshot {
+    grid-template-columns: 1fr;
+  }
+
+  .clinical-template-simple-radar {
+    width: 250px;
+    min-width: 0;
+    justify-self: start;
+  }
+
+  .template-radar-svg-simple {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .clinical-template-simple-radar {
+    width: 100%;
+    justify-self: stretch;
+  }
+
+  .template-radar-svg-simple {
+    width: 230px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
