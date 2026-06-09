@@ -3665,7 +3665,7 @@ input[type="range"] {
   font-weight: 700;
 }
 
-.clinical-template-simple-snapshot {
+ {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 190px;
   gap: 20px;
@@ -3788,13 +3788,54 @@ input[type="range"] {
     width: 100%;
   }
 
+  /* Clinical template radar labels
+   These rules make the small radar large enough to show abbreviated
+   specifier labels and numeric scores without making the whole card bulky.
+
+   Why this exists:
+   - The clinical template radar now shows labels like MET, HR, BR, TYPE, N/P, TIME, and CLIN.
+   - Because those labels and numbers need a little more room, the radar column is slightly wider.
+   - On mobile, the radar drops below the score pills so the card stays readable.
+*/
+
+.clinical-template-simple-snapshot {
+  grid-template-columns: minmax(0, 1fr) 250px;
+}
+
+.clinical-template-simple-radar {
+  min-width: 230px;
+  padding: 8px;
+}
+
+.template-radar-svg-simple {
+  width: 230px;
+  max-width: 100%;
+}
+
+.template-radar-svg-simple svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+@media (max-width: 900px) {
+  .clinical-template-simple-head {
+    display: grid;
+  }
+
+  .clinical-template-load-btn {
+    width: 100%;
+  }
+
   .clinical-template-simple-snapshot {
     grid-template-columns: 1fr;
   }
 
   .clinical-template-simple-radar {
+    width: 250px;
+    min-width: 0;
     justify-self: start;
-    width: 190px;
   }
 
   .clinical-template-simple-body {
@@ -3818,5 +3859,14 @@ input[type="range"] {
   .template-score-pill {
     width: 100%;
     justify-content: space-between;
+  }
+
+  .clinical-template-simple-radar {
+    width: 100%;
+  }
+
+  .template-radar-svg-simple {
+    width: 230px;
+    margin: 0 auto;
   }
 }
