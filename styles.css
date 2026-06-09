@@ -3691,3 +3691,48 @@ input[type="range"] {
     justify-self: center !important;
   }
 }
+/* =========================================================
+   Clinical Templates — single clean intro box
+
+   Purpose:
+   Combines the page introduction and “How to read the numbers”
+   explanation into one clean top box.
+
+   Why this is better:
+   The old layout split the explanation into a separate side card,
+   which made the top of the page feel like two competing boxes.
+   This version keeps the title, intro, and scoring explanation together.
+   ========================================================= */
+
+.clinical-templates-hero-single {
+  display: block !important;
+  padding: clamp(24px, 3vw, 38px);
+}
+
+.clinical-templates-intro-box {
+  max-width: 1050px;
+}
+
+.clinical-templates-intro-box h2 {
+  margin: 8px 0 12px;
+  font-size: clamp(2rem, 3vw, 3.4rem);
+  line-height: 1;
+  letter-spacing: -0.06em;
+}
+
+.clinical-templates-intro-box > p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 82ch;
+}
+
+.template-score-clarifier-inline {
+  margin-top: 20px;
+  max-width: 92ch;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(248, 251, 255, 0.88));
+  border: 1px solid rgba(219, 229, 241, 0.95);
+  box-shadow: 0 10px 22px rgba(13, 32, 66, 0.04);
+}
+
