@@ -1824,93 +1824,205 @@ function renderTemplateScoreSnapshot(scores) {
   
   function templateCardDepression() {
     return templateCard({
-      title: "Depression Aerobic Dose",
-      subtitle: "Structured aerobic exercise for depressive symptoms",
-      citation: "Research anchor: Trivedi et al. (2011); supported by Schuch et al. (2016).",
-      use: "Structured aerobic exercise as a behavioral activation and mood-support intervention.",
-      bestFor: "Major depression, low energy, behavioral activation, routine-building.",
-      specifiers: `
-        <div class="template-chip-row">
-          <span class="template-chip high">Time: high</span>
-          <span class="template-chip moderate">METs: convertible</span>
-          <span class="template-chip moderate">HR: partial</span>
-          <span class="template-chip moderate">Target: mood / energy</span>
-          <span class="template-chip low">Breathing: missing</span>
-        </div>
+      title: "Depression",
+      subtitle: "Structured aerobic exercise for mood, energy, and behavioral activation",
+      citation: "Trivedi et al. (2011); supported by Schuch et al. (2016).",
+      action: "load-depression-template",
+  
+      scores: [
+        { label: "METs", score: 6, band: "moderate" },
+        { label: "HR", score: 5, band: "moderate" },
+        { label: "Breathing", score: 1, band: "low" },
+        { label: "Exercise Type", score: 5, band: "moderate" },
+        { label: "Neuro / Phys Target", score: 5, band: "moderate" },
+        { label: "Time & Frequency", score: 9, band: "critical" },
+        { label: "Clinical Integration", score: 5, band: "moderate" }
+      ],
+  
+      radarScores: [6, 5, 1, 5, 5, 9, 5],
+  
+      why: `
+        <p>
+          For depression, the most important specifier is often time and frequency. The first goal is usually not a complicated exercise plan. The goal is getting the person moving consistently, often around 30 minutes per session, three to five times per week.
+        </p>
+        <p>
+          Other specifiers become more important depending on the patient’s presentation. As pracitioners know Depression can be idiopathic, where the source is unclear, or more clearly tied to an organic, situational, medical, or social factor. Because of that, METs, specific exercise type, and the neurological or physiological target may need to be adjusted to match the patient’s symptoms and context.
+        </p>
       `,
-      confidence: "High general benefit; moderate prescription precision.",
-      gap: "Some studies use kcal/week instead of METs, which makes translation harder.",
-      radarScores: [7, 5, 1, 5, 7, 8, 5],
-      action: "load-depression-template"
+  
+      structure: `
+        <p>
+          To structure this in a clinic, start with a repeatable activity the client is medically cleared for and willing to do. This might include brisk walking, cycling, jogging, swimming, dance, hiking, or a cardio machine. The first target is consistency: build a schedule the person can actually follow before making the prescription more complex.
+        </p>
+        <p>
+          Taking an example of someone with depression after the end of a relationship, the specifier specific exercise type may become more important as a group walk, recreational sport, dance class, or beginner fitness class may be more useful than solo exercise because it adds social contact, routine, and behavioral activation. Track weekly sessions, minutes, mood before and after, energy, sleep, adherence, and missed sessions.
+        </p>
+      `
     });
   }
   
   function templateCardAnxiety() {
     return templateCard({
-      title: "Anxiety Resistance Training",
-      subtitle: "Resistance training for anxiety and worry symptoms",
-      citation: "Research anchor: Gordon et al. (2020); supported by Gordon et al. (2017).",
-      use: "Resistance training to support anxiety reduction, tension management, and confidence with effort.",
-      bestFor: "Generalized anxiety, worry, physical tension, controlled exposure to effort.",
-      specifiers: `
-        <div class="template-chip-row">
-          <span class="template-chip critical">Type: critical</span>
-          <span class="template-chip high">Time: high</span>
-          <span class="template-chip moderate">Breathing: important</span>
-          <span class="template-chip moderate">Target: moderate</span>
-          <span class="template-chip low">METs: less central</span>
-        </div>
+      title: "Anxiety",
+      subtitle: "Resistance training for worry, tension, and controlled effort",
+      citation: "Gordon et al. (2020); supported by Gordon et al. (2017).",
+      action: "load-anxiety-template",
+  
+      scores: [
+        { label: "METs", score: 5, band: "moderate" },
+        { label: "HR", score: 8, band: "high" },
+        { label: "Breathing", score: 5, band: "moderate" },
+        { label: "Exercise Type", score: 8, band: "high" },
+        { label: "Neuro / Phys Target", score: 6, band: "moderate" },
+        { label: "Time & Frequency", score: 8, band: "high" },
+        { label: "Clinical Integration", score: 5, band: "moderate" }
+      ],
+  
+      radarScores: [5, 8, 5, 8, 6, 8, 5],
+  
+      why: `
+        <p>
+          For anxiety, resistance training can be useful because it gives the client a structured way to practice effort, tension, breathing, recovery, and confidence with body sensations. The goal is not simply to make the workout harder, it is to create a predictable setting where the person can experience physical stress and then recover from it.
+        </p>
+        <p>
+          This is why exercise type, heart rate, time and frequency, and breathing are important specifiers, but no one single specifier stands out. A resistance-training session has clear movements, sets, reps, rest periods, and an ending point. For many anxious clients, that structure can make physical effort feel safer and easier to tolerate than open-ended or chaotic exercise.
+        </p>
       `,
-      confidence: "Moderate-high modality support.",
-      gap: "Load, sets, reps, rest intervals, and progression are often not reported clearly enough.",
-      radarScores: [3, 5, 7, 10, 6, 8, 5],
-      action: "load-anxiety-template"
+  
+      structure: `
+        <p>
+          A simple structure could begin with a 10-minute warm-up using controlled bodyweight movements: two rounds of bodyweight squats, incline push-ups or wall push-ups, walking lunges, light jumping jacks, and low-level plyometrics such as small pogo hops or step-ups. The warm-up should raise heart rate and prepare the body without exhausting the client.
+        </p>
+        <p>
+          For the main workout, choose four to six basic movements: squat or leg press, sitting row, Romanian deadlift, farmer carry, oblique twist, and bulgarian split squat. Start with 2–3 sets of 8–12 reps at a moderate effort or RPE, with 60–90 seconds of rest between sets.
+        </p>
+        <p>
+          During rest periods, use breathing as part of the prescription rather than an afterthought. For example, coach nasal breathing, longer exhales, or a simple 4-second inhale and 6-second exhale. Track load, sets, reps, rest times, heart-rate response, perceived exertion, breath-holding, panic symptoms, avoidance, and confidence after the session. Progress slowly by changing one variable at a time.
+        </p>
+      `
     });
   }
   
   function templateCardADHD() {
     return templateCard({
-      title: "ADHD Movement Activation",
-      subtitle: "Moderate-to-vigorous movement for attention and regulation",
-      citation: "Research anchor: Liang et al. (2022); supported by Liu et al. (2025).",
-      use: "Exercise to support attention, activation, regulation, and readiness for task engagement.",
-      bestFor: "ADHD, cognitive activation, school or work readiness, movement-based regulation.",
-      specifiers: `
-        <div class="template-chip-row">
-          <span class="template-chip high">METs: high</span>
-          <span class="template-chip high">Target: high</span>
-          <span class="template-chip critical">Time: critical</span>
-          <span class="template-chip moderate">HR: moderate</span>
-          <span class="template-chip moderate">Type: flexible</span>
-        </div>
+      title: "ADHD",
+      subtitle: "Moderate aerobic exercise for activation, attention, and task readiness",
+      citation: "John J. Ratey MD; supported by exercise and ADHD literature.",
+      action: "load-adhd-template",
+  
+      scores: [
+        { label: "METs", score: 10, band: "critical" },
+        { label: "HR", score: 7, band: "high" },
+        { label: "Breathing", score: 1, band: "low" },
+        { label: "Exercise Type", score: 7, band: "high" },
+        { label: "Neuro / Phys Target", score: 8, band: "high" },
+        { label: "Time & Frequency", score: 9, band: "critical" },
+        { label: "Clinical Integration", score: 2, band: "low" }
+      ],
+  
+      radarScores: [10, 7, 1, 7, 8, 9, 2],
+  
+      why: `
+        <p>
+          For ADHD, METs and time and frequency are the most important specifiers because the prescription depends on reaching a meaningful level of activation and keeping that intensity consistent over a period of time for optimum results. In this template, exercise is being used less like a general fitness goal and more like a state-change tool: something that helps the person become more ready to focus, transition, sit, or engage in a task.
+        </p>
+        <p>
+          John J. Ratey has described moderate exercise as a useful tool for managing ADHD. One theory he discusses is that consistent stimulation of motor cortex systems may help regulate overactivity and improve readiness for attention. Due to this sustained aerobic exercise (e.g., running, cycling, cross country skiing) is emphasized because it better matches the target of repeated motor cortex engagement and physiological activation.
+        </p>
       `,
-      confidence: "Moderate evidence base.",
-      gap: "Dose-response, timing, and activity type are still poorly standardized.",
-      radarScores: [8, 6, 3, 5, 9, 10, 5],
-      action: "load-adhd-template"
+  
+      structure: `
+        <p>
+          To structure this in practice, start with moderate aerobic activity above roughly 4.0 METs and build toward at least 30 minutes of consistant movement when tolerated. Options may include running, cycling, rowing, swimming, brisk walking uphill, sport drills, cross country skiing, or active games. The activity should be stimulating enough to create activation but simple enough that it does not become another barrier.
+        </p>
+        <p>
+          Timing matters. Exercise may be most useful before school, work, homework, therapy, or another task that requires sustained focus. Track timing, duration, estimated METs, heart-rate response, task performance afterward, restlessness, mood, adherence, and whether the person is more ready or less ready for the next activity.
+        </p>
+      `
     });
   }
   
   function templateCardEatingDisorder() {
     return templateCard({
-      title: "Eating Disorder Controlled Movement",
-      subtitle: "Supervised therapeutic exercise with safety monitoring",
-      citation: "Research anchor: Cook et al. (2016).",
-      use: "Carefully structured movement in eating-disorder recovery with safety limits and clinical monitoring.",
-      bestFor: "Eating-disorder treatment, movement reintroduction, exercise-boundary work.",
-      specifiers: `
-        <div class="template-chip-row">
-          <span class="template-chip critical">Integration: critical</span>
-          <span class="template-chip high">HR: high</span>
-          <span class="template-chip high">Type: high</span>
-          <span class="template-chip high">Time: high</span>
-          <span class="template-chip moderate">Breathing: moderate</span>
-        </div>
+      title: "Eating Disorders",
+      subtitle: "Controlled movement with safety limits and treatment-team oversight",
+      citation: "Cook et al. (2016).",
+      action: "load-ed-template",
+  
+      scores: [
+        { label: "METs", score: 9, band: "critical" },
+        { label: "HR", score: 4, band: "moderate" },
+        { label: "Breathing", score: 3, band: "low" },
+        { label: "Exercise Type", score: 5, band: "moderate" },
+        { label: "Neuro / Phys Target", score: 2, band: "low" },
+        { label: "Time & Frequency", score: 8, band: "high" },
+        { label: "Clinical Integration", score: 10, band: "critical" }
+      ],
+  
+      radarScores: [9, 4, 3, 5, 2, 8, 10],
+  
+      why: `
+        <p>
+          Exercise prescription for eating disorders differs from the other templates because the goal is not to hit a physiological target. Instead, the goal is to tightly control the exercise environment so the person can relearn the behaviors, limits, and meanings associated with movement.
+        </p>
+        <p>
+          In this context, METs and clinical integration are critical as controling those specifiers to a high degree produces the desired results. METs help control intensity so the exercise does not become excessive, compensatory, or unsafe. Clinical integration matters because the clinicans have to retrain the patient's perceptions and relationship with exercise.
+        </p>
       `,
-      confidence: "Moderate evidence; high clinical caution.",
-      gap: "Monitoring, safety thresholds, and progression rules need clearer reporting.",
-      radarScores: [6, 8, 6, 8, 6, 8, 10],
-      action: "load-ed-template"
+  
+      structure: `
+        <p>
+          In a residential or highly structured setting, this could look like a two-hour supervised exercise block with only about 30 minutes of active exercise, built into the weekly schedule four times per week. The rest of the time may include setup, instruction, rest periods, reflection, hydration, discussion, and structured transitions.
+        </p>
+        <p>
+          A clinician or trained provider guides the group through specific exercises, planned downtime between sets, and clear start-and-stop rules. Resistance training would likely be the most useful because it can support strength, lean mass, body trust, and weight restoration without framing the session around calorie burn or appearance.
+        </p>
+        <p>
+          Track medical stability, adherence to limits, compulsive exercise urges, guilt after movement, nutrition compliance, heart-rate response when relevant, ability to stop when the session ends, and whether the client can describe exercise in non-compensatory terms. Progression should be slow, explicit, and coordinated with the treatment team.
+        </p>
+      `
+    });
+  }
+
+  function templateCardGeriatricDepressionFrailty() {
+    return templateCard({
+      title: "Late-Life Depression + Frailty",
+      subtitle: "Lower-load movement for mood, function, balance, and confidence",
+      citation: "Late-life depression exercise literature; aligned with older-adult multicomponent activity guidance.",
+      action: "load-geriatric-template",
+  
+      scores: [
+        { label: "METs", score: 9, band: "critical" },
+        { label: "HR", score: 7, band: "high" },
+        { label: "Breathing", score: 4, band: "moderate" },
+        { label: "Exercise Type", score: 9, band: "critical" },
+        { label: "Neuro / Phys Target", score: 9, band: "critical" },
+        { label: "Time & Frequency", score: 8, band: "high" },
+        { label: "Clinical Integration", score: 8, band: "high" }
+      ],
+  
+      radarScores: [9, 7, 4, 9, 9, 8, 8],
+  
+      why: `
+        <p>
+          For a geriatric depression case, the exercise prescription changes because the client may not only be dealing with mood symptoms. They may also have frailty, deconditioning, fall risk, pain, medication effects, cardiovascular concerns, or fear of movement.
+        </p>
+        <p>
+          This is where the specifier scores can look different from a pediatric or younger adult depression plan. As above, a high MET score does not mean high-intensity exercise, it means METs need to be tightly controlled. In this case, the clinician may intentionally keep the exercise in a lower-load range (<2.0 METs) while still using movement to support mood, confidence, daily function, and independence.
+        </p>
+      `,
+  
+      structure: `
+        <p>
+          To structure this in practice, start with safe, low-to-moderate-load activities the client is cleared for and willing to do. Options may include short walks, seated cycling, chair sit-to-stands, step-ups, light resistance bands, supported balance drills, or a beginner group class designed for older adults.
+        </p>
+        <p>
+          A starting plan might use 10–20 minute sessions, three to five times per week, with the goal of building consistency before intensity. Keep the MET target modest, monitor heart-rate response and perceived exertion, and avoid sudden jumps in workload. The plan should also include strength and balance work when fall risk, gait, or confidence with movement are part of the clinical picture.
+        </p>
+        <p>
+          Track mood, energy, sleep, walking tolerance, fear of falling, pain, dizziness, adherence, and whether the person is functioning better in daily life. When appropriate, coordinate with primary care, physical therapy, caregivers, or residential staff before progressing intensity, complexity, or duration.
+        </p>
+      `
     });
   }
   
