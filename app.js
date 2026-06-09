@@ -1660,62 +1660,78 @@ function templateCard({
   confidence,
   gap,
   action,
-  radarScores
+  radarScores,
+  scores,
+  why,
+  structure
 }) {
+  const snapshotHtml = Array.isArray(scores)
+    ? renderTemplateScoreSnapshot(scores)
+    : (specifiers || "");
+
+  const whyHtml = why
+    ? why
+    : `
+      <p>${escapeHtml(use || "Use this template as a structured clinical starting point.")}</p>
+    `;
+
+  const structureHtml = structure
+    ? structure
+    : `
+      <p>${escapeHtml(gap || "Add more specific structure, monitoring, and clinical rationale before using this as a real protocol.")}</p>
+    `;
+
   return `
-    <article class="clinical-template-card-clean">
-      <div class="clinical-template-header-clean">
-        <div class="clinical-template-title-clean">
+    <article class="clinical-template-simple-card">
+      <div class="clinical-template-simple-head">
+        <div>
           <div class="template-free-pill">Free Template</div>
-          <h4>${title}</h4>
-          <p>${subtitle}</p>
-          ${citation ? `<div class="template-citation-clean">${citation}</div>` : ""}
+          <h4>${escapeHtml(title)}</h4>
+          ${subtitle ? `<p class="clinical-template-simple-subtitle">${escapeHtml(subtitle)}</p>` : ""}
+          ${citation ? `<p class="clinical-template-simple-citation">${escapeHtml(citation)}</p>` : ""}
         </div>
 
-        <button class="btn btn-dose clinical-template-load-btn" data-action="${action}">
+        <button class="btn btn-dose clinical-template-load-btn" data-action="${escapeAttr(action)}">
           Load Template
         </button>
       </div>
 
-      <div class="clinical-template-body-clean">
-        <div class="clinical-template-copy-clean">
-          <div class="template-detail-row">
-            <span>Use case</span>
-            <p>${use}</p>
-          </div>
-
-          <div class="template-detail-row">
-            <span>Best for</span>
-            <p>${bestFor}</p>
-          </div>
-
-          <div class="template-detail-grid">
-            <div class="template-detail-row">
-              <span>Evidence confidence</span>
-              <p>${confidence}</p>
-            </div>
-
-            <div class="template-detail-row">
-              <span>Clinical gap</span>
-              <p>${gap}</p>
-            </div>
-          </div>
-
-          <div class="template-snapshot-clean">
-            <span>7-Specifier Snapshot</span>
-            ${specifiers}
-          </div>
+      <div class="clinical-template-simple-snapshot">
+        <div>
+          <div class="template-mini-heading">Specifier Snapshot</div>
+          ${snapshotHtml}
         </div>
 
-        <aside class="template-radar-thumbnail-card">
-          <div class="template-radar-title">Radar profile</div>
+        <aside class="clinical-template-simple-radar">
           ${renderTemplateRadarChart(radarScores, title)}
-          <p>
-            Higher areas show stronger emphasis in this template.
-          </p>
         </aside>
       </div>
+
+      <div class="clinical-template-simple-body">
+        <section class="clinical-template-text-block">
+          <h5>Why this may matter</h5>
+          ${whyHtml}
+        </section>
+
+        <section class="clinical-template-text-block">
+          <h5>Structure in practice</h5>
+          ${structureHtml}
+        </section>
+      </div>
     </article>
+  `;
+}
+function renderTemplateScoreSnapshot(scores) {
+  return `
+    <div class="template-score-grid">
+      ${scores.map(item => `
+        <span class="template-score-pill" data-band="${escapeAttr(item.band)}">
+          <strong>${escapeHtml(item.label)}:</strong>
+          ${escapeHtml(String(item.score))}
+          <em>${escapeHtml(item.band)}</em>
+        </span>
+      `).join("")}
+    </div>
   `;
 }
 
@@ -1724,11 +1740,11 @@ function templateCard({
       ? scores.map(value => Math.max(0, Math.min(10, Number(value) || 0)))
       : SPECIFIERS.map(() => 5);
   
-    const width = 220;
-    const height = 220;
-    const centerX = 110;
-    const centerY = 110;
-    const radius = 72;
+    const width = 180;
+    const height = 180;
+    const centerX = 90;
+    const centerY = 90;
+    const radius = 62;
   
     const points = values.map((value, idx) => {
       const angle = (-Math.PI / 2) + (idx * 2 * Math.PI / values.length);
@@ -1755,12 +1771,12 @@ function templateCard({
     }).join("");
   
     return `
-      <div class="template-radar-svg-clean">
+      <div class="template-radar-svg-simple">
         <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeAttr(title)} seven-specifier radar profile">
           ${grid}
           ${spokes}
-          <polygon points="${points.map(point => point.join(",")).join(" ")}" fill="rgba(16, 185, 129, 0.24)" stroke="#047857" stroke-width="2.4" />
-          ${points.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="3.2" fill="#047857" />`).join("")}
+          <polygon points="${points.map(point => point.join(",")).join(" ")}" fill="rgba(79, 70, 229, 0.20)" stroke="#4f46e5" stroke-width="2.2" />
+          ${points.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="3" fill="#4f46e5" />`).join("")}
         </svg>
       </div>
     `;
@@ -1769,24 +1785,40 @@ function templateCard({
   
   function templateCardPTSD() {
     return templateCard({
-      title: "PTSD Exposure Priming",
-      subtitle: "Brief aerobic add-on before trauma-focused therapy",
-      citation: "Research anchor: Bryant et al. (2023); supported by Crombie et al. (2023).",
-      use: "Brief aerobic exercise before trauma-focused therapy to support readiness, arousal, and emotional engagement.",
-      bestFor: "PTSD, exposure readiness, trauma-focused therapy preparation.",
-      specifiers: `
-        <div class="template-chip-row">
-          <span class="template-chip high">HR: high</span>
-          <span class="template-chip critical">Time: critical</span>
-          <span class="template-chip critical">Integration: critical</span>
-          <span class="template-chip moderate">METs: inferred</span>
-          <span class="template-chip low">Breathing: underreported</span>
-        </div>
+      title: "PTSD",
+      subtitle: "Brief aerobic activity paired with trauma-focused therapy",
+      citation: "Bryant et al. (2023); supported by Crombie et al. (2023).",
+      action: "load-ptsd-template",
+  
+      scores: [
+        { label: "HR", score: 8, band: "high" },
+        { label: "Time", score: 9, band: "critical" },
+        { label: "Clinical Integration", score: 10, band: "critical" },
+        { label: "METs", score: 7, band: "high" },
+        { label: "Breathing", score: 2, band: "low" },
+        { label: "Neuro / Phys Target", score: 7, band: "high" },
+        { label: "Exercise Type", score: 6, band: "moderate" }
+      ],
+  
+      radarScores: [7, 8, 2, 6, 7, 9, 10],
+  
+      why: `
+        <p>
+          In the Bryant et al. trial, exposure therapy was paired with 10 minutes of aerobic exercise, and Crombie et al. also describes aerobic exercise as a promising adjunct to exposure-based PTSD treatment.
+        </p>
+        <p>
+          Brief aerobic exercise can help because it is not high-intensity exercise that makes it work, it is the physiological activation: raising heart rate and arousal enough to prepare the body for trauma-focused work while keeping the client inside a tolerable window. In this way, heart-rate response, timing, and clinical integration matter more than the exact exercise modality.
+        </p>
       `,
-      confidence: "Moderate-high concept; moderate dose precision.",
-      gap: "METs, breathing, and exact timing are not fully specified.",
-      radarScores: [5, 8, 2, 6, 6, 10, 10],
-      action: "load-ptsd-template"
+  
+      structure: `
+        <p>
+          To structure this in a clinic, start with safe aerobic options the client is medically cleared for and willing to do, such as cycling, jogging, step-ups, brisk walking, or jumping jacks. The exercise should be able to be sustained for the full 10 minutess, easy to set up, and easy to monitor.
+        </p>
+        <p>
+          Track heart rate, perceived exertion, panic symptoms, dissociation, avoidance, and whether the client appears more ready or less ready for the therapy task afterward.
+        </p>
+      `
     });
   }
   
