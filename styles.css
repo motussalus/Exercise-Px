@@ -3609,3 +3609,85 @@ input[type="range"] {
   }
 }
 
+/* =========================================================
+   Clinical Templates — force radar card to the right
+
+   Purpose:
+   The Specifier Snapshot and Radar Profile are two separate cards.
+   This keeps the score bubbles on the left and the radar card locked
+   to the right side of the row.
+
+   Why this is needed:
+   Some earlier radar styles centered the radar content or allowed the
+   radar block to drift visually toward the middle. These rules override
+   that behavior.
+   ========================================================= */
+
+.clinical-template-simple-snapshot {
+  width: 100% !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) 280px !important;
+  gap: 16px !important;
+  align-items: stretch !important;
+  justify-content: stretch !important;
+}
+
+.template-snapshot-panel {
+  grid-column: 1 !important;
+  min-width: 0 !important;
+}
+
+.clinical-template-simple-radar {
+  grid-column: 2 !important;
+  justify-self: end !important;
+  align-self: stretch !important;
+  width: 280px !important;
+  min-width: 280px !important;
+  display: grid !important;
+  align-content: start !important;
+  justify-items: end !important;
+}
+
+.clinical-template-simple-radar .template-mini-heading {
+  justify-self: start !important;
+  width: 100% !important;
+}
+
+.template-radar-svg-simple {
+  width: 230px !important;
+  max-width: 230px !important;
+  justify-self: end !important;
+  margin-left: auto !important;
+  margin-right: 0 !important;
+}
+
+.template-radar-svg-simple svg {
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+
+@media (max-width: 900px) {
+  .clinical-template-simple-snapshot {
+    grid-template-columns: 1fr !important;
+  }
+
+  .template-snapshot-panel,
+  .clinical-template-simple-radar {
+    grid-column: auto !important;
+  }
+
+  .clinical-template-simple-radar {
+    width: 100% !important;
+    min-width: 0 !important;
+    justify-self: stretch !important;
+    justify-items: center !important;
+  }
+
+  .template-radar-svg-simple {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    justify-self: center !important;
+  }
+}
