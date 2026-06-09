@@ -4020,3 +4020,38 @@ input[type="range"] {
     margin: 0 auto !important;
   }
 }
+/* =========================================================
+   Clinical Templates score clarifier
+
+   Purpose:
+   Explains how to interpret the numbers on the Clinical Templates tab.
+
+   Why this matters:
+   The radar values are not “effectiveness scores.” They describe how much
+   control, precision, or monitoring each specifier needs within that template.
+   This prevents users from misreading a high MET score as “more intensity”
+   when it may actually mean “tighter control over intensity.”
+   ========================================================= */
+
+.template-score-clarifier {
+  margin-top: 18px;
+  padding: 16px 18px;
+  border-radius: 20px;
+  border: 1px solid rgba(219, 229, 241, 0.95);
+  background: rgba(255, 255, 255, 0.78);
+  display: grid;
+  gap: 8px;
+  max-width: 88ch;
+}
+
+.template-score-clarifier strong {
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.template-score-clarifier p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+  font-size: 0.96rem;
+}
