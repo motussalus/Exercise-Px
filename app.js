@@ -218,8 +218,12 @@
               <span class="brand-badge-px">Px</span>
             </div>
             <div class="brand-copy">
-              <h1>Exercise Px</h1>
-              <p>Exercise prescription, planning, and clinical documentation toolkit.</p>
+              <h1>
+                Exercise Px <span class="research-site-tag">Research Website</span>
+              </h1>
+              <p>
+                A website made for research and educational purposes only, designed to explain and demonstrate a framework for exercise prescription developed from existing literature.
+              </p>
             </div>
           </div>
           <div class="topbar-meta">
