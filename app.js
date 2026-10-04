@@ -270,11 +270,14 @@
           <section class="px-hero px-hero-refined px-hero-minimal">
             <div class="px-hero-copy home-hero-copy-simple">
               <h2 class="home-title">Exercise Px</h2>
-  
-              <p class="hero-lead hero-lead-italic home-tagline">
-                <em>A model of exercise prescription to highlight nuance and unique aspects of exercise science.</em>
+
+              <p class="hero-lead home-research-purpose">
+                A website made for research and educational purposes only, designed to explain and demonstrate a framework for exercise prescription developed from existing literature.
               </p>
-            </div>
+              
+              <p class="home-research-note">
+                Existing literature supports the use of exercise prescription in behavioral health. Further research is still needed to determine whether greater specificity, including the variables described in the seven-specifier framework, improves clinical planning, treatment outcomes, or implementation across populations, disorders, and settings.
+              </p>
   
             <div class="px-hero-side">
               <div class="glass-card glass-card-hero radar-example-card">
