@@ -3762,3 +3762,30 @@ input[type="range"] {
 .brand-copy p {
   max-width: 78ch;
 }
+
+/* =========================================================
+   Home page research purpose statement
+
+   Purpose:
+   Replaces the older italic tagline with a more detailed research/education
+   description and a brief limitation statement.
+   ========================================================= */
+
+.home-research-purpose {
+  max-width: 74ch;
+  margin: 12px 0 0;
+  color: var(--text);
+  font-size: clamp(1.08rem, 1.7vw, 1.35rem);
+  line-height: 1.55;
+  font-weight: 600;
+}
+
+.home-research-note {
+  max-width: 76ch;
+  margin: 18px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid rgba(219, 229, 241, 0.95);
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.7;
+}
