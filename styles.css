@@ -3735,4 +3735,30 @@ input[type="range"] {
   border: 1px solid rgba(219, 229, 241, 0.95);
   box-shadow: 0 10px 22px rgba(13, 32, 66, 0.04);
 }
+/* =========================================================
+   Header research website tag
 
+   Purpose:
+   Shows that Exercise Px is a research/education website, not a
+   finished clinical product or medical-advice tool.
+   ========================================================= */
+
+.research-site-tag {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 8px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  background: rgba(236, 253, 245, 0.9);
+  color: #047857;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+.brand-copy p {
+  max-width: 78ch;
+}
